@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://cahun55x360qa"]
+
+[ext_resource type="Texture2D" uid="uid://bbp3tt2nl1jcb" path="res://pixels/WhitePixel.png" id="1_8o65p"]
+[ext_resource type="Texture2D" uid="uid://cy55wfin6l7g2" path="res://holders/maxresdefault.jpg" id="1_bro3m"]
+[ext_resource type="Script" uid="uid://dsxibl8rkcw5m" path="res://Scripts/Box/BoxHandler.gd" id="1_jixbi"]
+[ext_resource type="Script" uid="uid://b7nghjcun3bc8" path="res://Scripts/player/soul.gd" id="4_luwyh"]
+[ext_resource type="Texture2D" uid="uid://bh0df63oqjd1h" path="res://Sprites/Soul.png" id="4_y7334"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8o65p"]
+size = Vector2(33.507874, 31.683182)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7334"]
+size = Vector2(16, 16)
+
+[node name="GameHandle" type="Node2D" unique_id=27247154]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=271019752]
+visible = false
+position = Vector2(319, 241)
+scale = Vector2(0.67343754, 0.66388893)
+texture = ExtResource("1_bro3m")
+
+[node name="BoxHandle" type="Node2D" parent="." unique_id=2103837861 node_paths=PackedStringArray("boxRight", "boxLeft", "boxUp", "boxDown")]
+position = Vector2(325, 307)
+script = ExtResource("1_jixbi")
+boxRight = NodePath("BoxRight")
+boxLeft = NodePath("BoxLeft")
+boxUp = NodePath("BoxUp")
+boxDown = NodePath("BoxDown")
+box_size = Vector2(590.97, 155.1)
+border_size = 5.0
+
+[node name="BoxRight" type="StaticBody2D" parent="BoxHandle" unique_id=384696282]
+position = Vector2(297.985, 0)
+scale = Vector2(0.15625, 4.846875)
+
+[node name="Sprite2D" type="Sprite2D" parent="BoxHandle/BoxRight" unique_id=28799443]
+texture = ExtResource("1_8o65p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoxHandle/BoxRight" unique_id=69271]
+position = Vector2(-6.1035156e-05, 0)
+scale = Vector2(0.955, 1.01)
+shape = SubResource("RectangleShape2D_8o65p")
+
+[node name="BoxLeft" type="StaticBody2D" parent="BoxHandle" unique_id=2140336441]
+position = Vector2(-297.985, 0)
+scale = Vector2(0.15625, 4.846875)
+
+[node name="Sprite2D" type="Sprite2D" parent="BoxHandle/BoxLeft" unique_id=1844447186]
+texture = ExtResource("1_8o65p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoxHandle/BoxLeft" unique_id=772842128]
+position = Vector2(-6.1035156e-05, 0)
+scale = Vector2(0.955, 1.01)
+shape = SubResource("RectangleShape2D_8o65p")
+
+[node name="BoxUp" type="StaticBody2D" parent="BoxHandle" unique_id=184355902]
+position = Vector2(0, -80.05)
+scale = Vector2(18.780312, 0.15625)
+
+[node name="Sprite2D" type="Sprite2D" parent="BoxHandle/BoxUp" unique_id=738985464]
+texture = ExtResource("1_8o65p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoxHandle/BoxUp" unique_id=1377420054]
+position = Vector2(-6.1035156e-05, 0)
+scale = Vector2(0.955, 1.01)
+shape = SubResource("RectangleShape2D_8o65p")
+
+[node name="BoxDown" type="StaticBody2D" parent="BoxHandle" unique_id=121213593]
+position = Vector2(0, 80.05)
+scale = Vector2(18.780312, 0.15625)
+
+[node name="Sprite2D" type="Sprite2D" parent="BoxHandle/BoxDown" unique_id=41567018]
+texture = ExtResource("1_8o65p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoxHandle/BoxDown" unique_id=2086084919]
+position = Vector2(-6.1035156e-05, 0)
+scale = Vector2(0.955, 1.01)
+shape = SubResource("RectangleShape2D_8o65p")
+
+[node name="Soul" type="CharacterBody2D" parent="." unique_id=1062877066]
+position = Vector2(322, 311)
+script = ExtResource("4_luwyh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Soul" unique_id=842414365]
+self_modulate = Color(0, 0, 1, 1)
+texture_filter = 1
+texture = ExtResource("4_y7334")
+region_rect = Rect2(-24.855837, 22.467594, 0, 0.07627678)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Soul" unique_id=1529048808]
+shape = SubResource("RectangleShape2D_y7334")
