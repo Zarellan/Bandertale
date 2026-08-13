@@ -1,5 +1,6 @@
 @tool
 extends Node2D
+class_name BoxHandler
 
 @export var boxRight: Node2D
 @export var boxLeft: Node2D
@@ -23,7 +24,7 @@ func _ready() -> void:
 	_update_box()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _update_box() -> void:

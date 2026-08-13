@@ -2,9 +2,22 @@
 
 [ext_resource type="Texture2D" uid="uid://bbp3tt2nl1jcb" path="res://pixels/WhitePixel.png" id="1_8o65p"]
 [ext_resource type="Texture2D" uid="uid://cy55wfin6l7g2" path="res://holders/maxresdefault.jpg" id="1_bro3m"]
+[ext_resource type="Script" uid="uid://dxma18ksgtb0e" path="res://Scripts/FightHandler.gd" id="1_ht1rj"]
 [ext_resource type="Script" uid="uid://dsxibl8rkcw5m" path="res://Scripts/Box/BoxHandler.gd" id="1_jixbi"]
 [ext_resource type="Script" uid="uid://b7nghjcun3bc8" path="res://Scripts/player/soul.gd" id="4_luwyh"]
 [ext_resource type="Texture2D" uid="uid://bh0df63oqjd1h" path="res://Sprites/Soul.png" id="4_y7334"]
+[ext_resource type="Texture2D" uid="uid://c1rws6634l3y5" path="res://Sprites/FightUI/fightbt_0.png" id="7_buphr"]
+[ext_resource type="Texture2D" uid="uid://ctit8rbpgb8he" path="res://Sprites/FightUI/actbt_0.png" id="8_8knue"]
+[ext_resource type="Script" uid="uid://ciy8rm7e0gpyc" path="res://Scripts/ButtonsFight/ButtonTypes/Fight.gd" id="8_jrri4"]
+[ext_resource type="Texture2D" uid="uid://y0us51e2vt2t" path="res://Sprites/FightUI/fightbt_1.png" id="9_dn31g"]
+[ext_resource type="Texture2D" uid="uid://g53dq3qnpyis" path="res://Sprites/FightUI/itembt_0.png" id="9_kv43h"]
+[ext_resource type="Texture2D" uid="uid://b47vyusfju40v" path="res://Sprites/FightUI/mercybt_0.png" id="10_4hatk"]
+[ext_resource type="Script" uid="uid://bujie4e852eql" path="res://Scripts/ButtonsFight/ButtonTypes/Act.gd" id="11_q4plg"]
+[ext_resource type="Texture2D" uid="uid://c1pnfx3nmu7dr" path="res://Sprites/FightUI/actbt_1.png" id="12_hr76u"]
+[ext_resource type="Script" uid="uid://c1dv7p3gd8i4o" path="res://Scripts/ButtonsFight/ButtonTypes/Item.gd" id="14_bcteu"]
+[ext_resource type="Texture2D" uid="uid://sdpsyjmhjmmi" path="res://Sprites/FightUI/itembt_1.png" id="15_a26mx"]
+[ext_resource type="Script" uid="uid://cvn5bsvhmqxqe" path="res://Scripts/ButtonsFight/ButtonTypes/Mercy.gd" id="17_d7rpq"]
+[ext_resource type="Texture2D" uid="uid://cn0vae87ck5me" path="res://Sprites/FightUI/mercybt_1.png" id="18_3bvld"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8o65p"]
 size = Vector2(33.507874, 31.683182)
@@ -12,7 +25,10 @@ size = Vector2(33.507874, 31.683182)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7334"]
 size = Vector2(16, 16)
 
-[node name="GameHandle" type="Node2D" unique_id=27247154]
+[node name="FightHandle" type="Node2D" unique_id=27247154 node_paths=PackedStringArray("soul", "buttons") groups=["FightHandler"]]
+script = ExtResource("1_ht1rj")
+soul = NodePath("Soul")
+buttons = [NodePath("ButtonFights/Fight"), NodePath("ButtonFights/Act"), NodePath("ButtonFights/Item"), NodePath("ButtonFights/Mercy")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=271019752]
 visible = false
@@ -78,9 +94,11 @@ position = Vector2(-6.1035156e-05, 0)
 scale = Vector2(0.955, 1.01)
 shape = SubResource("RectangleShape2D_8o65p")
 
-[node name="Soul" type="CharacterBody2D" parent="." unique_id=1062877066]
+[node name="Soul" type="CharacterBody2D" parent="." unique_id=1062877066 node_paths=PackedStringArray("soulSprite") groups=["Soul"]]
+z_index = 1
 position = Vector2(322, 311)
 script = ExtResource("4_luwyh")
+soulSprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="Soul" unique_id=842414365]
 self_modulate = Color(0, 0, 1, 1)
@@ -90,3 +108,33 @@ region_rect = Rect2(-24.855837, 22.467594, 0, 0.07627678)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Soul" unique_id=1529048808]
 shape = SubResource("RectangleShape2D_y7334")
+
+[node name="ButtonFights" type="Node2D" parent="." unique_id=2032965283]
+
+[node name="Fight" type="Sprite2D" parent="ButtonFights" unique_id=1433175876]
+position = Vector2(82, 456)
+texture = ExtResource("7_buphr")
+script = ExtResource("8_jrri4")
+defaultButton = ExtResource("7_buphr")
+buttonChecked = ExtResource("9_dn31g")
+
+[node name="Act" type="Sprite2D" parent="ButtonFights" unique_id=528451459]
+position = Vector2(237, 456)
+texture = ExtResource("8_8knue")
+script = ExtResource("11_q4plg")
+defaultButton = ExtResource("8_8knue")
+buttonChecked = ExtResource("12_hr76u")
+
+[node name="Item" type="Sprite2D" parent="ButtonFights" unique_id=1694247525]
+position = Vector2(404, 456)
+texture = ExtResource("9_kv43h")
+script = ExtResource("14_bcteu")
+defaultButton = ExtResource("9_kv43h")
+buttonChecked = ExtResource("15_a26mx")
+
+[node name="Mercy" type="Sprite2D" parent="ButtonFights" unique_id=185934918]
+position = Vector2(562, 456)
+texture = ExtResource("10_4hatk")
+script = ExtResource("17_d7rpq")
+defaultButton = ExtResource("10_4hatk")
+buttonChecked = ExtResource("18_3bvld")
