@@ -1,14 +1,33 @@
 extends Buttons
 class_name Fight
 
-# Called when the node enters the scene tree for the first time.
+
+var isFight = false
+
+var fightText
+
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if (!isFight):
+		return
+	if (Input.is_action_just_pressed("ActionCancel")):
+		Back()
 	pass
 
 func Activate():
-	print("fight here")
+	isFight = true
+	BringFight()
+
+func Back():
+	isFight = false
+	fightText.queue_free()
+	fightHandler.BackToMain()
+
+func BringFight():
+	fightText = InstantiateUtil.Instantiate(textPrefab,null)
+	fightText.ChangeText("* Bander",32)
+	fightText.position =  Vector2(100,270)
+	soul.position = fightText.position - Vector2(20,0)

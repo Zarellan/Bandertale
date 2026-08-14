@@ -16,7 +16,6 @@ var itemIndex:int = 0
 
 var itemsArr:Array
 
-var soul:Soul
 
 var isItem = false
 
@@ -24,7 +23,6 @@ var page = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	soul = get_tree().get_first_node_in_group("Soul")
 	pass # Replace with function body.
 
 func ChangeIndex(inc:int,isHoriz:bool = true):
@@ -116,7 +114,7 @@ func BringItems():
 	var y = 270.0
 	for i in range(0,itemsLol.size()):
 		var tex:Text2D = InstantiateUtil.Instantiate(textPrefab,null)
-		tex.ChangeText(itemsLol[i]["name"],32)
+		tex.ChangeText("* "+itemsLol[i]["name"],32)
 		tex.position =  Vector2(x,y)
 		itemsArr.append(tex)
 		x += 300

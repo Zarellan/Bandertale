@@ -5,11 +5,13 @@ class_name Buttons
 @export var buttonChecked:Texture2D
 
 var fightHandler:FightHandler
+var soul:Soul
 
 @onready var textPrefab:PackedScene = load("res://Prefabs/Text2D/TextWorld2D.tscn")
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
 	fightHandler = get_tree().get_first_node_in_group("FightHandler") as FightHandler
+	soul = get_tree().get_first_node_in_group("Soul") as Soul
 	pass # Replace with function body.	
 
 

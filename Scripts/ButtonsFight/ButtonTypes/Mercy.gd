@@ -1,14 +1,32 @@
 extends Buttons
 class_name Mercy
 
-# Called when the node enters the scene tree for the first time.
+var isMercy = false
+
+var spareText
+
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if (!isMercy):
+		return
+	if (Input.is_action_just_pressed("ActionCancel")):
+		Back()
 	pass
 
 func Activate():
-	print("mercy here")
+	isMercy = true
+	BringMercy()
+
+func Back():
+	isMercy = false
+	spareText.queue_free()
+	fightHandler.BackToMain()
+
+func BringMercy():
+	spareText = InstantiateUtil.Instantiate(textPrefab,null)
+	spareText.ChangeText("* spare",32)
+	spareText.position =  Vector2(100,270)
+	soul.position = spareText.position - Vector2(20,0)
