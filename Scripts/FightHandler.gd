@@ -17,6 +17,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
+@export var textDig:TextAdv
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if (isMain):
@@ -26,6 +27,8 @@ func _process(_delta: float) -> void:
 			MainChoices(1)
 		if Input.is_action_just_pressed("ActionAccept"):
 			ActivateChoice()
+		if Input.is_action_just_pressed("ui_down"):
+			textDig.startDialogue("hehe looool",0.06)
 	pass
 
 func SetTurn(shouldAttack):

@@ -18,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://sdpsyjmhjmmi" path="res://Sprites/FightUI/itembt_1.png" id="15_a26mx"]
 [ext_resource type="Script" uid="uid://cvn5bsvhmqxqe" path="res://Scripts/ButtonsFight/ButtonTypes/Mercy.gd" id="17_d7rpq"]
 [ext_resource type="Texture2D" uid="uid://cn0vae87ck5me" path="res://Sprites/FightUI/mercybt_1.png" id="18_3bvld"]
+[ext_resource type="Script" uid="uid://c1ke23n21vxlb" path="res://Scripts/DialogueTextSystem/TextAdv.gd" id="19_536wp"]
+[ext_resource type="FontFile" uid="uid://tjmx12jmhjak" path="res://Fonts/DeterminationMonoWebRegular-Z5oq.ttf" id="19_eg85k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8o65p"]
 size = Vector2(33.507874, 31.683182)
@@ -25,10 +27,11 @@ size = Vector2(33.507874, 31.683182)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7334"]
 size = Vector2(16, 16)
 
-[node name="FightHandle" type="Node2D" unique_id=27247154 node_paths=PackedStringArray("soul", "buttons") groups=["FightHandler"]]
+[node name="FightHandle" type="Node2D" unique_id=27247154 node_paths=PackedStringArray("soul", "buttons", "textDig") groups=["FightHandler"]]
 script = ExtResource("1_ht1rj")
 soul = NodePath("Soul")
 buttons = [NodePath("ButtonFights/Fight"), NodePath("ButtonFights/Act"), NodePath("ButtonFights/Item"), NodePath("ButtonFights/Mercy")]
+textDig = NodePath("Node2D/RichTextLabel")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=271019752]
 visible = false
@@ -138,3 +141,16 @@ texture = ExtResource("10_4hatk")
 script = ExtResource("17_d7rpq")
 defaultButton = ExtResource("10_4hatk")
 buttonChecked = ExtResource("18_3bvld")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1799411369]
+position = Vector2(43, 238)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node2D" unique_id=470888409]
+offset_left = -1.0
+offset_right = 567.0
+offset_bottom = 135.0
+theme_override_fonts/normal_font = ExtResource("19_eg85k")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "haaaaaa"
+script = ExtResource("19_536wp")
