@@ -6,6 +6,7 @@ class_name BoxHandler
 @export var boxLeft: Node2D
 @export var boxUp: Node2D
 @export var boxDown: Node2D
+@export var clipOnly: Node2D
 
 # The inner playing area size of the box
 @export var box_size: Vector2 = Vector2(200, 100):
@@ -62,3 +63,7 @@ func _update_box() -> void:
 	if boxRight:
 		boxRight.scale.x = border_size / 32.0
 		boxRight.scale.y = box_size.y / 32.0
+	if clipOnly:
+		clipOnly.position = Vector2.ZERO
+		clipOnly.scale.x = box_size.x / 32.0
+		clipOnly.scale.y = box_size.y / 32.0

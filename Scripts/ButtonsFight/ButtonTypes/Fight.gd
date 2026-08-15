@@ -2,19 +2,31 @@ extends Buttons
 class_name Fight
 
 
-var isFight = false
+@export var attackPanel:Sprite2D
+@export var attackPole:Sprite2D
+@export var slash:Sprite2D
 
+var isFight = false
+var isAttacking = false
 var fightText
 
 func _ready() -> void:
 	pass
 
 
-func _process(_delta: float) -> void:
-	if (!isFight):
+func _process(delta: float) -> void:
+	if ((!isFight && !isAttacking) || waitAction):
+		waitAction = false
 		return
-	if (Input.is_action_just_pressed("ActionCancel")):
-		Back()
+	if isFight:
+		if (Input.is_action_just_pressed("ActionCancel")):
+			Back()
+		if (Input.is_action_just_pressed("ActionAccept")):
+			ActivateFight()
+	elif isAttacking:
+		attackPole.position.x += 320 * delta
+		if (Input.is_action_just_pressed("ActionAccept")):
+			Attack()
 	pass
 
 func Activate():
@@ -28,6 +40,27 @@ func Back():
 
 func BringFight():
 	fightText = InstantiateUtil.Instantiate(textPrefab,null)
-	fightText.ChangeText("* Bander",32)
+	fightText.ChangeText("* "+fightHandler.enemy.enemyName,32)
 	fightText.position =  Vector2(100,270)
 	soul.position = fightText.position - Vector2(20,0)
+	attackPole.position.x = -274.851
+
+func ActivateFight():
+	isFight = false
+	fightText.queue_free()
+	soul.visible = false
+	waitAction = true
+	isAttacking = true
+	fightHandler.CleanChoices()
+	#fightHandler.enemy.enemyHealth -= 1
+	attackPanel.visible = true
+
+func Attack():
+	isAttacking = false
+	attackPanel.get_node("AnimationPlayer").play("attacked")
+	slash.get_node("AnimationPlayer").play("Slash")
+	slash.position = fightHandler.enemy.position + fightHandler.enemy.attackPlaceOffset
+	fightHandler.enemy.GotAttacked()
+	await get_tree().create_timer(fightHandler.enemy.timeWhenAttackFinished).timeout
+	attackPanel.visible = false
+	fightHandler.SetTurn(true)

@@ -3,6 +3,7 @@ class_name Act
 
 var isAct:bool = false
 var arrActs:Array = ["hello", "world", "yeah"]
+var arrActsDesc:Array = ["you said hello", "world", "yeah"]
 var indexX:int = 0
 var indexY:int = 0
 var arrActObjs:Array[Array]
@@ -10,10 +11,11 @@ var arrActObjs:Array[Array]
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 func _process(_delta: float) -> void:
-	if (!isAct):
+	if (!isAct || waitAction):
+		waitAction = false
 		return
+	#await get_tree().process_frame
 	if (Input.is_action_just_pressed("ui_left")):
 		ActChoice(-1,0)
 	if (Input.is_action_just_pressed("ui_right")):
@@ -49,9 +51,9 @@ func BringActs():
 	var texXtemp:Array = []
 	for i in range(0,arrActs.size()):
 		var tex:Text2D = InstantiateUtil.Instantiate(textPrefab,null)
-		tex.ChangeText(arrActs[i],32)
+		tex.ChangeText("* "+arrActs[i],32)
 		tex.position =  Vector2(x,y)
-		texXtemp.append(ActData.new(tex,arrActs[i]))
+		texXtemp.append(ActData.new(tex,arrActs[i],arrActsDesc[i]))
 		x += 300
 		if (i % 2 == 1 && i != 0):
 			y += 75
@@ -81,4 +83,12 @@ func OutOfBoundsCheck2DArray(arr2D:Array[Array]):
 		indexX = arr2D[indexY].size() - 1
 
 func ActPress():
-	print(arrActObjs[indexY][indexX].actName)
+	isAct = false
+	FightHandler.waitAction = true
+	var valToRev = arrActObjs[indexY][indexX].actDescription
+	for i in range(arrActObjs.size()):
+		for j in range(arrActObjs[i].size()):
+			arrActObjs[i][j].obj.queue_free()
+			#arrActObjs[i][j].queue_free()
+	arrActObjs.clear()
+	fightHandler.IsActed(valToRev)

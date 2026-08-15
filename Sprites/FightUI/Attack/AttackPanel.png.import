@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctit8rbpgb8he"
-path="res://.godot/imported/actbt_0.png-3c1966c00173e1723907661a3cd16321.ctex"
+uid="uid://d30kd86bkfuca"
+path="res://.godot/imported/AttackPanel.png-b4b0703d38b7c2dc0b925199caa9f698.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/FightUI/actbt_0.png"
-dest_files=["res://.godot/imported/actbt_0.png-3c1966c00173e1723907661a3cd16321.ctex"]
+source_file="res://Sprites/FightUI/Attack/AttackPanel.png"
+dest_files=["res://.godot/imported/AttackPanel.png-b4b0703d38b7c2dc0b925199caa9f698.ctex"]
 
 [params]
 

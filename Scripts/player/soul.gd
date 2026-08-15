@@ -71,6 +71,9 @@ func ChangeSoulType(soulT:SoulType):
 		SoulType.blue:
 			soulSprite.self_modulate = Color(0,0,1)
 	soulType = soulT
+	visible = true
 
 func FightEnd():
+	soulSprite.self_modulate = Color(1,0,0)
 	soulType = SoulType.choice
+	velocity = Vector2(0,0)

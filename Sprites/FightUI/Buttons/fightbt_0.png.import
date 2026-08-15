@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sdpsyjmhjmmi"
-path="res://.godot/imported/itembt_1.png-4b88a5db7e4b6fd117e8ad012f8b26f4.ctex"
+uid="uid://c1rws6634l3y5"
+path="res://.godot/imported/fightbt_0.png-74fbcf02912028034e71f4201da193af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/FightUI/itembt_1.png"
-dest_files=["res://.godot/imported/itembt_1.png-4b88a5db7e4b6fd117e8ad012f8b26f4.ctex"]
+source_file="res://Sprites/FightUI/Buttons/fightbt_0.png"
+dest_files=["res://.godot/imported/fightbt_0.png-74fbcf02912028034e71f4201da193af.ctex"]
 
 [params]
 

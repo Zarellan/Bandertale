@@ -6,6 +6,8 @@ class_name Buttons
 
 var fightHandler:FightHandler
 var soul:Soul
+var waitAction:bool = false
+
 
 @onready var textPrefab:PackedScene = load("res://Prefabs/Text2D/TextWorld2D.tscn")
 # Called when the node enters the scene tree for the first time.
@@ -21,3 +23,6 @@ func _process(_delta: float) -> void:
 
 func Activate():
 	print("here")
+
+func Allowed():
+	return true

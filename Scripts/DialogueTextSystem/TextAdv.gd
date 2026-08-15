@@ -22,6 +22,8 @@ var waitTimeTween;
 
 var paused = false
 
+var finishedDial:bool = false
+
 var timerWait:Timer
 
 func _ready() -> void:
@@ -30,7 +32,7 @@ func _ready() -> void:
 	timerWait.autostart = false
 	add_child(timerWait)
 	timerWait.timeout.connect(_continue_dialogue)
-	startDialogue("welcome to the [wait,0.5][wave amp=50][rainbow]Signal Drift")
+	#startDialogue("welcome to the [wait,0.5][wave amp=50][rainbow]Signal Drift")
 	pass
 
 
@@ -46,6 +48,7 @@ func startDialogue(textChr, sped = 0.06):
 	if !timerWait.is_stopped():
 		timerWait.stop()
 	paused = false
+	finishedDial = false
 	bbcode_offset = 0
 	$".".visible_characters = 0
 	textMain = textChr
@@ -99,6 +102,16 @@ func diag():
 	diagTimer.tween_interval(speed)
 	diagTimer.finished.connect(_diag_finished)
 
+func ForceFinish():
+	if (!diagTimer.is_valid()):
+		return
+	if diagTimer and diagTimer.is_valid():
+		diagTimer.kill()
+	if !timerWait.is_stopped():
+		timerWait.stop()
+	paused = false
+	visible_characters = -1
+	dialogue_finished()
 
 func _diag_finished():
 	if (maxLength < $".".visible_characters): # must apply max length on 20 later
@@ -107,6 +120,7 @@ func _diag_finished():
 		diag()
 
 func dialogue_finished():
+	finishedDial = true
 	print("finished")
 
 
