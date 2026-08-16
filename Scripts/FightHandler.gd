@@ -17,10 +17,14 @@ static var waitAction = false #important to avoid race condition problem
 @export var boxText:Node2D
 @export var box:BoxHandler
 
+#region healthManager
+@export var healthBar:TextureProgressBar
+@export var healthText:RichTextLabel
 var health:int = 92
+var maxHealth:int = 92
+#endregion
 
 var isEnemyAttack:bool = false
-
 var isMain:bool = false
 var mainIndex:int = 0
 
@@ -45,7 +49,8 @@ func _process(_delta: float) -> void:
 			ActivateChoice()
 		if Input.is_action_just_pressed("ActionCancel"):
 			textDig.ForceFinish()
-	print(health)
+	healthBar.value = health
+	healthText.text = str(health) + "/" + str(maxHealth)
 	ActProcess()
 	ItemProcess()
 	pass
@@ -62,20 +67,16 @@ func SetTurn(shouldAttack):
 		enemy.PlayDialogue("tames blaster")
 		pass
 	isEnemyAttack = shouldAttack
+var st = "res://Scripts/Attacks/AttackTypes/AttackTest.gd"
 func StartAttacking():
-	attacktest()
-	
-	await get_tree().create_timer(2).timeout
-	SetTurn(false)
-	boxText.visible = true
-	textDig.startDialogue("tames blaster",0.06)
-	print(textDig)
-	turns += 1
+	var attackData = load(st).new() as Attacks
+	add_child(attackData)
+	attackData.StartAttack()
 	pass
 func attacktest(): #will be removed once test succeed
 	soul.ChangeSoulType(soul.SoulType.red)
 	soul.position = box.position
-	TweenUtils.tweenCustom(self,box.box_size,Vector2(200,200),0.3,TweenUtils.Ease.OutCirc,func(val):
+	TweenUtils.tweenCustom(self,box.box_size,Vector2(200,155.1),0.3,TweenUtils.Ease.OutCirc,func(val):
 		box.box_size = val)
 	pass
 func MainChoices(inc:int):
@@ -146,5 +147,5 @@ func ItemProcess():
 func BackToMain():
 	isMain = true
 	boxText.visible = true
-	textDig.text = dialogue
+	textDig.ForceFinish()
 	MainChoices(0)

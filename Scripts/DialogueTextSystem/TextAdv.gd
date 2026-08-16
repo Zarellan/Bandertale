@@ -36,7 +36,7 @@ func _ready() -> void:
 	pass
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#print($".".visible_characters)
 	#print($".".maxLength)
 	pass
@@ -103,7 +103,7 @@ func diag():
 	diagTimer.finished.connect(_diag_finished)
 
 func ForceFinish():
-	if (!diagTimer.is_valid()):
+	if (!diagTimer.is_valid() && timerWait.is_stopped()):
 		return
 	if diagTimer and diagTimer.is_valid():
 		diagTimer.kill()
@@ -124,10 +124,10 @@ func dialogue_finished():
 	print("finished")
 
 
-func strippedLength(text: String) -> int:
+func strippedLength(tex: String) -> int:
 	var temp = RichTextLabel.new()
 	temp.bbcode_enabled = true
-	temp.text = text
+	temp.text = tex
 	return temp.get_parsed_text().length()
 	
 	
@@ -166,10 +166,10 @@ func remove_rectangle_string(tex):
 	extraNum = 0
 
 	var remainingText2 = tex
-	var remainingTextWithBBC = tex
+	#var remainingTextWithBBC = tex
 	var remainedTextOverridden = ""
 	for i in range(helloSplit.size() - 1):
-		var tag = helloSplit[i + 1].substr(0, helloSplit[i + 1].find("]"))
+		#var tag = helloSplit[i + 1].substr(0, helloSplit[i + 1].find("]"))
 		self.partsNum.append(remainingText2.find("["))
 		self.must_event.append(
 			helloSplit[i + 1].substr(0, helloSplit[i + 1].find("]")).find("*") != -1

@@ -26,7 +26,6 @@
 [ext_resource type="Texture2D" uid="uid://bdb2nkh0l6if" path="res://Sprites/FightUI/Attack/SlashingAnimation/Slash.png" id="24_fpl58"]
 [ext_resource type="Texture2D" uid="uid://bciwj75tku38q" path="res://Sprites/FightUI/Attack/panel2.png" id="24_pa3o0"]
 [ext_resource type="PackedScene" uid="uid://d8vd3rnpyrod" path="res://Prefabs/DialogueBubble/dialogue_bubble.tscn" id="26_ur07v"]
-[ext_resource type="PackedScene" uid="uid://cmsdfnbqybi0v" path="res://Scripts/Projectiles/projectile.tscn" id="27_l62jt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8o65p"]
 size = Vector2(33.507874, 31.683182)
@@ -149,13 +148,15 @@ _data = {
 &"Slash": SubResource("Animation_pa3o0")
 }
 
-[node name="FightHandle" type="Node2D" unique_id=27247154 node_paths=PackedStringArray("enemy", "soul", "buttons", "boxText", "box", "textDig") groups=["FightHandler"]]
+[node name="FightHandle" type="Node2D" unique_id=27247154 node_paths=PackedStringArray("enemy", "soul", "buttons", "boxText", "box", "healthBar", "healthText", "textDig") groups=["FightHandler"]]
 script = ExtResource("1_ht1rj")
 enemy = NodePath("Enemy")
 soul = NodePath("Soul")
 buttons = [NodePath("ButtonFights/Fight"), NodePath("ButtonFights/Act"), NodePath("ButtonFights/Item"), NodePath("ButtonFights/Mercy")]
 boxText = NodePath("DialogueBox")
 box = NodePath("BoxHandle")
+healthBar = NodePath("HPSould/TextureProgressBar")
+healthText = NodePath("HPSould/HealthText")
 textDig = NodePath("DialogueBox/RichTextLabel")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=271019752]
@@ -225,8 +226,7 @@ shape = SubResource("RectangleShape2D_8o65p")
 
 [node name="Clip" type="Sprite2D" parent="BoxHandle" unique_id=1188249068]
 clip_children = 1
-position = Vector2(0.50001526, -7.6293945e-06)
-scale = Vector2(18.40625, 4.7499995)
+scale = Vector2(18.467812, 4.846875)
 texture = ExtResource("1_8o65p")
 
 [node name="Soul" type="CharacterBody2D" parent="." unique_id=1062877066 node_paths=PackedStringArray("soulSprite") groups=["Soul"]]
@@ -324,5 +324,39 @@ region_enabled = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Slash" unique_id=184821507]
 libraries/ = SubResource("AnimationLibrary_ur07v")
 
-[node name="Projectile" parent="." unique_id=556323487 instance=ExtResource("27_l62jt")]
-position = Vector2(402, 306)
+[node name="HPSould" type="Node2D" parent="." unique_id=2044546531]
+position = Vector2(254, 413)
+
+[node name="HPTex" type="RichTextLabel" parent="HPSould" unique_id=1341223830]
+offset_left = -27.0
+offset_top = -12.0
+offset_right = -2.0
+offset_bottom = 11.0
+theme_override_fonts/normal_font = ExtResource("19_eg85k")
+theme_override_font_sizes/normal_font_size = 21
+text = "HP"
+fit_content = true
+scroll_active = false
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HPSould" unique_id=701300777]
+offset_top = -12.0
+offset_right = 114.0
+offset_bottom = 9.0
+max_value = 92.0
+value = 20.0
+nine_patch_stretch = true
+texture_under = ExtResource("1_8o65p")
+texture_progress = ExtResource("1_8o65p")
+tint_under = Color(0.7194535, 2.5509298e-06, 5.7756904e-07, 1)
+tint_progress = Color(0.98760897, 0.89968723, 3.080368e-06, 1)
+
+[node name="HealthText" type="RichTextLabel" parent="HPSould" unique_id=2082515725]
+offset_left = 164.0
+offset_top = -18.0
+offset_right = 235.0
+offset_bottom = 11.0
+theme_override_font_sizes/normal_font_size = 28
+text = "92/92"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1

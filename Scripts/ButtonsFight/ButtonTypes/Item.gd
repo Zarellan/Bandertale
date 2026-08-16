@@ -37,6 +37,7 @@ func ChangeIndex(inc:int,isHoriz:bool = true):
 func HorizIndexProt(inc: int) -> void:
 	var max_pages: int = ceil(itemsLol.size() / 4.0)
 	
+	@warning_ignore_start("integer_division")
 	var current_page: int = itemIndex / 4
 	var local_slot: int = itemIndex % 4
 	
