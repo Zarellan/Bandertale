@@ -63,4 +63,5 @@ func Attack():
 	fightHandler.enemy.GotAttacked()
 	await get_tree().create_timer(fightHandler.enemy.timeWhenAttackFinished).timeout
 	attackPanel.visible = false
-	fightHandler.SetTurn(true)
+	#fightHandler.SetTurn(true)
+	fightHandler.EnemyDialogueStart()

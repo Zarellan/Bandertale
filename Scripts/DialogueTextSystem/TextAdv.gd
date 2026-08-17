@@ -121,7 +121,6 @@ func _diag_finished():
 
 func dialogue_finished():
 	finishedDial = true
-	print("finished")
 
 
 func strippedLength(tex: String) -> int:

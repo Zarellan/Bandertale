@@ -85,10 +85,10 @@ func OutOfBoundsCheck2DArray(arr2D:Array[Array]):
 func ActPress():
 	isAct = false
 	FightHandler.waitAction = true
-	var valToRev = arrActObjs[indexY][indexX].actDescription
+	var valStr = arrActObjs[indexY][indexX].actName
 	for i in range(arrActObjs.size()):
 		for j in range(arrActObjs[i].size()):
 			arrActObjs[i][j].obj.queue_free()
 			#arrActObjs[i][j].queue_free()
 	arrActObjs.clear()
-	fightHandler.IsActed(valToRev)
+	fightHandler.IsActed(valStr)

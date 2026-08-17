@@ -149,9 +149,15 @@ func OutBoundCheck(sizeArr:Array):
 func ChooseItem():
 	FightHandler.waitAction = true
 	isItem = false
+	if (itemIndex < 0 || itemIndex >= itemsArr.size()):
+		push_error("item out of bounds: ", itemIndex)
+		return
 	var itemData:ItemData = itemsArr[itemIndex]
 	for i in range(itemsArr.size()):
 		itemsArr[i].obj.queue_free()
-	itemsLol.erase(itemsLol[itemIndex])
+	if (itemIndex < 0 || itemIndex >= itemsLol.size()):
+		push_error("potential error of removing at: ", itemIndex)
+		return
+	itemsLol.remove_at(itemIndex)
 	itemsArr.clear()
 	fightHandler.IsItemed(itemData)

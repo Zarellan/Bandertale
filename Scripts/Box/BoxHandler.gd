@@ -67,3 +67,24 @@ func _update_box() -> void:
 		clipOnly.position = Vector2.ZERO
 		clipOnly.scale.x = box_size.x / 32.0
 		clipOnly.scale.y = box_size.y / 32.0
+# Position X of the outer right corner/edge
+func GetGlobalRight() -> float:
+	return (box_size.x / 2.0) + border_size
+func GetRightCorner() -> float:
+	return global_position.x + GetGlobalRight()
+
+func GetGlobalLeft() -> float:
+	return -(box_size.x / 2.0) - border_size
+func GetLeftCorner() -> float:
+	return global_position.x + GetGlobalLeft()
+
+
+func GetGlobalDown() -> float:
+	return (box_size.y / 2.0) + border_size
+func GetDownCorner() -> float:
+	return global_position.y + GetGlobalDown()
+
+func GetGlobalUp() -> float:
+	return -(box_size.y / 2.0) - border_size
+func GetUpCorner() -> float:
+	return global_position.y + GetGlobalUp()

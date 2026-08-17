@@ -23,11 +23,11 @@ static var waitAction = false #important to avoid race condition problem
 var health:int = 92
 var maxHealth:int = 92
 #endregion
-
+#region EnemyManager
 var isEnemyAttack:bool = false
 var isMain:bool = false
 var mainIndex:int = 0
-
+#endregion
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#soul.ChangeSoulType(Soul.SoulType.blue)
@@ -64,21 +64,23 @@ func SetTurn(shouldAttack):
 			box.box_size = val)
 		soul.visible = true
 	else:
-		enemy.PlayDialogue("tames blaster")
+		boxText.visible = false
 		pass
 	isEnemyAttack = shouldAttack
-var st = "res://Scripts/Attacks/AttackTypes/AttackTest.gd"
+var attackData
 func StartAttacking():
-	var attackData = load(st).new() as Attacks
-	add_child(attackData)
 	attackData.StartAttack()
 	pass
-func attacktest(): #will be removed once test succeed
-	soul.ChangeSoulType(soul.SoulType.red)
+func ForceStartAttack(st:String):
+	attackData = load(st).new() as Attacks
+	add_child(attackData)
+	soul.ChangeSoulType(soul.SoulType.idle)
 	soul.position = box.position
-	TweenUtils.tweenCustom(self,box.box_size,Vector2(200,155.1),0.3,TweenUtils.Ease.OutCirc,func(val):
+	TweenUtils.tweenCustom(self,box.box_size,attackData.boxSize,0.3,TweenUtils.Ease.OutCirc,func(val):
 		box.box_size = val)
-	pass
+	SetTurn(true)
+	attackData.StartAttack()
+
 func MainChoices(inc:int):
 	mainIndex += inc
 	OutBoundCheck(buttons)
@@ -87,6 +89,29 @@ func MainChoices(inc:int):
 		if i != mainIndex:
 			buttons[i].texture = buttons[i].defaultButton
 	buttons[mainIndex].texture = buttons[mainIndex].buttonChecked
+
+var st = "res://Scripts/Attacks/AttackTypes/AttackTest.gd"
+
+func EnemyDialogueStart(): #always start when ending player turn
+	attackData = load(st).new() as Attacks
+	add_child(attackData)
+	soul.ChangeSoulType(soul.SoulType.idle)
+	soul.position = box.position
+	TweenUtils.tweenCustom(self,box.box_size,attackData.boxSize,0.3,TweenUtils.Ease.OutCirc,func(val):
+		box.box_size = val)
+	SetTurn(true)
+	enemy.PlayDialogue(["tames hah haaah","lool loser"])
+	
+	#enemy.PlayDialogue("tames blaster")
+
+func EnemyDialogueEnd():
+	StartAttacking()
+
+func EndDefense():
+	SetTurn(false)
+	boxText.visible = true
+	textDig.startDialogue("tames blaster",0.06)
+	turns += 1
 
 func CleanChoices():
 	for i in range(buttons.size()):
@@ -109,11 +134,9 @@ func OutBoundCheck(sizeArr:Array):
 var pressedAct = false
 
 func IsActed(tex):
-	boxText.visible = true
-	textDig.startDialogue(tex,0.06)
-	soul.visible = false
 	pressedAct = true
-	
+	ActActionType(tex)
+
 func ActProcess():
 	if !pressedAct || waitAction:
 		waitAction = false
@@ -121,18 +144,14 @@ func ActProcess():
 	if (Input.is_action_just_pressed("ActionCancel")):
 		textDig.ForceFinish()
 	if (Input.is_action_just_pressed("ActionAccept") && textDig.finishedDial):
-		SetTurn(false)
-		textDig.startDialogue(dialogue,0.06)
-		pressedAct = false
+		if (BoxDialogueArrayCheck()):
+			pressedAct = false
 
 var pressedItem = false
-
 func IsItemed(tex:ItemData):
-	boxText.visible = true
-	textDig.startDialogue(tex.itemDescription,0.06)
-	soul.visible = false
+	BattleDialogueEncounter([tex.itemDescription])
 	pressedItem = true
-	
+
 func ItemProcess():
 	if !pressedItem || waitAction:
 		waitAction = false
@@ -140,12 +159,42 @@ func ItemProcess():
 	if (Input.is_action_just_pressed("ActionCancel")):
 		textDig.ForceFinish()
 	if (Input.is_action_just_pressed("ActionAccept") && textDig.finishedDial):
-		SetTurn(false)
-		textDig.startDialogue(dialogue,0.06)
-		pressedItem = false
+		if (BoxDialogueArrayCheck()):
+			pressedItem = false
+
+var indexDial = 0
+var diagTemp:Array
+
+func BattleDialogueEncounter(st:Array):
+	if (st.is_empty()):
+		EnemyDialogueStart()
+		return
+	indexDial = 0
+	diagTemp = st
+	boxText.visible = true
+	textDig.startDialogue(diagTemp[indexDial],0.06)
+	soul.visible = false
+
+func BoxDialogueArrayCheck():
+	if (diagTemp.size()-1 <= indexDial):
+		EnemyDialogueStart()
+		return true
+	else:
+		indexDial += 1
+		textDig.startDialogue(diagTemp[indexDial],0.06)
+		return false
 
 func BackToMain():
 	isMain = true
 	boxText.visible = true
 	textDig.ForceFinish()
 	MainChoices(0)
+
+# customizeable functions
+func ActActionType(st:String):
+	match (st):
+		"hello":BattleDialogueEncounter(["you said hello","you said hello[speed,1]...[speed,0.06]yeah"])
+		_:
+			pressedAct = false
+			EnemyDialogueStart()
+	pass

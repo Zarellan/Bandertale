@@ -5,12 +5,13 @@ enum SoulType
 {
 	choice,
 	red,
-	blue
+	blue,
+	idle
 }
 
 @export var soulSprite:Node2D
 
-const SPEED = 200.0
+const SPEED = 180.0
 const JUMP_VELOCITY = -400.0
 const gravityStrength = 0.8
 
@@ -28,6 +29,8 @@ func SoulMovement(delta):
 		SoulType.blue:
 			SoulBlueMovement(delta)
 		SoulType.choice:
+			pass
+		SoulType.idle:
 			pass
 
 func SoulRedMovement(_delta):
