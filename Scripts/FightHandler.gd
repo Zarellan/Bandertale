@@ -149,8 +149,8 @@ func ActProcess():
 
 var pressedItem = false
 func IsItemed(tex:ItemData):
-	BattleDialogueEncounter([tex.itemDescription])
 	pressedItem = true
+	ItemActionType(tex.itemName)
 
 func ItemProcess():
 	if !pressedItem || waitAction:
@@ -196,5 +196,14 @@ func ActActionType(st:String):
 		"hello":BattleDialogueEncounter(["you said hello","you said hello[speed,1]...[speed,0.06]yeah"])
 		_:
 			pressedAct = false
+			EnemyDialogueStart()
+	pass
+
+func ItemActionType(st:String):
+	match (st):
+		"L hero":
+			BattleDialogueEncounter(["you ate l hero"])
+		_:
+			pressedItem = false
 			EnemyDialogueStart()
 	pass
