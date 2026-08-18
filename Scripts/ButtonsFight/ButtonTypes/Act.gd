@@ -2,8 +2,8 @@ extends Buttons
 class_name Act
 
 var isAct:bool = false
-var arrActs:Array = ["hello", "world", "yeah"]
-var arrActsDesc:Array = ["you said hello", "world", "yeah"]
+var arrActs:Array = ["check", "world", "yeah"]
+var arrActsDesc:Array = ["ATK 12 DEF 5\n neyh heh heh heh heh", "world", "yeah"]
 var indexX:int = 0
 var indexY:int = 0
 var arrActObjs:Array[Array]
@@ -90,5 +90,6 @@ func ActPress():
 		for j in range(arrActObjs[i].size()):
 			arrActObjs[i][j].obj.queue_free()
 			#arrActObjs[i][j].queue_free()
+	self.texture = defaultButton
 	arrActObjs.clear()
 	fightHandler.IsActed(valStr)

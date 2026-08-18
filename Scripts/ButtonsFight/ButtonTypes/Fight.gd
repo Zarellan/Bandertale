@@ -25,6 +25,8 @@ func _process(delta: float) -> void:
 			ActivateFight()
 	elif isAttacking:
 		attackPole.position.x += 320 * delta
+		if (attackPole.position.x > 275):
+			Miss()
 		if (Input.is_action_just_pressed("ActionAccept")):
 			Attack()
 	pass
@@ -62,6 +64,17 @@ func Attack():
 	slash.position = fightHandler.enemy.position + fightHandler.enemy.attackPlaceOffset
 	fightHandler.enemy.GotAttacked()
 	await get_tree().create_timer(fightHandler.enemy.timeWhenAttackFinished).timeout
+	attackPanel.visible = false
+	#fightHandler.SetTurn(true)
+	fightHandler.EnemyDialogueStart()
+
+func Miss():
+	isAttacking = false
+	#attackPanel.get_node("AnimationPlayer").play("attacked")
+	#slash.get_node("AnimationPlayer").play("Slash")
+	#slash.position = fightHandler.enemy.position + fightHandler.enemy.attackPlaceOffset
+	#fightHandler.enemy.GotAttacked()
+	#await get_tree().create_timer(fightHandler.enemy.timeWhenAttackFinished).timeout
 	attackPanel.visible = false
 	#fightHandler.SetTurn(true)
 	fightHandler.EnemyDialogueStart()

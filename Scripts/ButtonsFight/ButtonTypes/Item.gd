@@ -158,6 +158,7 @@ func ChooseItem():
 	if (itemIndex < 0 || itemIndex >= itemsLol.size()):
 		push_error("potential error of removing at: ", itemIndex)
 		return
+	self.texture = defaultButton
 	itemsLol.remove_at(itemIndex)
 	itemsArr.clear()
 	fightHandler.IsItemed(itemData)

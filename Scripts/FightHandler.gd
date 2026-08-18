@@ -4,7 +4,7 @@ class_name FightHandler
 
 @export var enemy:Enemy
 #region customizeable
-var dialogue = "hehe looool"
+var dialogue = "* hehe looool"
 
 var turns = 0
 
@@ -68,7 +68,12 @@ func SetTurn(shouldAttack):
 		pass
 	isEnemyAttack = shouldAttack
 var attackData
-func StartAttacking():
+func StartAttacking(): # WARNING: if you want instant attack, use ForceStartAttack instead
+	if (!attackData):
+		print("no attack exist")
+		EndDefense()
+		textDig.startDialogue("[color=red]SYSTEM WARNING[color=white]: no attack applied",0.06)
+		return
 	attackData.StartAttack()
 	pass
 func ForceStartAttack(st:String):
@@ -162,6 +167,21 @@ func ItemProcess():
 		if (BoxDialogueArrayCheck()):
 			pressedItem = false
 
+var pressedMercy = false
+func IsMercy(tex:ItemData):
+	pressedMercy = true
+	MercyAction()
+
+func MercyProcess():
+	if !pressedMercy || waitAction:
+		waitAction = false
+		return
+	if (Input.is_action_just_pressed("ActionCancel")):
+		textDig.ForceFinish()
+	if (Input.is_action_just_pressed("ActionAccept") && textDig.finishedDial):
+		if (BoxDialogueArrayCheck()):
+			pressedMercy = false
+
 var indexDial = 0
 var diagTemp:Array
 
@@ -172,7 +192,7 @@ func BattleDialogueEncounter(st:Array):
 	indexDial = 0
 	diagTemp = st
 	boxText.visible = true
-	textDig.startDialogue(diagTemp[indexDial],0.06)
+	textDig.startDialogue(diagTemp[indexDial],0.04)
 	soul.visible = false
 
 func BoxDialogueArrayCheck():
@@ -190,10 +210,13 @@ func BackToMain():
 	textDig.ForceFinish()
 	MainChoices(0)
 
+func HealSoul(healValue:int):
+	health = clamp(health+healValue,0,maxHealth)
+
 # customizeable functions
 func ActActionType(st:String):
 	match (st):
-		"hello":BattleDialogueEncounter(["you said hello","you said hello[speed,1]...[speed,0.06]yeah"])
+		"check":BattleDialogueEncounter(["* ATK 12 DEF 5\n* nyeh heh heh heh heh"])
 		_:
 			pressedAct = false
 			EnemyDialogueStart()
@@ -202,8 +225,16 @@ func ActActionType(st:String):
 func ItemActionType(st:String):
 	match (st):
 		"L hero":
+			#TweenUtils.tweenShake($GameCamera,8,15,0.3,TweenUtils.Ease.linear)
+			#TweenUtils.tweenShakeRotation($GameCamera,3,15,0.3,TweenUtils.Ease.linear)
+			HealSoul(30)
 			BattleDialogueEncounter(["you ate l hero"])
 		_:
 			pressedItem = false
 			EnemyDialogueStart()
+	pass
+
+func MercyAction():
+	pressedMercy = false
+	StartAttacking()
 	pass

@@ -10,10 +10,13 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if (!isMercy):
+	if (!isMercy || waitAction):
+		waitAction = false
 		return
 	if (Input.is_action_just_pressed("ActionCancel")):
 		Back()
+	if (Input.is_action_just_pressed("ActionAccept")):
+		GaveMecry()
 	pass
 
 func Activate():
@@ -30,3 +33,9 @@ func BringMercy():
 	spareText.ChangeText("* spare",32)
 	spareText.position =  Vector2(100,270)
 	soul.position = spareText.position - Vector2(20,0)
+
+func GaveMecry():
+	isMercy = false
+	self.texture = defaultButton
+	spareText.queue_free()
+	fightHandler.MercyAction()

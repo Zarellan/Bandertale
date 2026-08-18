@@ -160,6 +160,9 @@ healthBar = NodePath("HPSould/TextureProgressBar")
 healthText = NodePath("HPSould/HealthText")
 textDig = NodePath("DialogueBox/RichTextLabel")
 
+[node name="GameCamera" type="Camera2D" parent="." unique_id=2116192487]
+position = Vector2(320, 240)
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=271019752]
 visible = false
 position = Vector2(319, 241)
@@ -366,3 +369,28 @@ text = "92/92"
 fit_content = true
 scroll_active = false
 vertical_alignment = 1
+
+[node name="Level" type="Node2D" parent="." unique_id=17478004]
+position = Vector2(118, 411)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Level" unique_id=365560023]
+offset_top = -14.0
+offset_right = 93.0
+offset_bottom = 14.0
+pivot_offset_ratio = Vector2(0, 0.5)
+theme_override_font_sizes/normal_font_size = 26
+text = "LV 19"
+scroll_active = false
+
+[node name="Name" type="Node2D" parent="." unique_id=711436624]
+position = Vector2(22, 411)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Name" unique_id=959289793]
+offset_top = -14.0
+offset_right = 93.0
+offset_bottom = 14.0
+pivot_offset_ratio = Vector2(0, 0.5)
+theme_override_font_sizes/normal_font_size = 26
+text = "Cream"
+fit_content = true
+scroll_active = false

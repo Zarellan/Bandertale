@@ -207,3 +207,89 @@ static func tweenScrollYRichText(object,position,duration,eas):
 	var step = tween.tween_property(object, "scroll_vertical", position, duration)
 	EasingType(step, eas)
 	return tween
+
+static func tweenShake(object, strength: float, frequency: float, duration: float, eas: Ease) -> Tween:
+	var tween = object.create_tween()
+	var original_pos = object.position
+	
+	var step = tween.tween_method(func(progress: float):
+		var decay = 1.0 - (progress / duration)
+		
+		var random_x = sin(progress * frequency * PI * 2.0) * strength * decay
+		var random_y = cos(progress * frequency * PI * 1.5) * strength * decay
+		
+		object.position = original_pos + Vector2(random_x, random_y)
+	, 0.0, duration, duration)
+	
+	EasingType(step, eas)
+	
+	tween.tween_callback(func():
+		if isAlive(tween):
+			object.position = original_pos
+	)
+	
+	return tween
+
+static func tweenShakeRotation(object, strength: float, frequency: float, duration: float, eas: Ease) -> Tween:
+	var tween = object.create_tween()
+	var original_rotation = object.rotation_degrees
+	
+	# Use tween_method to oscillate rotation degrees over time with a decay
+	var step = tween.tween_method(func(progress: float):
+		# Calculate decay multiplier (1.0 down to 0.0) so the shake fades out nicely
+		var decay = 1.0 - (progress / duration)
+		
+		# Generate a trigonometric offset using frequency and time
+		var random_rot = sin(progress * frequency * PI * 2.0) * strength * decay
+		
+		object.rotation_degrees = original_rotation + random_rot
+	, 0.0, duration, duration)
+	
+	# Apply easing to the overall progress
+	EasingType(step, eas)
+	
+	# Guarantee it snaps cleanly back to the original rotation at the end
+	tween.tween_callback(func():
+		if isAlive(tween):
+			object.rotation_degrees = original_rotation
+	)
+	
+	return tween
+
+static func tweenShakeX(object, strength: float, frequency: float, duration: float, eas: Ease) -> Tween:
+	var tween = object.create_tween()
+	var original_x = object.position.x
+	
+	var step = tween.tween_method(func(progress: float):
+		var decay = 1.0 - (progress / duration)
+		var random_x = sin(progress * frequency * PI * 2.0) * strength * decay
+		object.position.x = original_x + random_x
+	, 0.0, duration, duration)
+	
+	EasingType(step, eas)
+	
+	tween.tween_callback(func():
+		if isAlive(tween):
+			object.position.x = original_x
+	)
+	
+	return tween
+
+static func tweenShakeY(object, strength: float, frequency: float, duration: float, eas: Ease) -> Tween:
+	var tween = object.create_tween()
+	var original_y = object.position.y
+	
+	var step = tween.tween_method(func(progress: float):
+		var decay = 1.0 - (progress / duration)
+		var random_y = sin(progress * frequency * PI * 2.0) * strength * decay
+		object.position.y = original_y + random_y
+	, 0.0, duration, duration)
+	
+	EasingType(step, eas)
+	
+	tween.tween_callback(func():
+		if isAlive(tween):
+			object.position.y = original_y
+	)
+	
+	return tween
