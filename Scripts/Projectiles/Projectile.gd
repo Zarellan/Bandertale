@@ -14,7 +14,7 @@ var timePassed:float = 0
 func _process(delta: float) -> void:
 	if isTouching:
 		if timePassed > intervalTime:
-			fightHandler.health -= 1
+			fightHandler.DamageSoul(3)
 			timePassed = 0
 		else:
 			timePassed += delta

@@ -3,7 +3,7 @@ extends Attacks
 
 func _ready() -> void:
 	boxSize = Vector2(500,150)
-	attackTimer = 0.4
+	attackTimer = 30
 
 var bullet
 func StartAttack():

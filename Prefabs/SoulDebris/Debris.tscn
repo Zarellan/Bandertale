@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://daw00t6fn33od"]
+
+[ext_resource type="Texture2D" uid="uid://c3rt5s36jq6qt" path="res://Sprites/Soul gameover.png" id="1_8wuoh"]
+[ext_resource type="Script" uid="uid://deiifnxvwhxa0" path="res://Prefabs/SoulDebris/DebrisScript.gd" id="2_47tmr"]
+
+[sub_resource type="Animation" id="Animation_rdiyk"]
+resource_name = "DebrisPlay"
+length = 0.40000334
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(2, 21, 7, 6), Rect2(15, 22, 6, 5), Rect2(27, 20, 7, 8), Rect2(41, 22, 6, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_bfgkh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(2, 21, 7, 6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bfgkh"]
+_data = {
+&"DebrisPlay": SubResource("Animation_rdiyk"),
+&"RESET": SubResource("Animation_bfgkh")
+}
+
+[node name="Debris" type="Sprite2D" unique_id=354163250]
+texture_filter = 1
+texture = ExtResource("1_8wuoh")
+region_enabled = true
+region_rect = Rect2(2, 21, 7, 6)
+script = ExtResource("2_47tmr")
+
+[node name="Debr" type="AnimationPlayer" parent="." unique_id=1146991348]
+libraries/ = SubResource("AnimationLibrary_bfgkh")
+autoplay = &"DebrisPlay"
+speed_scale = 0.7

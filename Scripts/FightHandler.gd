@@ -51,6 +51,8 @@ func _process(_delta: float) -> void:
 			textDig.ForceFinish()
 	healthBar.value = health
 	healthText.text = str(health) + "/" + str(maxHealth)
+	if (health <= 0):
+		GameOver()
 	ActProcess()
 	ItemProcess()
 	pass
@@ -212,7 +214,14 @@ func BackToMain():
 
 func HealSoul(healValue:int):
 	health = clamp(health+healValue,0,maxHealth)
-
+func DamageSoul(damageValue:int):
+	health = max(health-damageValue,0)
+func GameOver():
+	get_tree().paused = true
+	GameOverScript.heartPos = soul.position
+	GameOverScript.heartColor = soul.soulSprite.self_modulate
+	await get_tree().create_timer(0.4).timeout
+	get_tree().change_scene_to_file("res://Scenes/GameOver.tscn")
 # customizeable functions
 func ActActionType(st:String):
 	match (st):
@@ -227,6 +236,7 @@ func ItemActionType(st:String):
 		"L hero":
 			#TweenUtils.tweenShake($GameCamera,8,15,0.3,TweenUtils.Ease.linear)
 			#TweenUtils.tweenShakeRotation($GameCamera,3,15,0.3,TweenUtils.Ease.linear)
+			GameOver()
 			HealSoul(30)
 			BattleDialogueEncounter(["you ate l hero"])
 		_:
