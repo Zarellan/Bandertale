@@ -3,6 +3,8 @@ class_name FightHandler
 
 
 @export var enemy:Enemy
+
+@export var camera:Camera2D
 #region customizeable
 var dialogue = "* hehe looool"
 
@@ -30,15 +32,17 @@ var isMain:bool = false
 var mainIndex:int = 0
 #endregion
 
+var turn = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#soul.ChangeSoulType(Soul.SoulType.blue)
-	SetTurn(false)
-	MainChoices(0)
-	textDig.startDialogue(dialogue,0.06,"res://Sounds/Dialogues/Text2.wav", 4)
-	GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
-	GlobalSoundtrack.SetVolumeMixer(100)
+	#SetTurn(false)
+	#MainChoices(0)
+	#textDig.startDialogue(dialogue,0.06,"res://Sounds/Dialogues/Text2.wav", 4)
+	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
+	#GlobalSoundtrack.SetVolumeMixer(100)
 	HealSoul(0)
+	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
 

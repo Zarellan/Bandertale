@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cbqje16kw5vn4"]
+
+[ext_resource type="Texture2D" uid="uid://yyphfemmi8r2" path="res://Sprites/Projectiles/Platformer.png" id="1_626im"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4vx5"]
+size = Vector2(48, 8)
+
+[node name="Platformer" type="AnimatableBody2D" unique_id=1593059635]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=197738070]
+texture_filter = 1
+texture = ExtResource("1_626im")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1029311887]
+shape = SubResource("RectangleShape2D_s4vx5")
+one_way_collision = true

@@ -149,9 +149,10 @@ _data = {
 &"Slash": SubResource("Animation_pa3o0")
 }
 
-[node name="FightHandle" type="Node2D" unique_id=27247154 node_paths=PackedStringArray("enemy", "soul", "buttons", "boxText", "box", "healthBar", "healthText", "textDig") groups=["FightHandler"]]
+[node name="FightHandle" type="Node2D" unique_id=27247154 node_paths=PackedStringArray("enemy", "camera", "soul", "buttons", "boxText", "box", "healthBar", "healthText", "textDig") groups=["FightHandler"]]
 script = ExtResource("1_ht1rj")
 enemy = NodePath("Enemy")
+camera = NodePath("GameCamera")
 soul = NodePath("Soul")
 buttons = [NodePath("ButtonFights/Fight"), NodePath("ButtonFights/Act"), NodePath("ButtonFights/Item"), NodePath("ButtonFights/Mercy")]
 boxText = NodePath("DialogueBox")
@@ -288,9 +289,10 @@ position = Vector2(56, 248)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="DialogueBox" unique_id=470888409]
 texture_filter = 1
-offset_left = -1.0
-offset_right = 544.0
-offset_bottom = 122.0
+offset_left = -7.0
+offset_top = -3.0
+offset_right = 538.0
+offset_bottom = 119.0
 theme_override_fonts/normal_font = ExtResource("19_eg85k")
 theme_override_font_sizes/normal_font_size = 33
 bbcode_enabled = true
