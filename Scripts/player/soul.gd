@@ -10,17 +10,17 @@ enum SoulType
 }
 
 @export var soulSprite:Node2D
-
+@export var fightHandler:FightHandler
 const SPEED = 180.0
 const JUMP_VELOCITY = -400.0
 const gravityStrength = 0.8
 
 var soulType:SoulType
 
+var strictSoulBox = true
 func _physics_process(delta: float) -> void:
 	
 	SoulMovement(delta)
-	move_and_slide()
 
 func SoulMovement(delta):
 	match (soulType):
@@ -47,7 +47,8 @@ func SoulRedMovement(_delta):
 		velocity.y = direction_vert * SPEED
 	else:
 		velocity.y = 0
-
+	ClampSoul()
+	move_and_slide()
 	pass
 
 func SoulBlueMovement(delta):
@@ -66,6 +67,8 @@ func SoulBlueMovement(delta):
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	ClampSoul()
+	move_and_slide()
 
 func ChangeSoulType(soulT:SoulType):
 	match(soulT):
@@ -76,6 +79,11 @@ func ChangeSoulType(soulT:SoulType):
 	soulType = soulT
 	visible = true
 
+func ClampSoul():
+	if (!strictSoulBox):
+		return
+	position = Vector2(clamp(position.x,fightHandler.box.position.x-fightHandler.box.box_size.x/2,fightHandler.box.position.x+fightHandler.box.box_size.x/2),\
+	clamp(position.y,fightHandler.box.position.y-fightHandler.box.box_size.y/2,fightHandler.box.position.y+fightHandler.box.box_size.y/2))
 func FightEnd():
 	soulSprite.self_modulate = Color(1,0,0)
 	soulType = SoulType.choice

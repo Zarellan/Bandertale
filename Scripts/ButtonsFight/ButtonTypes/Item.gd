@@ -31,6 +31,8 @@ func ChangeIndex(inc:int,isHoriz:bool = true):
 			return
 		itemIndex += inc
 	SetVisible()
+	if (inc != 0):
+		fightHandler.SqueakAudio()
 	soul.position = itemsArr[itemIndex].obj.position - Vector2(20,0)
 	#OutBoundCheck(itemsArr)
 
@@ -158,6 +160,7 @@ func ChooseItem():
 	if (itemIndex < 0 || itemIndex >= itemsLol.size()):
 		push_error("potential error of removing at: ", itemIndex)
 		return
+	fightHandler.SelectAudioSound()
 	self.texture = defaultButton
 	itemsLol.remove_at(itemIndex)
 	itemsArr.clear()

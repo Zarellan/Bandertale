@@ -23,17 +23,22 @@ static var waitAction = false #important to avoid race condition problem
 var health:int = 92
 var maxHealth:int = 92
 #endregion
+
 #region EnemyManager
 var isEnemyAttack:bool = false
 var isMain:bool = false
 var mainIndex:int = 0
 #endregion
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#soul.ChangeSoulType(Soul.SoulType.blue)
 	SetTurn(false)
 	MainChoices(0)
-	textDig.startDialogue(dialogue,0.06)
+	textDig.startDialogue(dialogue,0.06,"res://Sounds/Dialogues/Text2.wav", 4)
+	GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
+	GlobalSoundtrack.SetVolumeMixer(100)
+	HealSoul(0)
 	pass # Replace with function body.
 
 
@@ -49,10 +54,6 @@ func _process(_delta: float) -> void:
 			ActivateChoice()
 		if Input.is_action_just_pressed("ActionCancel"):
 			textDig.ForceFinish()
-	healthBar.value = health
-	healthText.text = str(health) + "/" + str(maxHealth)
-	if (health <= 0):
-		GameOver()
 	ActProcess()
 	ItemProcess()
 	pass
@@ -64,6 +65,8 @@ func SetTurn(shouldAttack):
 		soul.FightEnd()
 		TweenUtils.tweenCustom(self,box.box_size,Vector2(590.97,155.1),0.3,TweenUtils.Ease.OutCirc,func(val):
 			box.box_size = val)
+		TweenUtils.tweenX(box,325.0,0.3,TweenUtils.Ease.OutCirc)
+		TweenUtils.tweenY(box,307.0,0.3,TweenUtils.Ease.OutCirc)
 		soul.visible = true
 	else:
 		boxText.visible = false
@@ -96,7 +99,9 @@ func MainChoices(inc:int):
 		if i != mainIndex:
 			buttons[i].texture = buttons[i].defaultButton
 	buttons[mainIndex].texture = buttons[mainIndex].buttonChecked
-
+	if (inc != 0):
+		SqueakAudio()
+	pass
 var st = "res://Scripts/Attacks/AttackTypes/AttackTest.gd"
 
 func EnemyDialogueStart(): #always start when ending player turn
@@ -117,7 +122,7 @@ func EnemyDialogueEnd():
 func EndDefense():
 	SetTurn(false)
 	boxText.visible = true
-	textDig.startDialogue("tames blaster",0.06)
+	textDig.startDialogue("tames blaster",0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	turns += 1
 
 func CleanChoices():
@@ -131,6 +136,7 @@ func ActivateChoice():
 	buttons[mainIndex].Activate()
 	isMain = false
 	boxText.visible = false
+	SelectAudioSound()
 func OutBoundCheck(sizeArr:Array):
 	if (mainIndex > sizeArr.size()-1):
 		mainIndex = 0
@@ -194,7 +200,7 @@ func BattleDialogueEncounter(st:Array):
 	indexDial = 0
 	diagTemp = st
 	boxText.visible = true
-	textDig.startDialogue(diagTemp[indexDial],0.04)
+	textDig.startDialogue(diagTemp[indexDial],0.04, "res://Sounds/Dialogues/Text2.wav",4)
 	soul.visible = false
 
 func BoxDialogueArrayCheck():
@@ -203,7 +209,7 @@ func BoxDialogueArrayCheck():
 		return true
 	else:
 		indexDial += 1
-		textDig.startDialogue(diagTemp[indexDial],0.06)
+		textDig.startDialogue(diagTemp[indexDial],0.06, "res://Sounds/Dialogues/Text2.wav",4)
 		return false
 
 func BackToMain():
@@ -214,14 +220,32 @@ func BackToMain():
 
 func HealSoul(healValue:int):
 	health = clamp(health+healValue,0,maxHealth)
+	healthBar.value = health
+	healthText.text = str(health) + "/" + str(maxHealth)
+	if (healValue != 0):
+		GlobalAudio.PlayOneShot("res://Sounds/Fight/Heal.wav",0)
+
 func DamageSoul(damageValue:int):
 	health = max(health-damageValue,0)
+	healthBar.value = health
+	healthText.text = str(health) + "/" + str(maxHealth)
+	if (damageValue != 0):
+		GlobalAudio.PlayOneShot("res://Sounds/Fight/Hurt.wav",-3)
+	if (health <= 0):
+		GameOver()
 func GameOver():
 	get_tree().paused = true
 	GameOverScript.heartPos = soul.position
 	GameOverScript.heartColor = soul.soulSprite.self_modulate
+	GlobalSoundtrack.stop()
 	await get_tree().create_timer(0.4).timeout
 	get_tree().change_scene_to_file("res://Scenes/GameOver.tscn")
+
+func SqueakAudio():
+	GlobalAudio.PlayOneShot("res://Sounds/Fight/Squeak.wav",3)
+func SelectAudioSound():
+	GlobalAudio.PlayOneShot("res://Sounds/Fight/select.wav",2)
+
 # customizeable functions
 func ActActionType(st:String):
 	match (st):
@@ -236,7 +260,7 @@ func ItemActionType(st:String):
 		"L hero":
 			#TweenUtils.tweenShake($GameCamera,8,15,0.3,TweenUtils.Ease.linear)
 			#TweenUtils.tweenShakeRotation($GameCamera,3,15,0.3,TweenUtils.Ease.linear)
-			GameOver()
+			#GameOver()
 			HealSoul(30)
 			BattleDialogueEncounter(["you ate l hero"])
 		_:

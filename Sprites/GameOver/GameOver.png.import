@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3rt5s36jq6qt"
-path="res://.godot/imported/Soul gameover.png-3818a2d626a2b6170606a11051282c87.ctex"
+uid="uid://bb868hbgiyiso"
+path="res://.godot/imported/GameOver.png-c5b41874e069f93238b0c99e297637bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Soul gameover.png"
-dest_files=["res://.godot/imported/Soul gameover.png-3818a2d626a2b6170606a11051282c87.ctex"]
+source_file="res://Sprites/GameOver/GameOver.png"
+dest_files=["res://.godot/imported/GameOver.png-c5b41874e069f93238b0c99e297637bc.ctex"]
 
 [params]
 

@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cxh7fdpw0o6xe" path="res://Scripts/GameOver/GameOver.gd" id="1_k52d1"]
 [ext_resource type="Texture2D" uid="uid://bh0df63oqjd1h" path="res://Sprites/Soul.png" id="1_m5628"]
-[ext_resource type="Texture2D" uid="uid://c3rt5s36jq6qt" path="res://Sprites/Soul gameover.png" id="3_ktc4i"]
+[ext_resource type="Texture2D" uid="uid://c3rt5s36jq6qt" path="res://Sprites/GameOver/Soul gameover.png" id="3_ktc4i"]
 [ext_resource type="PackedScene" uid="uid://daw00t6fn33od" path="res://Prefabs/SoulDebris/Debris.tscn" id="4_uib17"]
+[ext_resource type="Texture2D" uid="uid://ccjuenhmhh8em" path="res://holders/Determination_soundtrack.png" id="5_rdiyk"]
+[ext_resource type="Script" uid="uid://c1ke23n21vxlb" path="res://Scripts/DialogueTextSystem/TextAdv.gd" id="6_bfgkh"]
+[ext_resource type="Texture2D" uid="uid://bb868hbgiyiso" path="res://Sprites/GameOver/GameOver.png" id="7_5mu6e"]
 
 [sub_resource type="Animation" id="Animation_k52d1"]
 resource_name = "Broke"
@@ -117,10 +120,23 @@ _data = {
 &"RESET": SubResource("Animation_uib17")
 }
 
-[node name="GameOver" type="Node2D" unique_id=1279720553 node_paths=PackedStringArray("heart")]
+[node name="GameOver" type="Node2D" unique_id=1279720553 node_paths=PackedStringArray("heart", "gameOverImage", "dialogueGameover")]
 script = ExtResource("1_k52d1")
 heart = NodePath("Soul")
+gameOverImage = NodePath("GameOver")
 soulDebris = ExtResource("4_uib17")
+dialogueGameover = NodePath("TextAdv")
+
+[node name="GameoverHolder" type="Sprite2D" parent="." unique_id=1100187178]
+visible = false
+position = Vector2(320, 240)
+texture = ExtResource("5_rdiyk")
+
+[node name="GameOver" type="Sprite2D" parent="." unique_id=184836410]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+position = Vector2(322, 124)
+texture = ExtResource("7_5mu6e")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=105374827]
 position = Vector2(320, 240)
@@ -133,3 +149,12 @@ texture = ExtResource("1_m5628")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Soul" unique_id=1828594397]
 libraries/ = SubResource("AnimationLibrary_rdiyk")
 autoplay = &"Idle"
+
+[node name="TextAdv" type="RichTextLabel" parent="." unique_id=2043597792]
+offset_left = 140.0
+offset_top = 315.0
+offset_right = 507.0
+offset_bottom = 429.0
+theme_override_font_sizes/normal_font_size = 34
+script = ExtResource("6_bfgkh")
+metadata/_custom_type_script = "uid://c1ke23n21vxlb"

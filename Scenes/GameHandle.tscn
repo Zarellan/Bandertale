@@ -233,11 +233,12 @@ clip_children = 1
 scale = Vector2(18.467812, 4.846875)
 texture = ExtResource("1_8o65p")
 
-[node name="Soul" type="CharacterBody2D" parent="." unique_id=1062877066 node_paths=PackedStringArray("soulSprite") groups=["Soul"]]
+[node name="Soul" type="CharacterBody2D" parent="." unique_id=1062877066 node_paths=PackedStringArray("soulSprite", "fightHandler") groups=["Soul"]]
 z_index = 1
 position = Vector2(322, 311)
 script = ExtResource("4_luwyh")
 soulSprite = NodePath("Sprite2D")
+fightHandler = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Soul" unique_id=842414365]
 self_modulate = Color(0, 0, 1, 1)

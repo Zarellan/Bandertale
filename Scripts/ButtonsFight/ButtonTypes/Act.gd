@@ -71,6 +71,8 @@ func ActChoice(incX,incY):
 	indexY += incY
 	OutOfBoundsCheck2DArray(arrActObjs)
 	soul.position = arrActObjs[indexY][indexX].obj.position - Vector2(20,0)
+	if (incX != 0 || incY != 0):
+		fightHandler.SqueakAudio()
 
 func OutOfBoundsCheck2DArray(arr2D:Array[Array]):
 	if (indexY > arr2D.size() - 1):
@@ -83,6 +85,7 @@ func OutOfBoundsCheck2DArray(arr2D:Array[Array]):
 		indexX = arr2D[indexY].size() - 1
 
 func ActPress():
+	fightHandler.SelectAudioSound()
 	isAct = false
 	FightHandler.waitAction = true
 	var valStr = arrActObjs[indexY][indexX].actName

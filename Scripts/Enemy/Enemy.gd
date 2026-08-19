@@ -45,7 +45,7 @@ func PlayDialogue(textStr:Array):
 	diag = InstantiateUtil.Instantiate(bubblePrefab,null)
 	diag.position = position + bubbleOffset
 	await get_tree().process_frame
-	diag.get_node("Text").startDialogue(textStr[indexDialogue])
+	diag.get_node("Text").startDialogue(textStr[indexDialogue],0.06,"res://Sounds/Dialogues/Papyrus.mp3")
 	enemyDialogue = true
 	pass
 
@@ -56,5 +56,5 @@ func BoxDialogueArrayCheck():
 		return true
 	else:
 		indexDialogue += 1
-		diag.get_node("Text").startDialogue(dialogueArr[indexDialogue],0.06)
+		diag.get_node("Text").startDialogue(dialogueArr[indexDialogue],0.06,"res://Sounds/Dialogues/Papyrus.mp3")
 		return false

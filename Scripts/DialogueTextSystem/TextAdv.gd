@@ -26,6 +26,8 @@ var finishedDial:bool = false
 
 var timerWait:Timer
 
+var audioType:String = ""
+var volumeDialogueDB:int = 0
 func _ready() -> void:
 	timerWait = Timer.new()
 	timerWait.one_shot = true
@@ -41,7 +43,7 @@ func _process(_delta: float) -> void:
 	#print($".".maxLength)
 	pass
 
-func startDialogue(textChr, sped = 0.06):
+func startDialogue(textChr, sped = 0.06, audioT = "", volDBDiag = 0):
 	$".".text = textChr
 	if diagTimer and diagTimer.is_valid():
 		diagTimer.kill()
@@ -54,6 +56,8 @@ func startDialogue(textChr, sped = 0.06):
 	textMain = textChr
 	commandText = textChr
 	bBCodeText = textChr
+	audioType = audioT
+	volumeDialogueDB = volDBDiag
 	RemoveBBCodes()
 	reach = 0
 	incIgnoreBBC = 0
@@ -97,6 +101,8 @@ func diag():
 	if (paused): return
 	$".".visible_characters += 1
 	reach += 1
+	if (!audioType.is_empty() && maxLength >= $".".visible_characters):
+		GlobalAudio.PlayOneShot(audioType,volumeDialogueDB)
 	event_checker()
 	diagTimer = create_tween()
 	diagTimer.tween_interval(speed)

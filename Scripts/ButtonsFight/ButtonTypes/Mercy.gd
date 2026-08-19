@@ -37,5 +37,6 @@ func BringMercy():
 func GaveMecry():
 	isMercy = false
 	self.texture = defaultButton
+	fightHandler.SelectAudioSound()
 	spareText.queue_free()
 	fightHandler.MercyAction()

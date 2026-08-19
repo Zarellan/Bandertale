@@ -3,7 +3,7 @@ extends Attacks
 
 func _ready() -> void:
 	boxSize = Vector2(500,150)
-	attackTimer = 30
+	attackTimer = 20
 
 var bullet
 func StartAttack():
@@ -15,6 +15,8 @@ func StartAttack():
 	add_child(bullet)
 	pass
 
+var tttt = 0
 func _process(delta: float) -> void:
+	tttt += delta
 	if (is_instance_valid(bullet)):
 		bullet.position.y = fightHandler.box.GetUpCorner()

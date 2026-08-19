@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://daw00t6fn33od"]
 
-[ext_resource type="Texture2D" uid="uid://c3rt5s36jq6qt" path="res://Sprites/Soul gameover.png" id="1_8wuoh"]
+[ext_resource type="Texture2D" uid="uid://c3rt5s36jq6qt" path="res://Sprites/GameOver/Soul gameover.png" id="1_8wuoh"]
 [ext_resource type="Script" uid="uid://deiifnxvwhxa0" path="res://Prefabs/SoulDebris/DebrisScript.gd" id="2_47tmr"]
 
 [sub_resource type="Animation" id="Animation_rdiyk"]

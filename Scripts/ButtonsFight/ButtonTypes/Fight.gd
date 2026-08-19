@@ -48,6 +48,7 @@ func BringFight():
 	attackPole.position.x = -274.851
 
 func ActivateFight():
+	fightHandler.SelectAudioSound()
 	isFight = false
 	fightText.queue_free()
 	soul.visible = false
@@ -58,6 +59,7 @@ func ActivateFight():
 	attackPanel.visible = true
 
 func Attack():
+	GlobalAudio.PlayOneShot("res://Sounds/Fight/Slash.wav",4)
 	isAttacking = false
 	attackPanel.get_node("AnimationPlayer").play("attacked")
 	slash.get_node("AnimationPlayer").play("Slash")
