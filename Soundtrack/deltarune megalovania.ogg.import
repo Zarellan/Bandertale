@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ds5sdgugc3v24"
+path="res://.godot/imported/deltarune megalovania.ogg-8d843110076faa8a39b5f6bf8fda5741.oggvorbisstr"
+
+[deps]
+
+source_file="res://Soundtrack/deltarune megalovania.ogg"
+dest_files=["res://.godot/imported/deltarune megalovania.ogg-8d843110076faa8a39b5f6bf8fda5741.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

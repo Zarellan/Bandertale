@@ -2,10 +2,16 @@ extends Node2D
 class_name FightHandler
 
 
-var attacks = ["res://Scripts/Attacks/AttackTypes/Attack1.gd", "res://Scripts/Attacks/AttackTypes/Attack2.gd"]
-var dialogue = ["bander is fighting you", "dodged att"]
+var fightSystemHandle = [
+	{"attack":"res://Scripts/Attacks/AttackTypes/Attack1.gd",
+	"BoxDialogue":"dodged att",
+	"enemyToPlayDiag":["let's get to the fight"]},
+	
+	{"attack":"res://Scripts/Attacks/AttackTypes/Attack2.gd",
+	"BoxDialogue":"dodged att2",
+	"enemyToPlayDiag":["yoo"]}
+]
 var enemyDialogueToPlay = [""]
-
 @export var enemy:Enemy
 
 @export var camera:Camera2D
@@ -50,9 +56,9 @@ func _ready() -> void:
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
 	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack2.gd")
-	Engine.time_scale = 40
+	#Engine.time_scale = 40
 	Engine.max_fps = 60
-	undye = true
+	undye = false
 	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
@@ -126,7 +132,7 @@ func EnemyDialogueStart(): #always start when ending player turn
 		if (att):
 			turns += 1
 	att = true
-	attackData = load(attacks[turns]).new() as Attacks
+	attackData = load(fightSystemHandle[turns]["attack"]).new() as Attacks
 	attackData.fightHandler = self
 	add_child(attackData)
 	attackData.PrepareAttack()
@@ -138,7 +144,7 @@ func EnemyDialogueStart(): #always start when ending player turn
 	TweenUtils.tweenY(box,attackData.boxPos.y,0.3,TweenUtils.Ease.OutCirc)
 	SetTurn(true)
 	if (fighted):
-		EnemyAttacksDials(turns)
+		enemyDialogueToPlay = fightSystemHandle[turns]["enemyToPlayDiag"]
 		fighted = false
 	enemy.PlayDialogue(enemyDialogueToPlay)
 	
@@ -147,16 +153,20 @@ func EnemyDialogueStart(): #always start when ending player turn
 func EnemyDialogueEnd():
 	if (!firstAttackSpec):
 		attackData.queue_free()
-		textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
+		textDig.startDialogue(fightSystemHandle[turns]["BoxDialogue"],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 		EndDefense(false)
 		firstAttackSpec = true
+		#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/deltarune megalovania.ogg")
 	else:
 		StartAttacking()
 
 func EndDefense(incTurn:bool = false):
 	SetTurn(false)
 	boxText.visible = true
-	textDig.startDialogue(dialogue[turns],0.04,"res://Sounds/Dialogues/Text2.wav", 4)
+	if (att):
+		textDig.startDialogue(fightSystemHandle[turns]["BoxDialogue"],0.04,"res://Sounds/Dialogues/Text2.wav", 4)
+	else:
+		textDig.startDialogue("Bander is fighting you",0.04,"res://Sounds/Dialogues/Text2.wav", 4)
 	if (turns == 1):
 		firstAttackSpec = true
 	if (incTurn):
@@ -316,12 +326,5 @@ func ItemActionType(st:String):
 
 func MercyAction():
 	pressedMercy = false
-	ForceStartAttack(attacks[turns])
+	ForceStartAttack(fightSystemHandle[turns]["attack"])
 	pass
-
-func EnemyAttacksDials(tur:int):
-	match (tur):
-		0:
-			enemyDialogueToPlay = ["let's get to the fight"]
-		1:
-			enemyDialogueToPlay = ["yooo"]
