@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cvurilhv7evq3"]
+
+[ext_resource type="Script" uid="uid://ckwwurbu6g43x" path="res://Prefabs/BanderBlaster/BanderBlaster.gd" id="1_7yc1r"]
+[ext_resource type="Texture2D" uid="uid://w8ixs7bclgh" path="res://Sprites/Projectiles/banderblaster/banderblaster1.png" id="2_7yc1r"]
+[ext_resource type="Texture2D" uid="uid://dqo6ehs05bme6" path="res://Sprites/Projectiles/banderblaster/banderblaster2.png" id="2_erjk2"]
+
+[sub_resource type="Curve" id="Curve_pajup"]
+_data = [Vector2(0, 0), 0.0, 3.4661136, 0, 0, Vector2(0.015936255, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yc1r"]
+size = Vector2(5748.42, 164)
+
+[node name="banderBlaster" type="Node2D" unique_id=699733072 node_paths=PackedStringArray("line", "sprite")]
+scale = Vector2(0.585, 0.585)
+script = ExtResource("1_7yc1r")
+line = NodePath("Sprite2D/Line2D")
+sprite = NodePath("Sprite2D")
+blast2 = ExtResource("2_erjk2")
+blastValue = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1290067031]
+position = Vector2(-1200, -70)
+rotation = -2.2444935
+texture = ExtResource("2_7yc1r")
+flip_h = true
+
+[node name="Line2D" type="Line2D" parent="Sprite2D" unique_id=1913833497]
+position = Vector2(5.9999847, 61)
+points = PackedVector2Array(-0.99998474, 2, 24.000015, 0, 59.32286, -0.32405853, 133.00002, -1, 5737.5, 0)
+width = 0.0
+width_curve = SubResource("Curve_pajup")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=1417403876]
+position = Vector2(6.0000153, 61)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" unique_id=2040246013]
+position = Vector2(2863.2898, 1.0799713)
+shape = SubResource("RectangleShape2D_7yc1r")
+
+[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_exited"]

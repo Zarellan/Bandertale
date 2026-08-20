@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://wn7jyrcwj7dg"]
+
+[ext_resource type="Script" uid="uid://coj0ypi41vnt7" path="res://Scripts/Projectiles/BanderBall/BanderBall.gd" id="1_obhnx"]
+[ext_resource type="Texture2D" uid="uid://biiqgfjgcbw2n" path="res://Sprites/Projectiles/banderMoon.png" id="2_obhnx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obhnx"]
+radius = 69.95596
+
+[node name="Projectile" type="Area2D" unique_id=556323487]
+scale = Vector2(0.35763055, 0.37289813)
+script = ExtResource("1_obhnx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=982515366]
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_obhnx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1641102814]
+shape = SubResource("CircleShape2D_obhnx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://d2ocbpbx3dqjt"]
+
+[ext_resource type="Texture2D" uid="uid://qfsd3dwdqnyk" path="res://Sprites/warningSign/warning.png" id="1_2gog8"]
+
+[sub_resource type="Animation" id="Animation_s2siq"]
+resource_name = "Play"
+length = 0.20000334
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10000001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(64, 0, 64, 64), Rect2(0, 0, 64, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_2gog8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2gog8"]
+_data = {
+&"Play": SubResource("Animation_s2siq"),
+&"RESET": SubResource("Animation_2gog8")
+}
+
+[node name="WarningSign" type="Node2D" unique_id=629102398]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=641762900]
+texture_filter = 1
+texture = ExtResource("1_2gog8")
+region_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=872684594]
+libraries/ = SubResource("AnimationLibrary_2gog8")
+autoplay = &"Play"

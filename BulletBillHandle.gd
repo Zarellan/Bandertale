@@ -9,7 +9,7 @@ var movSprite = Vector2(0,0)
 var startMoving = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
+	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Spear/spear1.wav")
 	pass # Replace with function body.
 
 
@@ -28,3 +28,5 @@ func Shoot():
 	bulBill = InstantiateUtil.Instantiate(bulletBill,null)
 	bulBill.scale = scale + Vector2(0.08,0.08)
 	bulBill.global_position = $Sprite2D/BillOffset.global_position
+	#GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Spear/spear2.wav",-10)
+	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Bill/billfire.wav",0)
