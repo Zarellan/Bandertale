@@ -2,11 +2,18 @@ extends Node2D
 class_name FightHandler
 
 
+var attacks = ["res://Scripts/Attacks/AttackTypes/Attack1.gd", "res://Scripts/Attacks/AttackTypes/Attack2.gd"]
+var dialogue = ["bander is fighting you", "dodged att"]
+var enemyDialogueToPlay = [""]
+
 @export var enemy:Enemy
 
 @export var camera:Camera2D
+
+#region DebugMode
+var undye = false
+#endregion
 #region customizeable
-var dialogue = "* hehe looool"
 
 var turns = 0
 
@@ -32,16 +39,20 @@ var isMain:bool = false
 var mainIndex:int = 0
 #endregion
 
-var turn = 0
+var firstAttackSpec:bool = false #I was stuck so I used hardcode method
+var fighted = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#soul.ChangeSoulType(Soul.SoulType.blue)
+	#Engine.time_scale = 15
 	#SetTurn(false)
 	#MainChoices(0)
-	#textDig.startDialogue(dialogue,0.06,"res://Sounds/Dialogues/Text2.wav", 4)
+	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
-	#GlobalSoundtrack.SetVolumeMixer(100)
 	HealSoul(0)
+	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack2.gd")
+	Engine.time_scale = 40
+	Engine.max_fps = 60
+	undye = true
 	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
@@ -87,7 +98,9 @@ func StartAttacking(): # WARNING: if you want instant attack, use ForceStartAtta
 	pass
 func ForceStartAttack(st:String):
 	attackData = load(st).new() as Attacks
+	attackData.fightHandler = self
 	add_child(attackData)
+	attackData.PrepareAttack()
 	soul.ChangeSoulType(soul.SoulType.idle)
 	soul.position = box.position
 	TweenUtils.tweenCustom(self,box.box_size,attackData.boxSize,0.3,TweenUtils.Ease.OutCirc,func(val):
@@ -107,27 +120,47 @@ func MainChoices(inc:int):
 		SqueakAudio()
 	pass
 var st = "res://Scripts/Attacks/AttackTypes/AttackTest.gd"
-
+var att = false
 func EnemyDialogueStart(): #always start when ending player turn
-	attackData = load(st).new() as Attacks
+	if (fighted):
+		if (att):
+			turns += 1
+	att = true
+	attackData = load(attacks[turns]).new() as Attacks
+	attackData.fightHandler = self
 	add_child(attackData)
+	attackData.PrepareAttack()
 	soul.ChangeSoulType(soul.SoulType.idle)
 	soul.position = box.position
 	TweenUtils.tweenCustom(self,box.box_size,attackData.boxSize,0.3,TweenUtils.Ease.OutCirc,func(val):
 		box.box_size = val)
+	TweenUtils.tweenX(box,attackData.boxPos.x,0.3,TweenUtils.Ease.OutCirc)
+	TweenUtils.tweenY(box,attackData.boxPos.y,0.3,TweenUtils.Ease.OutCirc)
 	SetTurn(true)
-	enemy.PlayDialogue(["tames hah haaah","lool loser"])
+	if (fighted):
+		EnemyAttacksDials(turns)
+		fighted = false
+	enemy.PlayDialogue(enemyDialogueToPlay)
 	
 	#enemy.PlayDialogue("tames blaster")
 
 func EnemyDialogueEnd():
-	StartAttacking()
+	if (!firstAttackSpec):
+		attackData.queue_free()
+		textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
+		EndDefense(false)
+		firstAttackSpec = true
+	else:
+		StartAttacking()
 
-func EndDefense():
+func EndDefense(incTurn:bool = false):
 	SetTurn(false)
 	boxText.visible = true
-	textDig.startDialogue("tames blaster",0.06,"res://Sounds/Dialogues/Text2.wav", 4)
-	turns += 1
+	textDig.startDialogue(dialogue[turns],0.04,"res://Sounds/Dialogues/Text2.wav", 4)
+	if (turns == 1):
+		firstAttackSpec = true
+	if (incTurn):
+		turns += 1
 
 func CleanChoices():
 	for i in range(buttons.size()):
@@ -141,6 +174,7 @@ func ActivateChoice():
 	isMain = false
 	boxText.visible = false
 	SelectAudioSound()
+
 func OutBoundCheck(sizeArr:Array):
 	if (mainIndex > sizeArr.size()-1):
 		mainIndex = 0
@@ -230,6 +264,8 @@ func HealSoul(healValue:int):
 		GlobalAudio.PlayOneShot("res://Sounds/Fight/Heal.wav",0)
 
 func DamageSoul(damageValue:int):
+	if (undye):
+		return
 	health = max(health-damageValue,0)
 	healthBar.value = health
 	healthText.text = str(health) + "/" + str(maxHealth)
@@ -253,7 +289,13 @@ func SelectAudioSound():
 # customizeable functions
 func ActActionType(st:String):
 	match (st):
-		"check":BattleDialogueEncounter(["* ATK 12 DEF 5\n* nyeh heh heh heh heh"])
+		"check":
+			BattleDialogueEncounter(["* ATK 99 DEF 99\n* he loves tames"])
+			enemyDialogueToPlay = []
+			#enemyDialogueToPlay = ["not a surprise[speed,0.6]...[speed,0.04]huh ?"]
+		"mock":
+			BattleDialogueEncounter(["* you proceed to mock him[speed,0.5]...[wait,0.5][speed,0.06]\n* he doesn't care"])
+			enemyDialogueToPlay = ["atleast make a good one"]
 		_:
 			pressedAct = false
 			EnemyDialogueStart()
@@ -274,5 +316,12 @@ func ItemActionType(st:String):
 
 func MercyAction():
 	pressedMercy = false
-	StartAttacking()
+	ForceStartAttack(attacks[turns])
 	pass
+
+func EnemyAttacksDials(tur:int):
+	match (tur):
+		0:
+			enemyDialogueToPlay = ["let's get to the fight"]
+		1:
+			enemyDialogueToPlay = ["yooo"]

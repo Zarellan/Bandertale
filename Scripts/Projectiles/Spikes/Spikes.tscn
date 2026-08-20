@@ -1,21 +1,21 @@
-[gd_scene format=3 uid="uid://labbhqoyi73l"]
+[gd_scene format=3 uid="uid://bf02vr4nc6j8n"]
 
-[ext_resource type="Script" uid="uid://cnmkjfe1m6m83" path="res://Scripts/Projectiles/BulletBill/BulletBill.gd" id="1_4kid0"]
-[ext_resource type="Texture2D" uid="uid://dyc8171dd214k" path="res://Sprites/Projectiles/BulletBill.png" id="2_4kid0"]
+[ext_resource type="Script" uid="uid://dpgyb1jn6yi8f" path="res://Scripts/Projectiles/Spikes/Spikes.gd" id="1_hng0q"]
+[ext_resource type="Texture2D" uid="uid://delk06uykacml" path="res://Sprites/Projectiles/Spikes.png" id="2_hng0q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s4vx5"]
 size = Vector2(11.184727, 10.72679)
 
-[node name="BulletBill" type="Area2D" unique_id=556323487 node_paths=PackedStringArray("sprite")]
-scale = Vector2(0.35763055, 0.37289813)
-script = ExtResource("1_4kid0")
+[node name="Projectile" type="Area2D" unique_id=556323487 node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_hng0q")
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=982515366]
 texture_filter = 1
-texture = ExtResource("2_4kid0")
+texture = ExtResource("2_hng0q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1641102814]
+rotation = 0.006453632
 shape = SubResource("RectangleShape2D_s4vx5")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

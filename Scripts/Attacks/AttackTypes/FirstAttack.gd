@@ -12,13 +12,12 @@ var platformer
 var banderBalls = []
 
 var twPlatformY:Tween
+
+var platformer2
 func StartAttack():
 	super._ready()
 	super.StartAttack()
-	#var band = load("res://Prefabs/BanderBlaster/bander_blaster.tscn").instantiate()
-	#add_child(band)
-	#band.scale = Vector2(0.3,0.3)
-	#band.position = Vector2(300,350)
+	#fightHandler.enemy.PlayDialogue(["let's get to the fight"])
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
 	await get_tree().create_timer(0.5).timeout
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
@@ -46,6 +45,7 @@ func StartAttack():
 	TweenUtils.tweenCustom(self,lava.global_position.y,900,0.9,TweenUtils.Ease.InSine,func(val):
 		lava.global_position.y = val)
 	await get_tree().create_timer(0.7).timeout
+	platformer.get_node("CollisionShape2D").disabled = true
 	TweenUtils.tweenRotation(platformer,70,0.3,TweenUtils.Ease.OutCirc)
 	await get_tree().create_timer(0.5).timeout
 	platformer.sync_to_physics = false
@@ -57,7 +57,22 @@ func StartAttack():
 	await get_tree().create_timer(0.4).timeout
 	SpawnBanderBall()
 	await get_tree().create_timer(3).timeout
-	#bulletBillHol.bulBill.scale = Vector2(1.5)
+	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
+	SpawnBanderBlast(3,Vector2(200,fightHandler.soul.position.y),Vector2(0.4,0.4),0)
+	SpawnBanderBlast(2,Vector2(fightHandler.soul.position.x,200),Vector2(0.4,0.4),90)
+	await get_tree().create_timer(1).timeout
+	SpawnBanderBlast(3,Vector2(200,fightHandler.soul.position.y),Vector2(0.4,0.4),0)
+	SpawnBanderBlast(2,Vector2(fightHandler.soul.position.x,200),Vector2(0.4,0.4),90)
+	await get_tree().create_timer(1.5).timeout
+	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
+	rech = false
+	fightHandler.soul.velocity.y = 800
+	SpawnBanderBlast(2,Vector2(500,350),Vector2(-0.5,0.5),0,1.3)
+	await get_tree().create_timer(0.8).timeout
+	PreparePlatform2()
+	await get_tree().create_timer(1.4).timeout
+	Engine.time_scale = 1
+	fightHandler.enemy.PlayDialogue(["Dayum Boi"])
 	pass
 
 var rech:bool = false
@@ -67,7 +82,7 @@ var platfMustFall = false
 
 var gravPlatf:float = -400
 func _process(delta: float) -> void:
-	if (fightHandler.soul.position.y+15 > fightHandler.box.GetDownCorner() && !rech):
+	if (fightHandler.soul.position.y + 15 > fightHandler.box.GetDownCorner() && !rech):
 		TweenUtils.tweenShake(fightHandler.camera,5,15,0.2,TweenUtils.Ease.linear)
 		GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Impact.wav")
 		rech = true
@@ -108,6 +123,13 @@ func PreparePlatform():
 	TweenUtils.tweenX(platformer,320,0.3,TweenUtils.Ease.OutCirc)
 	add_child(platformer)
 
+func PreparePlatform2():
+	platformer2 = load("res://Scripts/Projectiles/Platformer/platformer.tscn").instantiate()
+	platformer2.position = Vector2(270,600.0)
+	platformer2.scale = Vector2(1.5,1.5)
+	TweenUtils.tweenY(platformer2,295,0.3,TweenUtils.Ease.OutCirc)
+	add_child(platformer2)
+
 func PrepareLava():
 	lava = load("res://Scripts/Projectiles/Lava/Lava.tscn").instantiate()
 	fightHandler.box.clipOnly.add_child(lava)
@@ -137,3 +159,15 @@ func SpawnBanderBall():
 	banderBall.gravit = true
 	banderBall.gravPow = 900
 	banderBalls.append(banderBall)
+
+func SpawnBanderBlast(dist:float,pos:Vector2,scal:Vector2,rot:float = 0, dur:float = 0.8):
+	var band = load("res://Prefabs/BanderBlaster/bander_blaster.tscn").instantiate()
+	band.blastDistance = dist
+	add_child(band)
+	band.scale = scal
+	band.position = pos
+	band.rotation_degrees = rot
+	band.timeDuration = dur
+
+func EndTurn(): #just override on first attack
+	pass

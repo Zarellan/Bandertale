@@ -33,7 +33,7 @@ func GotAttacked():
 	tw.finished.connect(func():
 		await get_tree().create_timer(0.2).timeout
 		TweenUtils.tweenX(get_node("Sprite2D"),0,0.6,TweenUtils.Ease.InSine))
-
+	fightHandler.fighted = true
 var indexDialogue = 0
 var dialogueArr
 func PlayDialogue(textStr:Array):

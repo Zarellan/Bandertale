@@ -2,7 +2,7 @@ extends Buttons
 class_name Act
 
 var isAct:bool = false
-var arrActs:Array = ["check", "world", "yeah"]
+var arrActs:Array = ["check", "mock"]
 var arrActsDesc:Array = ["ATK 12 DEF 5\n neyh heh heh heh heh", "world", "yeah"]
 var indexX:int = 0
 var indexY:int = 0
