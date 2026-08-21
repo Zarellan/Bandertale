@@ -10,17 +10,16 @@ var hittedBill = false
 var grav = false
 var gr = 1000
 @export var sprite:Sprite2D
+@export var toJump:Node2D
 func _ready() -> void:
 	fightHandler = get_tree().get_first_node_in_group("FightHandler")
 	set_process(false)
 
-var intervalTime:float = 0.010
-var timePassed:float = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if isTouching && !hittedBill:
-		if (fightHandler.soul.position.y < position.y - 6 && fightHandler.soul.velocity.y > 2):
+		if (fightHandler.soul.global_position.y < toJump.global_position.y && fightHandler.soul.velocity.y > 2):
 			if (Input.is_action_pressed("jump")):
 				fightHandler.soul.velocity.y = -400
 			else:
@@ -31,13 +30,9 @@ func _process(delta: float) -> void:
 			grav = true
 			hittedBill = true
 			GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/kickkill.wav",5)
-		if (fightHandler.soul.position.y < position.y - 6):
+		if (fightHandler.soul.global_position.y < toJump.global_position.y):
 			return
-		if timePassed > intervalTime:
-			fightHandler.DamageSoul(5)
-			timePassed = 0
-		else:
-			timePassed += delta
+		fightHandler.DamageSoul(5,0.01)
 		
 	pass
 

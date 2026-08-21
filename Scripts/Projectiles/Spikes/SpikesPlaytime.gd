@@ -1,9 +1,11 @@
 extends Area2D
+class_name SpikesPlaytime
 
 var isTouching:bool = false
 var fightHandler:FightHandler
 
 @export var sprite:Sprite2D
+static var gotHit:bool = false
 func _ready() -> void:
 	fightHandler = get_tree().get_first_node_in_group("FightHandler")
 	set_process(false)
@@ -11,7 +13,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if isTouching:
-		fightHandler.DamageSoul(3,0.01)
+		if (fightHandler.DamageSoul(0,0)): # hardcode: check if it can deflect damage and avoid race condition
+			gotHit = fightHandler.DamageSoul(40,1)
 	pass
 
 

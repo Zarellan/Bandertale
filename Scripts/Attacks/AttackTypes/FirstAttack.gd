@@ -20,8 +20,10 @@ func StartAttack():
 	#fightHandler.enemy.PlayDialogue(["let's get to the fight"])
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
 	await get_tree().create_timer(0.5).timeout
-	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
-	fightHandler.soul.velocity.y = 800
+	fightHandler.enemy.anim.play("ThrowDown")
+	#await get_tree().create_timer(0.1).timeout
+	#fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
+	#fightHandler.soul.CrushSoulDirection(0)
 	var warningS = load("res://Prefabs/warningSign/WarningSign.tscn").instantiate()
 	add_child(warningS)
 	warningS.position = Vector2(324,338)
@@ -47,7 +49,9 @@ func StartAttack():
 	await get_tree().create_timer(0.7).timeout
 	platformer.get_node("CollisionShape2D").disabled = true
 	TweenUtils.tweenRotation(platformer,70,0.3,TweenUtils.Ease.OutCirc)
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.4).timeout
+	fightHandler.enemy.anim.play("ThrowLeftOv")
+	await get_tree().create_timer(0.1).timeout
 	platformer.sync_to_physics = false
 	TweenUtils.tweenX(platformer,160,0.3,TweenUtils.Ease.OutCirc)
 	TweenUtils.tweenRotation(platformer,0,0.3,TweenUtils.Ease.OutCirc)
@@ -65,8 +69,7 @@ func StartAttack():
 	SpawnBanderBlast(2,Vector2(fightHandler.soul.position.x,200),Vector2(0.4,0.4),90)
 	await get_tree().create_timer(1.5).timeout
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
-	rech = false
-	fightHandler.soul.velocity.y = 800
+	fightHandler.soul.CrushSoulDirection(0)
 	SpawnBanderBlast(2,Vector2(500,350),Vector2(-0.5,0.5),0,1.3)
 	await get_tree().create_timer(0.8).timeout
 	PreparePlatform2()
@@ -75,17 +78,12 @@ func StartAttack():
 	fightHandler.enemy.PlayDialogue(["Dayum Boi"])
 	pass
 
-var rech:bool = false
 var indPlatfDur = 0
 
 var platfMustFall = false
 
 var gravPlatf:float = -400
 func _process(delta: float) -> void:
-	if (fightHandler.soul.position.y + 15 > fightHandler.box.GetDownCorner() && !rech):
-		TweenUtils.tweenShake(fightHandler.camera,5,15,0.2,TweenUtils.Ease.linear)
-		GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Impact.wav")
-		rech = true
 	for i in range(banderBalls.size()):
 		if (!banderBalls[i].reachedPlatf):
 			if (is_instance_valid(platformer) && banderBalls[i].position.y + 85 >= platformer.position.y):

@@ -9,7 +9,10 @@ var fightSystemHandle = [
 	
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack2.gd",
 	"BoxDialogue":"dodged att2",
-	"enemyToPlayDiag":["yoo"]}
+	"enemyToPlayDiag":["yoo"]},
+	{"attack":"res://Scripts/Attacks/AttackTypes/Attack3.gd",
+	"BoxDialogue":"dodged att3",
+	"enemyToPlayDiag":["uuuuuh"]}
 ]
 var enemyDialogueToPlay = [""]
 @export var enemy:Enemy
@@ -55,7 +58,7 @@ func _ready() -> void:
 	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
-	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack2.gd")
+	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack3.gd")
 	#Engine.time_scale = 40
 	Engine.max_fps = 60
 	undye = false
@@ -64,6 +67,7 @@ func _ready() -> void:
 
 
 @export var textDig:TextAdv
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if (isMain):
@@ -77,6 +81,8 @@ func _process(_delta: float) -> void:
 			textDig.ForceFinish()
 	ActProcess()
 	ItemProcess()
+	if (cooldownDamage > -0.2):
+		cooldownDamage -= _delta
 	pass
 
 func SetTurn(shouldAttack):
@@ -128,9 +134,8 @@ func MainChoices(inc:int):
 var st = "res://Scripts/Attacks/AttackTypes/AttackTest.gd"
 var att = false
 func EnemyDialogueStart(): #always start when ending player turn
-	if (fighted):
-		if (att):
-			turns += 1
+	if (fighted && att):
+		turns += 1
 	att = true
 	attackData = load(fightSystemHandle[turns]["attack"]).new() as Attacks
 	attackData.fightHandler = self
@@ -156,6 +161,7 @@ func EnemyDialogueEnd():
 		textDig.startDialogue(fightSystemHandle[turns]["BoxDialogue"],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 		EndDefense(false)
 		firstAttackSpec = true
+		enemy.anim.play("Idle")
 		#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/deltarune megalovania.ogg")
 	else:
 		StartAttacking()
@@ -252,6 +258,9 @@ func BattleDialogueEncounter(st:Array):
 	soul.visible = false
 
 func BoxDialogueArrayCheck():
+	if (diagTemp.is_empty()):
+		EnemyDialogueStart()
+		return true
 	if (diagTemp.size()-1 <= indexDial):
 		EnemyDialogueStart()
 		return true
@@ -273,16 +282,24 @@ func HealSoul(healValue:int):
 	if (healValue != 0):
 		GlobalAudio.PlayOneShot("res://Sounds/Fight/Heal.wav",0)
 
-func DamageSoul(damageValue:int):
+var cooldownDamage = 0
+var damageAudio:AudioStreamPlayer
+func DamageSoul(damageValue:int,cooldownDam:float = 0.05):
 	if (undye):
-		return
+		return false
+	if (cooldownDamage > 0.0):
+		return false
 	health = max(health-damageValue,0)
 	healthBar.value = health
 	healthText.text = str(health) + "/" + str(maxHealth)
+	cooldownDamage = cooldownDam
 	if (damageValue != 0):
-		GlobalAudio.PlayOneShot("res://Sounds/Fight/Hurt.wav",-3)
+		if (is_instance_valid(damageAudio) && damageAudio.playing): # avoid overlap audio damage
+			damageAudio.stop()
+		damageAudio = GlobalAudio.PlayOneShot("res://Sounds/Fight/Hurt.wav",-3)
 	if (health <= 0):
 		GameOver()
+	return true
 func GameOver():
 	get_tree().paused = true
 	GameOverScript.heartPos = soul.position

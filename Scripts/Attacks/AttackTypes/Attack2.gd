@@ -50,11 +50,12 @@ func CreateSpikeCol():
 		spikeArr.append(spike)
 
 func SpawnBill():
-		var bill = load("res://Scripts/Projectiles/BulletBill/BulletBill.tscn").instantiate()
-		add_child(bill)
-		bill.position = Vector2(800,randf_range(300,310))
-		bill.scale = Vector2(1.8,1.8)
-		bill.movPlace = Vector2(-280,0)
+	var bill = load("res://Scripts/Projectiles/BulletBill/BulletBill.tscn").instantiate()
+	add_child(bill)
+	bill.position = Vector2(800,randf_range(300,310))
+	bill.scale = Vector2(1.8,1.8)
+	bill.movPlace = Vector2(-280,0)
+	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Bill/billfire.wav",0)
 
 func EndTurn():
 	for i in range(spikeArr.size()):

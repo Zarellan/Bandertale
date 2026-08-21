@@ -2,6 +2,7 @@ extends Node2D
 class_name Enemy
 
 @export var bubblePrefab:PackedScene
+@export var anim:AnimationPlayer
 var fightHandler:FightHandler
 var enemyName:String = "Bander"
 var enemyHealth:int = 1
@@ -29,10 +30,10 @@ func _process(_delta: float) -> void:
 
 var tw:Tween
 func GotAttacked():
-	tw = TweenUtils.tweenX(get_node("Sprite2D"),-120,0.6,TweenUtils.Ease.OutCirc)
+	tw = TweenUtils.tweenX(self,-120,0.6,TweenUtils.Ease.OutCirc)
 	tw.finished.connect(func():
 		await get_tree().create_timer(0.2).timeout
-		TweenUtils.tweenX(get_node("Sprite2D"),0,0.6,TweenUtils.Ease.InSine))
+		TweenUtils.tweenX(self,0,0.6,TweenUtils.Ease.InSine))
 	fightHandler.fighted = true
 var indexDialogue = 0
 var dialogueArr

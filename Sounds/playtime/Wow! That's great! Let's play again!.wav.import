@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dnw8kie8v2ejk"
+path="res://.godot/imported/Wow! That's great! Let's play again!.wav-9fa864b80cdae07df2bc7557eb877995.sample"
+
+[deps]
+
+source_file="res://Sounds/playtime/Wow! That's great! Let's play again!.wav"
+dest_files=["res://.godot/imported/Wow! That's great! Let's play again!.wav-9fa864b80cdae07df2bc7557eb877995.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

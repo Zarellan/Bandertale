@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://didr1tssmaxo7"]
+
+[ext_resource type="Script" uid="uid://d3d7a3ro8rdtv" path="res://Scripts/Projectiles/Spikes/SpikesPlaytime.gd" id="1_28ia2"]
+[ext_resource type="Texture2D" uid="uid://delk06uykacml" path="res://Sprites/Projectiles/Spikes.png" id="2_n2evc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4vx5"]
+size = Vector2(11.184727, 10.72679)
+
+[node name="Projectile" type="Area2D" unique_id=556323487 node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_28ia2")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=982515366]
+texture_filter = 1
+texture = ExtResource("2_n2evc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1641102814]
+rotation = 0.006453632
+shape = SubResource("RectangleShape2D_s4vx5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

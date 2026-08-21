@@ -9,6 +9,14 @@ enum SoulType
 	idle
 }
 
+enum Direction # works on blue soul only
+{
+	down,#default
+	left,
+	up,
+	right
+}
+
 @export var soulSprite:Node2D
 @export var fightHandler:FightHandler
 const SPEED = 180.0
@@ -16,11 +24,13 @@ const JUMP_VELOCITY = -400.0
 const gravityStrength = 0.8
 
 var soulType:SoulType
+var soulDirections:Direction
 
 var strictSoulBox = true
 func _physics_process(delta: float) -> void:
-	
 	SoulMovement(delta)
+	if (isCrushing):
+		CrushSoulProcess()
 
 func SoulMovement(delta):
 	match (soulType):
@@ -35,8 +45,6 @@ func SoulMovement(delta):
 
 func SoulRedMovement(_delta):
 
-	# Handle jump.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction_horz := Input.get_axis("ui_left", "ui_right")
 	var direction_vert := Input.get_axis("ui_up", "ui_down")
 	if direction_horz:
@@ -51,25 +59,128 @@ func SoulRedMovement(_delta):
 	move_and_slide()
 	pass
 
+func ChangeSoulDirection(dir:Direction):
+	soulDirections = dir
+	soulSprite.rotation_degrees = dir * 90
+	ChangeSoulType(SoulType.blue)
+
+var isCrushing = false
+func CrushSoulDirection(dir:Direction):
+	ChangeSoulDirection(dir)
+	match (dir):
+		Direction.down:velocity.y = 800
+		Direction.up:velocity.y = -800
+		Direction.left:velocity.x = -800
+		Direction.right:velocity.x = 800
+		_:
+			ChangeSoulDirection(Direction.down)
+			velocity.y = 800
+	isCrushing = true
+
+func CrushSoulProcess():
+	match (soulDirections):
+		Direction.down:
+			if (position.y + 15 > fightHandler.box.GetDownCorner()):
+				TweenUtils.tweenShake(fightHandler.camera,5,15,0.2,TweenUtils.Ease.linear)
+				GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Impact.wav")
+				isCrushing = false
+		Direction.up:
+			if (position.y - 15 < fightHandler.box.GetUpCorner()):
+				TweenUtils.tweenShake(fightHandler.camera,5,15,0.2,TweenUtils.Ease.linear)
+				GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Impact.wav")
+				isCrushing = false
+		Direction.left:
+			if (position.x - 15 < fightHandler.box.GetLeftCorner()):
+				TweenUtils.tweenShake(fightHandler.camera,5,15,0.2,TweenUtils.Ease.linear)
+				GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Impact.wav")
+				isCrushing = false
+		Direction.right:
+			if (position.x + 15 > fightHandler.box.GetRightCorner()):
+				TweenUtils.tweenShake(fightHandler.camera,5,15,0.2,TweenUtils.Ease.linear)
+				GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Impact.wav")
+				isCrushing = false
+
 func SoulBlueMovement(delta):
+	match (soulDirections):
+		Direction.down: DownBlueSoul(delta)
+		Direction.up: UpBlueSoul(delta)
+		Direction.left: LeftBlueSoul(delta)
+		Direction.right: RightBlueSoul(delta)
+	ClampSoul()
+	move_and_slide()
+
+func DownBlueSoul(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * gravityStrength * delta
 
-	# Handle jump.
-	if Input.is_action_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_pressed("ui_up") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	if (Input.is_action_just_released("ui_accept") && !is_on_floor() && velocity.y < -200):
+	if (Input.is_action_just_released("ui_up") && !is_on_floor() && velocity.y < -200):
 		velocity.y = 0
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	ClampSoul()
-	move_and_slide()
+func UpBlueSoul(delta):
+	if not is_on_ceiling():
+		velocity -= get_gravity() * gravityStrength * delta
 
+	if Input.is_action_pressed("ui_down") and is_on_ceiling():
+		velocity.y = -JUMP_VELOCITY
+	if (Input.is_action_just_released("ui_down") && !is_on_ceiling() && velocity.y > 200):
+		velocity.y = 0
+
+	var direction := Input.get_axis("ui_left", "ui_right")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+func LeftBlueSoul(delta):
+	var touchedWall = CheckWall()["left"]
+	if not touchedWall:
+		velocity.x -= 980 * gravityStrength * delta
+
+	# Handle jump.
+	if Input.is_action_pressed("ui_right") and touchedWall:
+		velocity.x = -JUMP_VELOCITY
+	if (Input.is_action_just_released("ui_right") && !touchedWall && velocity.x > 200):
+		velocity.x = 0
+
+	var direction := Input.get_axis("ui_up", "ui_down")
+	if direction:
+		velocity.y = direction * SPEED
+	else:
+		velocity.y = move_toward(velocity.y, 0, SPEED)
+func RightBlueSoul(delta):
+	var touchedWall = CheckWall()["right"]
+	if not touchedWall:
+		velocity.x += 980 * gravityStrength * delta
+
+	if Input.is_action_pressed("ui_left") and touchedWall:
+		velocity.x = JUMP_VELOCITY
+	if (Input.is_action_just_released("ui_left") && !touchedWall && velocity.x < -200):
+		velocity.x = 0
+
+	var direction := Input.get_axis("ui_up", "ui_down")
+	if direction:
+		velocity.y = direction * SPEED
+	else:
+		velocity.y = move_toward(velocity.y, 0, SPEED)
+
+
+func CheckWall():
+	var left = false
+	var right = false
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var normal = collision.get_normal()
+		if normal.x > 0.7:
+			left = true
+		elif normal.x < -0.7:
+			right = true
+	return {"left":left,"right":right}
 func ChangeSoulType(soulT:SoulType):
 	match(soulT):
 		SoulType.red:

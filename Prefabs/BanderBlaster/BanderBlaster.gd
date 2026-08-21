@@ -32,16 +32,10 @@ func _ready() -> void:
 	queue_free()
 	pass # Replace with function body.
 
-var intervalTime:float = 0.01
-var timePassed:float = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if touched && canHit:
-		if timePassed > intervalTime:
-			fightHandler.DamageSoul(3)
-			timePassed = 0
-		else:
-			timePassed += delta
+		fightHandler.DamageSoul(3,0.01)
 	if (modulate.a < 0.4):
 		canHit = false
 	pass

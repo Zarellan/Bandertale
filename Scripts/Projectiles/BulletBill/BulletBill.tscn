@@ -6,10 +6,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s4vx5"]
 size = Vector2(11.184727, 10.72679)
 
-[node name="BulletBill" type="Area2D" unique_id=556323487 node_paths=PackedStringArray("sprite")]
+[node name="BulletBill" type="Area2D" unique_id=556323487 node_paths=PackedStringArray("sprite", "toJump")]
 scale = Vector2(0.35763055, 0.37289813)
 script = ExtResource("1_4kid0")
 sprite = NodePath("Sprite2D")
+toJump = NodePath("ToJump")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=982515366]
 texture_filter = 1
@@ -17,6 +18,9 @@ texture = ExtResource("2_4kid0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1641102814]
 shape = SubResource("RectangleShape2D_s4vx5")
+
+[node name="ToJump" type="Node2D" parent="." unique_id=2077747843]
+position = Vector2(0, -3.618)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
