@@ -115,9 +115,9 @@ func diag():
 	diagTimer.finished.connect(_diag_finished)
 
 func ForceFinish():
-	if (!diagTimer.is_valid() && timerWait.is_stopped()):
+	if ((!is_instance_valid(diagTimer) || !diagTimer.is_valid()) && timerWait.is_stopped()):
 		return
-	if diagTimer and diagTimer.is_valid():
+	if is_instance_valid(diagTimer) and diagTimer.is_valid():
 		diagTimer.kill()
 	if !timerWait.is_stopped():
 		timerWait.stop()
@@ -139,9 +139,10 @@ func strippedLength(tex: String) -> int:
 	var temp = RichTextLabel.new()
 	temp.bbcode_enabled = true
 	temp.text = tex
-	return temp.get_parsed_text().length()
-	
-	
+	var le = temp.get_parsed_text().length()
+	temp.free()
+	return le
+
 var wave_active = false
 var rainbow_active = false
 
