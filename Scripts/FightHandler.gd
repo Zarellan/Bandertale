@@ -5,14 +5,18 @@ class_name FightHandler
 var fightSystemHandle = [
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack1.gd",
 	"BoxDialogue":"dodged att",
-	"enemyToPlayDiag":["let's get to the fight"]},
+	"enemyToPlayDiag":["نخش في الجلد نخش"],
+	"lang":"arabic"},
 	
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack2.gd",
 	"BoxDialogue":"dodged att2",
 	"enemyToPlayDiag":["yoo"]},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack3.gd",
 	"BoxDialogue":"dodged att3",
-	"enemyToPlayDiag":["uuuuuh"]}
+	"enemyToPlayDiag":["uuuuuh"]},
+	{"attack":"res://Scripts/Attacks/AttackTypes/Attack4.gd",
+	"BoxDialogue":"dodged att4",
+	"enemyToPlayDiag":["uuuuuh2"]},
 ]
 var enemyDialogueToPlay = [""]
 @export var enemy:Enemy
@@ -151,8 +155,8 @@ func EnemyDialogueStart(): #always start when ending player turn
 	if (fighted):
 		enemyDialogueToPlay = fightSystemHandle[turns]["enemyToPlayDiag"]
 		fighted = false
-	enemy.PlayDialogue(enemyDialogueToPlay)
-	
+	enemy.PlayDialogue(enemyDialogueToPlay, fightSystemHandle[turns].get("lang", "english"))
+	enemyDialogueToPlay = []
 	#enemy.PlayDialogue("tames blaster")
 
 func EnemyDialogueEnd():
@@ -162,7 +166,7 @@ func EnemyDialogueEnd():
 		EndDefense(false)
 		firstAttackSpec = true
 		enemy.anim.play("Idle")
-		#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/deltarune megalovania.ogg")
+		GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/deltarune megalovania.ogg")
 	else:
 		StartAttacking()
 

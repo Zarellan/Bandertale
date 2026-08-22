@@ -14,13 +14,15 @@ var fightHandler:FightHandler
 
 var blastDistance = 0.2
 var timeDuration = 0.8
+var whenStart = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	fightHandler = get_tree().get_first_node_in_group("FightHandler")
 	TweenUtils.tweenX(sprite,-blastDistance*100.0,0.3,TweenUtils.Ease.OutCirc)
 	TweenUtils.tweenRotation(sprite,0,0.3,TweenUtils.Ease.OutCirc)
 	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/gasterblaster/blast1.wav")
-	await get_tree().create_timer(1).timeout
+	whenStart = clamp(whenStart,0.3,4)
+	await get_tree().create_timer(whenStart).timeout
 	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/gasterblaster/blast2.wav")
 	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/gasterblaster/blast4.ogg")
 	BlastStart()

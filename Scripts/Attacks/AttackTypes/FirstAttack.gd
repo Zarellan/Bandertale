@@ -69,12 +69,13 @@ func StartAttack():
 	SpawnBanderBlast(2,Vector2(fightHandler.soul.position.x,200),Vector2(0.4,0.4),90)
 	await get_tree().create_timer(1.5).timeout
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
-	fightHandler.soul.CrushSoulDirection(0)
+	fightHandler.enemy.anim.play("ThrowDown")
 	SpawnBanderBlast(2,Vector2(500,350),Vector2(-0.5,0.5),0,1.3)
 	await get_tree().create_timer(0.8).timeout
 	PreparePlatform2()
 	await get_tree().create_timer(1.4).timeout
 	Engine.time_scale = 1
+	fightHandler.enemy.anim.play("Stop")
 	fightHandler.enemy.PlayDialogue(["Dayum Boi"])
 	pass
 

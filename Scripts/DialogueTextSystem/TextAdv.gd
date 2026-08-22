@@ -43,7 +43,7 @@ func _process(_delta: float) -> void:
 	#print($".".maxLength)
 	pass
 
-func startDialogue(textChr, sped = 0.06, audioT = "", volDBDiag = 0):
+func startDialogue(textChr, sped = 0.06, audioT = "", volDBDiag = 0, lang = "english"):
 	$".".text = textChr
 	if diagTimer and diagTimer.is_valid():
 		diagTimer.kill()
@@ -58,6 +58,12 @@ func startDialogue(textChr, sped = 0.06, audioT = "", volDBDiag = 0):
 	bBCodeText = textChr
 	audioType = audioT
 	volumeDialogueDB = volDBDiag
+	if (lang == "english"):
+		horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		add_theme_font_override("normal_font", load("res://Fonts/DeterminationMonoWebRegular-Z5oq.ttf"))
+	elif (lang == "arabic"):
+		horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		add_theme_font_override("normal_font", load("res://Fonts/PixelAE-Regular.ttf"))
 	RemoveBBCodes()
 	reach = 0
 	incIgnoreBBC = 0

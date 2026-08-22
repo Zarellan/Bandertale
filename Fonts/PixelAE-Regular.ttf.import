@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dlf856gr7tqic"
-path="res://.godot/imported/DeterminationSansWebRegular-369X.ttf-1807ebab262b7a45e74f5c638833a5a7.fontdata"
+uid="uid://dg54d04brkmi1"
+path="res://.godot/imported/PixelAE-Regular.ttf-f1212cbe72d8120da4368838d9a0412e.fontdata"
 
 [deps]
 
-source_file="res://Fonts/DeterminationSansWebRegular-369X.ttf"
-dest_files=["res://.godot/imported/DeterminationSansWebRegular-369X.ttf-1807ebab262b7a45e74f5c638833a5a7.fontdata"]
+source_file="res://Fonts/PixelAE-Regular.ttf"
+dest_files=["res://.godot/imported/PixelAE-Regular.ttf-f1212cbe72d8120da4368838d9a0412e.fontdata"]
 
 [params]
 

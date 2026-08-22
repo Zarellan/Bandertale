@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://d30kd86bkfuca" path="res://Sprites/FightUI/Attack/AttackPanel.png" id="22_og43d"]
 [ext_resource type="Texture2D" uid="uid://8bqymps8hfte" path="res://Sprites/FightUI/Attack/panel1.png" id="23_6fwmn"]
 [ext_resource type="Texture2D" uid="uid://ce8rs25wu0avh" path="res://Sprites/test/papyrus-image.png" id="23_l62jt"]
+[ext_resource type="Texture2D" uid="uid://c3qylwl6guakh" path="res://Sprites/BanderHead/BanderMoon.png" id="24_2tuw3"]
 [ext_resource type="Texture2D" uid="uid://bdb2nkh0l6if" path="res://Sprites/FightUI/Attack/SlashingAnimation/Slash.png" id="24_fpl58"]
 [ext_resource type="Texture2D" uid="uid://bciwj75tku38q" path="res://Sprites/FightUI/Attack/panel2.png" id="24_pa3o0"]
 [ext_resource type="Texture2D" uid="uid://x44cmvg7ou4o" path="res://Sprites/SansBody/SansBod.png" id="24_s4vx5"]
@@ -42,7 +43,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:position")
+tracks/0/path = NodePath("SpriteHolder/Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -54,7 +55,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Legs:visible")
+tracks/1/path = NodePath("SpriteHolder/Legs:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -66,7 +67,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body:visible")
+tracks/2/path = NodePath("SpriteHolder/Body:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -78,7 +79,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("WholeBody:visible")
+tracks/3/path = NodePath("SpriteHolder/WholeBody:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -87,13 +88,25 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SpriteHolder/Head:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.16666667, 0.23333335, 0.33333334, 0.40000004, 0.5, 0.6, 0.70000005, 0.73333335, 0.8333333, 0.90000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-1.1869438, -48.07122), Vector2(-1.1869438, -48.664696), Vector2(-1.7804191, -48.664696), Vector2(-2.4651957, -48.573395), Vector2(-2.4651957, -47.97992), Vector2(-1.8717356, -47.97992), Vector2(-1.2782602, -48.573395), Vector2(-0.6847849, -49.166862), Vector2(-0.09130955, -49.76033), Vector2(-0.09130955, -49.76033), Vector2(-0.09130955, -49.166862), Vector2(-0.6847849, -48.573395)]
+}
 
 [sub_resource type="Animation" id="Animation_mefb2"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:position")
+tracks/0/path = NodePath("SpriteHolder/Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -105,7 +118,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Sprite2D:region_rect")
+tracks/1/path = NodePath("SpriteHolder/Body/Sprite2D:region_rect")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -117,7 +130,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Legs:visible")
+tracks/2/path = NodePath("SpriteHolder/Legs:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -129,7 +142,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Body:visible")
+tracks/3/path = NodePath("SpriteHolder/Body:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -141,7 +154,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("WholeBody:visible")
+tracks/4/path = NodePath("SpriteHolder/WholeBody:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -153,7 +166,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("WholeBody/Sprite2D:region_rect")
+tracks/5/path = NodePath("SpriteHolder/WholeBody/Sprite2D:region_rect")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -165,7 +178,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("WholeBody/Sprite2D:position")
+tracks/6/path = NodePath("SpriteHolder/WholeBody/Sprite2D:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -174,28 +187,26 @@ tracks/6/keys = {
 "update": 0,
 "values": [Vector2(16.023735, -17.210686)]
 }
-
-[sub_resource type="Animation" id="Animation_8gr2a"]
-resource_name = "Stop"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SpriteHolder/Head:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-0.5934718, -18.991102)]
+"values": [Vector2(-1.1869438, -48.07122)]
 }
 
-[sub_resource type="Animation" id="Animation_f3nq2"]
-resource_name = "ThrowDown"
+[sub_resource type="Animation" id="Animation_8gr2a"]
+resource_name = "Stop"
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:position")
+tracks/0/path = NodePath("SpriteHolder/Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -207,7 +218,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Sprite2D:region_rect")
+tracks/1/path = NodePath("SpriteHolder/Body/Sprite2D:region_rect")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -219,7 +230,106 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body:visible")
+tracks/2/path = NodePath("SpriteHolder/Legs:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpriteHolder/Body:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SpriteHolder/WholeBody:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SpriteHolder/WholeBody/Sprite2D:region_rect")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(74, 198, 64, 73)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SpriteHolder/WholeBody/Sprite2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16.023735, -17.210686)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SpriteHolder/Head:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.1869438, -48.07122)]
+}
+
+[sub_resource type="Animation" id="Animation_f3nq2"]
+resource_name = "ThrowDown"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.5934718, -18.991102)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteHolder/Body/Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(5, 23, 72, 35)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpriteHolder/Body:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -231,7 +341,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Legs:visible")
+tracks/3/path = NodePath("SpriteHolder/Legs:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -243,7 +353,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("WholeBody:visible")
+tracks/4/path = NodePath("SpriteHolder/WholeBody:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -255,7 +365,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("WholeBody/Sprite2D:region_rect")
+tracks/5/path = NodePath("SpriteHolder/WholeBody/Sprite2D:region_rect")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -281,7 +391,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("WholeBody/Sprite2D:position")
+tracks/7/path = NodePath("SpriteHolder/WholeBody/Sprite2D:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -290,13 +400,25 @@ tracks/7/keys = {
 "update": 1,
 "values": [Vector2(1.1869437, -21.958458)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SpriteHolder/Head:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.20000002, 0.26666668, 0.3, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-1.2782602, -47.97992), Vector2(-1.2782602, -48.573395), Vector2(-1.2782602, -47.38645), Vector2(-1.2782602, -43.232155), Vector2(-1.2782602, -42.638687), Vector2(-1.2782602, -43.232155), Vector2(-1.2782602, -43.82563)]
+}
 
 [sub_resource type="Animation" id="Animation_r4oxr"]
 resource_name = "ThrowLeft"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:position")
+tracks/0/path = NodePath("SpriteHolder/Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -308,7 +430,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Sprite2D:region_rect")
+tracks/1/path = NodePath("SpriteHolder/Body/Sprite2D:region_rect")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -320,7 +442,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body:visible")
+tracks/2/path = NodePath("SpriteHolder/Body:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -332,7 +454,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Legs:visible")
+tracks/3/path = NodePath("SpriteHolder/Legs:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -344,7 +466,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("WholeBody:visible")
+tracks/4/path = NodePath("SpriteHolder/WholeBody:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -356,7 +478,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("WholeBody/Sprite2D:region_rect")
+tracks/5/path = NodePath("SpriteHolder/WholeBody/Sprite2D:region_rect")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -382,7 +504,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("WholeBody/Sprite2D:position")
+tracks/7/path = NodePath("SpriteHolder/WholeBody/Sprite2D:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -390,6 +512,18 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(13.649849, -8.902084)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SpriteHolder/Head:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.20000002, 0.26666668, 0.3, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-0.6847849, -47.97992), Vector2(2.2825766, -47.97992), Vector2(-7.806443, -47.97992), Vector2(-4.839082, -47.97992), Vector2(-3.6521463, -47.97992), Vector2(-1.2782602, -47.97992)]
 }
 
 [sub_resource type="Animation" id="Animation_thpk4"]
@@ -397,7 +531,7 @@ resource_name = "ThrowLeftOv"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:position")
+tracks/0/path = NodePath("SpriteHolder/Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -409,7 +543,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Sprite2D:region_rect")
+tracks/1/path = NodePath("SpriteHolder/Body/Sprite2D:region_rect")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -421,7 +555,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body:visible")
+tracks/2/path = NodePath("SpriteHolder/Body:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -433,7 +567,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Legs:visible")
+tracks/3/path = NodePath("SpriteHolder/Legs:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -445,7 +579,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("WholeBody:visible")
+tracks/4/path = NodePath("SpriteHolder/WholeBody:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -457,7 +591,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("WholeBody/Sprite2D:region_rect")
+tracks/5/path = NodePath("SpriteHolder/WholeBody/Sprite2D:region_rect")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -469,7 +603,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("WholeBody/Sprite2D:position")
+tracks/6/path = NodePath("SpriteHolder/WholeBody/Sprite2D:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -478,13 +612,25 @@ tracks/6/keys = {
 "update": 0,
 "values": [Vector2(13.649849, -8.902084)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SpriteHolder/Head:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.20000002, 0.26666668, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-0.6847849, -47.97992), Vector2(2.2825766, -47.97992), Vector2(-7.806443, -47.97992), Vector2(-4.839082, -47.97992), Vector2(-1.8717356, -47.97992)]
+}
 
 [sub_resource type="Animation" id="Animation_spp1u"]
 resource_name = "ThrowRight"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:position")
+tracks/0/path = NodePath("SpriteHolder/Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -496,7 +642,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Sprite2D:region_rect")
+tracks/1/path = NodePath("SpriteHolder/Body/Sprite2D:region_rect")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -508,7 +654,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body:visible")
+tracks/2/path = NodePath("SpriteHolder/Body:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -520,7 +666,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Legs:visible")
+tracks/3/path = NodePath("SpriteHolder/Legs:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -532,7 +678,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("WholeBody:visible")
+tracks/4/path = NodePath("SpriteHolder/WholeBody:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -544,7 +690,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("WholeBody/Sprite2D:region_rect")
+tracks/5/path = NodePath("SpriteHolder/WholeBody/Sprite2D:region_rect")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -570,7 +716,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("WholeBody/Sprite2D:position")
+tracks/7/path = NodePath("SpriteHolder/WholeBody/Sprite2D:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -579,13 +725,25 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector2(13.649849, -8.902084)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SpriteHolder/Head:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.20000002, 0.26666668, 0.3, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-1.2782602, -47.97992), Vector2(-3.6521463, -47.97992), Vector2(-4.839082, -47.97992), Vector2(4.0629873, -47.97992), Vector2(2.2825766, -47.97992), Vector2(0.50215054, -47.97992), Vector2(-0.6847849, -47.97992)]
+}
 
 [sub_resource type="Animation" id="Animation_un78r"]
 resource_name = "ThrowRightOv"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:position")
+tracks/0/path = NodePath("SpriteHolder/Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -597,7 +755,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Sprite2D:region_rect")
+tracks/1/path = NodePath("SpriteHolder/Body/Sprite2D:region_rect")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -609,7 +767,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body:visible")
+tracks/2/path = NodePath("SpriteHolder/Body:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -621,7 +779,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Legs:visible")
+tracks/3/path = NodePath("SpriteHolder/Legs:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -633,7 +791,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("WholeBody:visible")
+tracks/4/path = NodePath("SpriteHolder/WholeBody:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -645,7 +803,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("WholeBody/Sprite2D:region_rect")
+tracks/5/path = NodePath("SpriteHolder/WholeBody/Sprite2D:region_rect")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -657,7 +815,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("WholeBody/Sprite2D:position")
+tracks/6/path = NodePath("SpriteHolder/WholeBody/Sprite2D:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -952,35 +1110,40 @@ script = ExtResource("21_dmwlm")
 bubblePrefab = ExtResource("26_ur07v")
 anim = NodePath("EnemyAnim")
 
-[node name="Sprite2D" type="Sprite2D" parent="Enemy" unique_id=1161874474]
-visible = false
-position = Vector2(0, -49.495)
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("23_l62jt")
+[node name="SpriteHolder" type="Node2D" parent="Enemy" unique_id=2012821131]
+position = Vector2(1.7804153, -4.154299)
+scale = Vector2(1.185, 1.185)
 
-[node name="Legs" type="Node2D" parent="Enemy" unique_id=1272421589]
-position = Vector2(0, -3.8146973e-06)
+[node name="Legs" type="Node2D" parent="Enemy/SpriteHolder" unique_id=1272421589]
 
-[node name="Sprite2D" type="Sprite2D" parent="Enemy/Legs" unique_id=1452774306]
+[node name="Sprite2D" type="Sprite2D" parent="Enemy/SpriteHolder/Legs" unique_id=1452774306]
 texture_filter = 1
 texture = ExtResource("24_s4vx5")
 region_enabled = true
 region_rect = Rect2(5, 81, 44, 23)
 
-[node name="Body" type="Node2D" parent="Enemy" unique_id=1320854370]
+[node name="Body" type="Node2D" parent="Enemy/SpriteHolder" unique_id=1320854370]
 position = Vector2(-0.5934718, -18.991102)
 
-[node name="Sprite2D" type="Sprite2D" parent="Enemy/Body" unique_id=662480269]
+[node name="Sprite2D" type="Sprite2D" parent="Enemy/SpriteHolder/Body" unique_id=662480269]
 texture_filter = 1
 texture = ExtResource("24_s4vx5")
 region_enabled = true
 region_rect = Rect2(5, 23, 72, 35)
 
-[node name="WholeBody" type="Node2D" parent="Enemy" unique_id=65579390]
+[node name="Head" type="Node2D" parent="Enemy/SpriteHolder" unique_id=499385011]
+position = Vector2(-1.1869438, -48.07122)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy/SpriteHolder/Head" unique_id=847439823]
+position = Vector2(0, -0.5934718)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("24_2tuw3")
+
+[node name="WholeBody" type="Node2D" parent="Enemy/SpriteHolder" unique_id=65579390]
 visible = false
 position = Vector2(0.59347534, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Enemy/WholeBody" unique_id=1932398232]
+[node name="Sprite2D" type="Sprite2D" parent="Enemy/SpriteHolder/WholeBody" unique_id=1932398232]
 z_index = -1
 texture_filter = 1
 position = Vector2(16.023735, -17.210686)
@@ -988,9 +1151,14 @@ texture = ExtResource("24_s4vx5")
 region_enabled = true
 region_rect = Rect2(74, 198, 64, 73)
 
+[node name="Sprite2D" type="Sprite2D" parent="Enemy" unique_id=1161874474]
+visible = false
+position = Vector2(0, -49.495)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("23_l62jt")
+
 [node name="EnemyAnim" type="AnimationPlayer" parent="Enemy" unique_id=1234343011]
 libraries/ = SubResource("AnimationLibrary_mefb2")
-autoplay = &"Stop"
 
 [node name="AttackPanel" type="Sprite2D" parent="." unique_id=793912507]
 visible = false

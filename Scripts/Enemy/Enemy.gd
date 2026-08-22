@@ -6,11 +6,12 @@ class_name Enemy
 var fightHandler:FightHandler
 var enemyName:String = "Bander"
 var enemyHealth:int = 1
-var attackPlaceOffset = Vector2(0,0)
+var attackPlaceOffset = Vector2(0,-40)
 var timeWhenAttackFinished:float = 0.9
 var bubbleOffset = Vector2(150,-60)
 var enemyDialogue = false
 var diag
+var defPosX = 320.0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	fightHandler = get_tree().get_first_node_in_group("FightHandler")
@@ -30,14 +31,14 @@ func _process(_delta: float) -> void:
 
 var tw:Tween
 func GotAttacked():
-	tw = TweenUtils.tweenX(self,-120,0.6,TweenUtils.Ease.OutCirc)
+	tw = TweenUtils.tweenX(get_node("SpriteHolder"),-60,0.6,TweenUtils.Ease.OutCirc)
 	tw.finished.connect(func():
 		await get_tree().create_timer(0.2).timeout
-		TweenUtils.tweenX(self,0,0.6,TweenUtils.Ease.InSine))
+		TweenUtils.tweenX(get_node("SpriteHolder"),0,0.6,TweenUtils.Ease.InSine))
 	fightHandler.fighted = true
 var indexDialogue = 0
 var dialogueArr
-func PlayDialogue(textStr:Array):
+func PlayDialogue(textStr:Array, lang = "english"):
 	if (textStr.is_empty()):
 		fightHandler.EnemyDialogueEnd()
 		return
@@ -46,7 +47,7 @@ func PlayDialogue(textStr:Array):
 	diag = InstantiateUtil.Instantiate(bubblePrefab,null)
 	diag.position = position + bubbleOffset
 	await get_tree().process_frame
-	diag.get_node("Text").startDialogue(textStr[indexDialogue],0.06,"res://Sounds/Dialogues/Papyrus.mp3")
+	diag.get_node("Text").startDialogue(textStr[indexDialogue],0.06,"res://Sounds/Dialogues/Bander.wav",0,lang)
 	enemyDialogue = true
 	pass
 
@@ -57,5 +58,5 @@ func BoxDialogueArrayCheck():
 		return true
 	else:
 		indexDialogue += 1
-		diag.get_node("Text").startDialogue(dialogueArr[indexDialogue],0.06,"res://Sounds/Dialogues/Papyrus.mp3")
+		diag.get_node("Text").startDialogue(dialogueArr[indexDialogue],0.06,"res://Sounds/Dialogues/Bander.wav")
 		return false
