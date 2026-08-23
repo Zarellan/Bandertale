@@ -11,10 +11,12 @@ func _ready() -> void:
 
 func PrepareAttack():
 	#TweenUtils.tweenY(fightHandler.enemy,20,0.3,TweenUtils.Ease.OutCirc)
+	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/banderitax face 3.png")
 	pass
 func StartAttack():
 	super._ready()
 	super.StartAttack()
+	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/BanderMoon.png")
 	TweenUtils.tweenCustom(self,fightHandler.box.box_size,Vector2(500,300),0.3,TweenUtils.Ease.OutCirc,func(val):
 		fightHandler.box.box_size = val)
 	TweenUtils.tweenX(fightHandler.box,325.0,0.3,TweenUtils.Ease.OutCirc)

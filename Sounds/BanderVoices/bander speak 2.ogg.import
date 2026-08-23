@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://crs6hthohjhiy"
+path="res://.godot/imported/bander speak 2.ogg-6ec9ea80c874c689188289c63ebbc5d4.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/BanderVoices/bander speak 2.ogg"
+dest_files=["res://.godot/imported/bander speak 2.ogg-6ec9ea80c874c689188289c63ebbc5d4.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

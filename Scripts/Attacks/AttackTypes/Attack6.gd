@@ -4,7 +4,7 @@ extends Attacks
 var attackIndexes = 0
 
 var textToThrow = []
-var words = ["Spiteful","Dog","Stupid","[color=red]EAT","[color=green]Tames"]
+var words = ["حقود","كلب","غبي","[color=red]ابلع","[color=green]تميس"]
 var ability = ["","","","deadly","heal"]
 func _ready() -> void:
 	boxSize = Vector2(400,150)
@@ -14,10 +14,12 @@ func _ready() -> void:
 
 func PrepareAttack():
 	#TweenUtils.tweenY(fightHandler.enemy,20,0.3,TweenUtils.Ease.OutCirc)
+	
 	pass
 func StartAttack():
 	super._ready()
 	super.StartAttack()
+	fightHandler.enemy.anim.play("Stop")
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
 	while (true):
 		if (words.size() <= attackIndexes):
@@ -49,6 +51,7 @@ func ThrowText(text = "Stupid",isHeal = false,isDeadly = false):
 	add_child(ball)
 	ball.SetText(text)
 	textToThrow.append(ball)
+	GlobalAudio.PlayOneShot("res://Sounds/BanderVoices/bander speak "+str(randi_range(1,2))+".ogg",7)
 	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/BanderMoon2.png")
 	attackIndexes += 1
 	await get_tree().create_timer(0.2).timeout

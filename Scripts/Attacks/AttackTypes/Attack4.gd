@@ -12,10 +12,13 @@ func _ready() -> void:
 
 func PrepareAttack():
 	#TweenUtils.tweenY(fightHandler.enemy,20,0.3,TweenUtils.Ease.OutCirc)
+	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/bander face 4.png")
+	(fightHandler.enemy.bodySpr as Sprite2D).region_rect.position.x = 82
 	pass
 func StartAttack():
 	super._ready()
 	super.StartAttack()
+	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/BanderMoon.png")
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
 	SpawnBanderBlast(4,Vector2(165,250),Vector2(0.4,-0.4),90)
 	SpawnBanderBlast(4,Vector2(fightHandler.box.position.x,250),Vector2(0.4,-0.4),90)

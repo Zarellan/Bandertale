@@ -81,9 +81,11 @@ func RemoveCommands(): # commands to remove
 	regex_speed.compile("\\[speed\\s*,\\s*[^\\]]*\\]")
 	var regex_wait = RegEx.new()
 	regex_wait.compile("\\[wait\\s*,\\s*[^\\]]*\\]")
-
+	var regex_func = RegEx.new()
+	regex_func.compile("\\[func\\s*,\\s*[^\\]]*\\]")
 	bBCodeText = regex_speed.sub(bBCodeText, "", true)
 	bBCodeText = regex_wait.sub(bBCodeText, "", true)
+	bBCodeText = regex_func.sub(bBCodeText, "", true)
 
 func RemoveBBCodes(): # BBCodes to remove
 	var regex_open = RegEx.new()
@@ -122,6 +124,11 @@ func ForceFinish():
 	if !timerWait.is_stopped():
 		timerWait.stop()
 	paused = false
+	for i in range(0, partsNum.size()):
+		if commands[i].begins_with("wait"):
+			continue
+			
+		execute_event(commands[i])
 	visible_characters = -1
 	dialogue_finished()
 
@@ -161,7 +168,21 @@ func execute_event(command:String):
 				timerWait.stop()
 			timerWait.start(float(args[1]))
 			paused = true
-
+		"func":
+			var method_name = args[1].strip_edges()
+			var parameters = []
+			for i in range(2, args.size()):
+				parameters.append(args[i].strip_edges())
+			
+			# Search upward through parent nodes until a node has the method
+			var target = get_parent()
+			while target and not target.has_method(method_name):
+				target = target.get_parent()
+			
+			if target:
+				target.callv(method_name, parameters)
+			else:
+				print("TextAdv Warning: No parent node has method: ", method_name)
 
 
 		

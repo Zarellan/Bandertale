@@ -8,11 +8,14 @@ func _ready() -> void:
 	attackTimer = 20
 
 func PrepareAttack():
+	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/bander face 5.png")
 	#TweenUtils.tweenY(fightHandler.enemy,20,0.3,TweenUtils.Ease.OutCirc)
 	pass
 func StartAttack():
 	super._ready()
 	super.StartAttack()
+	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/BanderMoon.png")
+	(fightHandler.enemy.bodySpr as Sprite2D).region_rect.position.x = 5
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
 	await get_tree().create_timer(1).timeout
 	BanderSpawnAt()

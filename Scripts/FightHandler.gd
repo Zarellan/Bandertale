@@ -10,14 +10,22 @@ var fightSystemHandle = [
 	
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack2.gd",
 	"BoxDialogue":"dodged att2",
-	"enemyToPlayDiag":["yoo"]},
+	"enemyToPlayDiag":["يقطع ذا الوجه"],
+	"lang":"arabic"},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack3.gd",
 	"BoxDialogue":"dodged att3",
 	"enemyToPlayDiag":["uuuuuh"]},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack4.gd",
 	"BoxDialogue":"dodged att4",
+	"enemyToPlayDiag":["تميس بلاستر"," [func,ChangeBanderFace,banderitax face 3][func,ChangeBanderBody,5]او بندر بلاستر"]},
+	{"attack":"res://Scripts/Attacks/AttackTypes/Attack5.gd",
+	"BoxDialogue":"dodged att4",
+	"enemyToPlayDiag":["yep [wait,0.5] [func,ChangeBanderFace,bander face 4][func,ChangeBanderBody,82]he is dead"]},
+	{"attack":"res://Scripts/Attacks/AttackTypes/Attack6.gd",
+	"BoxDialogue":"dodged att4",
 	"enemyToPlayDiag":["uuuuuh2"]},
 ]
+
 var enemyDialogueToPlay = [""]
 @export var enemy:Enemy
 
@@ -62,11 +70,11 @@ func _ready() -> void:
 	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
-	ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack6.gd")
-	#Engine.time_scale = 40
+	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack6.gd")
+	Engine.time_scale = 40
 	Engine.max_fps = 60
-	undye = false
-	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
+	undye = true
+	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
 
@@ -344,6 +352,12 @@ func ItemActionType(st:String):
 			pressedItem = false
 			EnemyDialogueStart()
 	pass
+
+func ChangeBanderFace(faceName):
+	enemy.headSpr.texture = load("res://Sprites/BanderHead/"+faceName+".png")
+func ChangeBanderBody(regionx = 5):
+	var regionxx = int(regionx)
+	(enemy.bodySpr as Sprite2D).region_rect.position.x = regionxx
 
 func MercyAction():
 	pressedMercy = false
