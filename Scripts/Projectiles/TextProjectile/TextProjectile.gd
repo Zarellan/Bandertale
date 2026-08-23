@@ -3,32 +3,30 @@ extends Area2D
 var isTouching:bool = false
 var fightHandler:FightHandler
 
-var reachedPlatf:bool = false
-var reachedDownBox:bool = false
+@export var textLabel:RichTextLabel
+@export var collision:CollisionShape2D
 
-var mov:Vector2
-var gravit:bool = false
-var gravPow:float = 0
-var rotat:float = 0
-
-var damageT = 32
-var cooldown = 1
-
+var playerPos:Vector2
+var gotHit
+var heal = false
+var deadly = false
 func _ready() -> void:
 	fightHandler = get_tree().get_first_node_in_group("FightHandler")
 	set_process(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if isTouching:
-		fightHandler.DamageSoul(damageT,cooldown)
+		if (deadly):
+			fightHandler.DamageSoul(999999999,0.2)
+		if (!heal):
+			gotHit = fightHandler.DamageSoul(32,0.2)
+		else:
+			gotHit = fightHandler.HealSoul(30)
+	if (gotHit):
+		queue_free()
 	pass
 
-func _physics_process(delta: float) -> void:
-	position += mov * delta
-	rotation_degrees += rotat * delta
-	if (gravit):
-		mov.y += gravPow * delta
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Soul"):
@@ -36,6 +34,9 @@ func _on_body_entered(body: Node2D) -> void:
 		isTouching = true
 	pass # Replace with function body.
 
+func SetText(tex):
+	textLabel.text = tex
+	collision.shape.size = Vector2(textLabel.get_content_width(),textLabel.get_content_height())
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Soul"):

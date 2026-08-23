@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://d4bt3lliyn1ey"]
+
+[ext_resource type="Script" uid="uid://bwbesbol32p0y" path="res://Scripts/Projectiles/TextProjectile/TextProjectile.gd" id="1_rai64"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4vx5"]
+size = Vector2(132, 130)
+
+[node name="Projectile" type="Area2D" unique_id=556323487 node_paths=PackedStringArray("textLabel", "collision")]
+script = ExtResource("1_rai64")
+textLabel = NodePath("RichTextLabel")
+collision = NodePath("CollisionShape2D")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=584480208]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -65.0
+offset_right = 66.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_font_sizes/normal_font_size = 39
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1641102814]
+shape = SubResource("RectangleShape2D_s4vx5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1103,10 +1103,15 @@ text = "haaaaaa"
 script = ExtResource("19_536wp")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" type="Node2D" parent="." unique_id=544639333 node_paths=PackedStringArray("anim")]
+[node name="Enemy" type="Node2D" parent="." unique_id=544639333 node_paths=PackedStringArray("head", "headSpr", "body", "bodySpr", "legs", "anim")]
 position = Vector2(320, 205)
 scale = Vector2(1.685, 1.685)
 script = ExtResource("21_dmwlm")
+head = NodePath("SpriteHolder/Head")
+headSpr = NodePath("SpriteHolder/Head/Sprite2D")
+body = NodePath("SpriteHolder/Body")
+bodySpr = NodePath("SpriteHolder/Body/Sprite2D")
+legs = NodePath("SpriteHolder/Legs/Sprite2D")
 bubblePrefab = ExtResource("26_ur07v")
 anim = NodePath("EnemyAnim")
 
@@ -1135,8 +1140,8 @@ region_rect = Rect2(5, 23, 72, 35)
 position = Vector2(-1.1869438, -48.07122)
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy/SpriteHolder/Head" unique_id=847439823]
-position = Vector2(0, -0.5934718)
-scale = Vector2(0.09, 0.09)
+position = Vector2(0, -0.59347534)
+scale = Vector2(0.09000002, 0.09000002)
 texture = ExtResource("24_2tuw3")
 
 [node name="WholeBody" type="Node2D" parent="Enemy/SpriteHolder" unique_id=65579390]
@@ -1159,6 +1164,7 @@ texture = ExtResource("23_l62jt")
 
 [node name="EnemyAnim" type="AnimationPlayer" parent="Enemy" unique_id=1234343011]
 libraries/ = SubResource("AnimationLibrary_mefb2")
+autoplay = &"Stop"
 
 [node name="AttackPanel" type="Sprite2D" parent="." unique_id=793912507]
 visible = false
@@ -1199,6 +1205,7 @@ theme_override_font_sizes/normal_font_size = 21
 text = "HP"
 fit_content = true
 scroll_active = false
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="HPSould" unique_id=701300777]
 offset_top = -12.0
@@ -1211,6 +1218,7 @@ texture_under = ExtResource("1_8o65p")
 texture_progress = ExtResource("1_8o65p")
 tint_under = Color(0.7194535, 2.5509298e-06, 5.7756904e-07, 1)
 tint_progress = Color(0.98760897, 0.89968723, 3.080368e-06, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthText" type="RichTextLabel" parent="HPSould" unique_id=2082515725]
 offset_left = 164.0
@@ -1222,6 +1230,7 @@ text = "92/92"
 fit_content = true
 scroll_active = false
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Level" type="Node2D" parent="." unique_id=17478004]
 position = Vector2(118, 411)
@@ -1234,6 +1243,7 @@ pivot_offset_ratio = Vector2(0, 0.5)
 theme_override_font_sizes/normal_font_size = 26
 text = "LV 19"
 scroll_active = false
+metadata/_edit_use_anchors_ = true
 
 [node name="Name" type="Node2D" parent="." unique_id=711436624]
 position = Vector2(22, 411)
@@ -1247,3 +1257,4 @@ theme_override_font_sizes/normal_font_size = 26
 text = "Cream"
 fit_content = true
 scroll_active = false
+metadata/_edit_use_anchors_ = true

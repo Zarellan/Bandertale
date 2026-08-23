@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://biiqgfjgcbw2n" path="res://Sprites/Projectiles/banderMoon.png" id="2_obhnx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obhnx"]
-radius = 69.95596
+radius = 64.31218
 
 [node name="Projectile" type="Area2D" unique_id=556323487]
 scale = Vector2(0.35763055, 0.37289813)
