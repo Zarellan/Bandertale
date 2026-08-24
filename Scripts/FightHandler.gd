@@ -70,11 +70,11 @@ func _ready() -> void:
 	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
-	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack6.gd")
-	Engine.time_scale = 40
+	ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack8.gd")
+	#Engine.time_scale = 40
 	Engine.max_fps = 60
-	undye = true
-	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
+	undye = false
+	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
 
@@ -314,7 +314,7 @@ func DamageSoul(damageValue:int,cooldownDam:float = 0.05):
 	return true
 func GameOver():
 	get_tree().paused = true
-	GameOverScript.heartPos = soul.position
+	GameOverScript.heartPos = get_viewport().get_camera_2d().get_canvas_transform() * soul.global_position
 	GameOverScript.heartColor = soul.soulSprite.self_modulate
 	GlobalSoundtrack.stop()
 	await get_tree().create_timer(0.4).timeout

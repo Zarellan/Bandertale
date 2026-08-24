@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://ddwklmcv1n3d7"]
+
+[ext_resource type="Script" uid="uid://dwge0am8rox4l" path="res://Scripts/Projectiles/TextProjectileSpecial/TextProjectileSpecial.gd" id="1_oyf2t"]
+[ext_resource type="FontFile" uid="uid://dg54d04brkmi1" path="res://Fonts/PixelAE-Regular.ttf" id="2_7cupb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4vx5"]
+size = Vector2(134, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cupb"]
+size = Vector2(73, 34)
+
+[node name="Projectile" type="Area2D" unique_id=556323487 node_paths=PackedStringArray("textLabel", "collision")]
+script = ExtResource("1_oyf2t")
+textLabel = NodePath("RichTextLabel")
+collision = NodePath("CollisionShape2D")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=584480208]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -65.0
+offset_right = 66.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/normal_font = ExtResource("2_7cupb")
+theme_override_font_sizes/normal_font_size = 39
+bbcode_enabled = true
+text = "موت      يا حيوان"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1641102814]
+position = Vector2(-76, 0)
+shape = SubResource("RectangleShape2D_s4vx5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=784467481]
+position = Vector2(100.5, -2)
+shape = SubResource("RectangleShape2D_7cupb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

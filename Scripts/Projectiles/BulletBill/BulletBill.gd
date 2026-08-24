@@ -19,7 +19,24 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if isTouching && !hittedBill:
-		if (fightHandler.soul.global_position.y < toJump.global_position.y && fightHandler.soul.velocity.y > 2):
+		if (fightHandler.soul.global_position.y+15 > toJump.global_position.y \
+			&& fightHandler.soul.global_position.y+5 < toJump.global_position.y):
+			return
+		fightHandler.DamageSoul(5,0.01)
+		
+	pass
+
+func _physics_process(delta: float) -> void:
+	position += movPlace * delta
+	if grav:
+		movPlace.y += gr * delta
+	if (!hittedBill):
+		var halfWidth = (sprite.texture.get_width() * abs(sprite.global_scale.x))/2
+		if (fightHandler.soul.global_position.y+15 > toJump.global_position.y \
+			&& fightHandler.soul.global_position.y+5 < toJump.global_position.y \
+			&& fightHandler.soul.global_position.x < global_position.x + halfWidth\
+			&& fightHandler.soul.global_position.x > global_position.x - halfWidth\
+			&& fightHandler.soul.velocity.y > 2):
 			if (Input.is_action_pressed("jump")):
 				fightHandler.soul.velocity.y = -400
 			else:
@@ -30,16 +47,6 @@ func _process(delta: float) -> void:
 			grav = true
 			hittedBill = true
 			GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/kickkill.wav",5)
-		if (fightHandler.soul.global_position.y < toJump.global_position.y):
-			return
-		fightHandler.DamageSoul(5,0.01)
-		
-	pass
-
-func _physics_process(delta: float) -> void:
-	position += movPlace * delta
-	if grav:
-		movPlace.y += gr * delta
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Soul"):

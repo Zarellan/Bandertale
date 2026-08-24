@@ -2,29 +2,19 @@ extends Area2D
 
 var isTouching:bool = false
 var fightHandler:FightHandler
-
-@export var textLabel:RichTextLabel
-@export var collision:CollisionShape2D
-
-var playerPos:Vector2
-var gotHit
-var heal = false
-var deadly = false
+var gotHurt = false
 func _ready() -> void:
 	fightHandler = get_tree().get_first_node_in_group("FightHandler")
 	set_process(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if isTouching:
-		if (deadly):
-			fightHandler.DamageSoul(999999999,0.2)
-		if (!heal):
-			gotHit = fightHandler.DamageSoul(32,0.2)
-		else:
-			gotHit = fightHandler.HealSoul(30)
-	if (gotHit):
-		queue_free()
+func _process(delta: float) -> void:
+	if isTouching && !gotHurt:
+		gotHurt = fightHandler.DamageSoul(30,0.7)
+		fightHandler.soul.velocity = Vector2(0,-700)
+		GlobalAudio.PlayOneShot("res://Sounds/MarioSounds/lava"+str(randi_range(1,3))+".wav")
+		await get_tree().create_timer(0.7).timeout
+		gotHurt = false
 	pass
 
 
@@ -34,9 +24,6 @@ func _on_body_entered(body: Node2D) -> void:
 		isTouching = true
 	pass # Replace with function body.
 
-func SetText(tex):
-	textLabel.text = tex
-	collision.shape.size = Vector2(textLabel.get_content_width(),textLabel.get_content_height())
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Soul"):
