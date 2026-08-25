@@ -20,7 +20,6 @@ offset_top = -33.006
 offset_right = -49.500004
 offset_bottom = -32.994003
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "dasasd"
 fit_content = true
 scroll_active = false
 script = ExtResource("3_h13nt")

@@ -98,6 +98,7 @@ func EndTurn():
 		spikeArr[i].queue_free()
 	for i in range(spikeArr2.size()):
 		spikeArr2[i].queue_free()
+	fightHandler.soul.ChangeSoulDirection(fightHandler.soul.Direction.down)
 	spikeArr.clear()
 	spikeArr2.clear()
 	super.EndTurn()

@@ -36,6 +36,10 @@ size = Vector2(33.507874, 31.683182)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7334"]
 size = Vector2(16, 16)
 
+[sub_resource type="Curve" id="Curve_2tuw3"]
+_data = [Vector2(0.021186434, 1), 0.0, 0.0, 0, 0, Vector2(0.9322034, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="Animation" id="Animation_2tuw3"]
 resource_name = "Idle"
 length = 0.96667004
@@ -1174,6 +1178,25 @@ limit_left = 0
 limit_right = 640
 limit_bottom = 480
 position_smoothing_enabled = true
+
+[node name="FirePartic" type="CPUParticles2D" parent="Soul" unique_id=1984987990]
+z_index = -1
+emitting = false
+amount = 30
+lifetime = 3.0
+emission_shape = 2
+emission_sphere_radius = 5.0
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 100.0
+linear_accel_min = -3.0
+tangential_accel_min = -23.84
+tangential_accel_max = 25.43
+damping_min = 1.0
+damping_max = 1.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_2tuw3")
 
 [node name="ButtonFights" type="Node2D" parent="." unique_id=2032965283]
 

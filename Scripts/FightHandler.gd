@@ -24,6 +24,12 @@ var fightSystemHandle = [
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack6.gd",
 	"BoxDialogue":"dodged att4",
 	"enemyToPlayDiag":["uuuuuh2"]},
+	{"attack":"res://Scripts/Attacks/AttackTypes/Attack7.gd",
+	"BoxDialogue":"dodged att4",
+	"enemyToPlayDiag":["uuuuuh2"]},
+	{"attack":"res://Scripts/Attacks/AttackTypes/Attack8.gd",
+	"BoxDialogue":"dodged att4",
+	"enemyToPlayDiag":["uuuuuh2"]},
 ]
 
 var enemyDialogueToPlay = [""]
@@ -37,7 +43,7 @@ var undye = false
 #region customizeable
 
 var turns = 0
-
+var nerf = false
 var basedOfEnemyHealth = false # if false, you must make the enemy die on specific turn, else it's unbeatable
 #endregion
 
@@ -70,11 +76,11 @@ func _ready() -> void:
 	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
-	ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack8.gd")
+	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack8.gd")
 	#Engine.time_scale = 40
 	Engine.max_fps = 60
 	undye = false
-	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
+	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
 
@@ -197,6 +203,7 @@ func CleanChoices():
 func ActivateChoice():
 	if (!buttons[mainIndex].Allowed()):
 		return
+	textDig.ForceFinish()
 	buttons[mainIndex].waitAction = true
 	buttons[mainIndex].Activate()
 	isMain = false
@@ -284,7 +291,6 @@ func BoxDialogueArrayCheck():
 func BackToMain():
 	isMain = true
 	boxText.visible = true
-	textDig.ForceFinish()
 	MainChoices(0)
 
 func HealSoul(healValue:int):
@@ -301,11 +307,14 @@ func DamageSoul(damageValue:int,cooldownDam:float = 0.05):
 		return false
 	if (cooldownDamage > 0.0):
 		return false
-	health = max(health-damageValue,0)
+	var damageVal = damageValue
+	if (nerf):
+		damageVal = max(damageVal/3,1)
+	health = max(health-damageVal,0)
 	healthBar.value = health
 	healthText.text = str(health) + "/" + str(maxHealth)
 	cooldownDamage = cooldownDam
-	if (damageValue != 0):
+	if (damageVal != 0):
 		if (is_instance_valid(damageAudio) && damageAudio.playing): # avoid overlap audio damage
 			damageAudio.stop()
 		damageAudio = GlobalAudio.PlayOneShot("res://Sounds/Fight/Hurt.wav",-3)

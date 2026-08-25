@@ -43,7 +43,7 @@ func StartAttack():
 	pass
 
 func SpawnBillTime():
-	await get_tree().create_timer(2.1 * 3 - 0.8).timeout
+	await get_tree().create_timer(2.1 * 3 - 0.7).timeout
 	if (gotHit):
 		return
 	SpawnBill()

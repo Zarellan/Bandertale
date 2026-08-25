@@ -19,6 +19,7 @@ enum Direction # works on blue soul only
 
 @export var soulSprite:Node2D
 @export var fightHandler:FightHandler
+var canStopJump = false
 const SPEED = 180.0
 const JUMP_VELOCITY = -400.0
 const gravityStrength = 0.8
@@ -115,7 +116,8 @@ func DownBlueSoul(delta):
 
 	if Input.is_action_pressed("ui_up") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	if (Input.is_action_just_released("ui_up") && !is_on_floor() && velocity.y < -200):
+		canStopJump = true
+	if (Input.is_action_just_released("ui_up") && !is_on_floor() && canStopJump && velocity.y < -200):
 		velocity.y = 0
 
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -129,7 +131,8 @@ func UpBlueSoul(delta):
 
 	if Input.is_action_pressed("ui_down") and is_on_ceiling():
 		velocity.y = -JUMP_VELOCITY
-	if (Input.is_action_just_released("ui_down") && !is_on_ceiling() && velocity.y > 200):
+		canStopJump = true
+	if (Input.is_action_just_released("ui_down") && !is_on_ceiling() && canStopJump && velocity.y > 200):
 		velocity.y = 0
 
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -145,7 +148,8 @@ func LeftBlueSoul(delta):
 	# Handle jump.
 	if Input.is_action_pressed("ui_right") and touchedWall:
 		velocity.x = -JUMP_VELOCITY
-	if (Input.is_action_just_released("ui_right") && !touchedWall && velocity.x > 200):
+		canStopJump = true
+	if (Input.is_action_just_released("ui_right") && !touchedWall && canStopJump && velocity.x > 200):
 		velocity.x = 0
 
 	var direction := Input.get_axis("ui_up", "ui_down")
@@ -160,7 +164,8 @@ func RightBlueSoul(delta):
 
 	if Input.is_action_pressed("ui_left") and touchedWall:
 		velocity.x = JUMP_VELOCITY
-	if (Input.is_action_just_released("ui_left") && !touchedWall && velocity.x < -200):
+		canStopJump = true
+	if (Input.is_action_just_released("ui_left") && !touchedWall && canStopJump && velocity.x < -200):
 		velocity.x = 0
 
 	var direction := Input.get_axis("ui_up", "ui_down")

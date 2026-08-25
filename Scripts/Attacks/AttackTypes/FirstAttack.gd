@@ -130,7 +130,7 @@ func PreparePlatform2():
 	add_child(platformer2)
 
 func PrepareLava():
-	lava = load("res://Scripts/Projectiles/Lava/Lava.tscn").instantiate()
+	lava = load("res://Scripts/Projectiles/Lava/Lava2.tscn").instantiate()
 	fightHandler.box.clipOnly.add_child(lava)
 	lava.global_scale = Vector2(1.5,1.2)
 	lava.global_position = Vector2(325,700)

@@ -99,3 +99,4 @@ func EndTurn():
 	proj.queue_free()
 	TweenUtils.tweenX(fightHandler.enemy.get_node("SpriteHolder"),0,0.3,TweenUtils.Ease.OutCirc)
 	super.EndTurn()
+	fightHandler.soul.get_node("FirePartic").emitting = false

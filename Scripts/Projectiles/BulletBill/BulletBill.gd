@@ -39,6 +39,7 @@ func _physics_process(delta: float) -> void:
 			&& fightHandler.soul.velocity.y > 2):
 			if (Input.is_action_pressed("jump")):
 				fightHandler.soul.velocity.y = -400
+				fightHandler.soul.canStopJump = true
 			else:
 				fightHandler.soul.velocity.y = -200
 			movPlace.y = -400
