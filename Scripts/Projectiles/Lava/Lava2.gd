@@ -9,9 +9,13 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if isTouching && gotHurt:
+		fightHandler.soul.velocity = Vector2(0,-700)
+		fightHandler.soul.canStopJump = false
 	if isTouching && !gotHurt:
 		gotHurt = fightHandler.DamageSoul(30,1)
 		fightHandler.soul.velocity = Vector2(0,-700)
+		fightHandler.soul.canStopJump = false
 		GlobalAudio.PlayOneShot("res://Sounds/MarioSounds/lava"+str(randi_range(1,3))+".wav",-4,1.2)
 		fightHandler.soul.get_node("FirePartic").emitting = true
 		await get_tree().create_timer(1).timeout

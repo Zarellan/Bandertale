@@ -31,6 +31,7 @@ func StartAttack():
 	proj = load("res://Scripts/Projectiles/projectile.tscn").instantiate()
 	fightHandler.box.clipOnly.add_child(proj)
 	proj.get_node("Sprite2D").offset = Vector2(0,-proj.get_node("Sprite2D").texture.get_height() * 0.5)
+	proj.get_node("CollisionShape2D").disabled = true
 	proj.global_scale = Vector2(5,0)
 	proj.global_position = Vector2(proj.global_position.x,380)
 	proj.modulate = Color(18.892, 18.892, 18.892, 1.0)
@@ -64,17 +65,6 @@ func LavaPass():
 	await get_tree().create_timer(2).timeout
 	bringFakeLav = true
 	
-
-func SpawnBanderBlast(dist:float,pos:Vector2,scal:Vector2,rot:float = 0, dur:float = 0.8, whenStart = 1):
-	var band = load("res://Prefabs/BanderBlaster/bander_blaster.tscn").instantiate()
-	band.blastDistance = dist
-	band.whenStart = whenStart
-	add_child(band)
-	band.scale = scal
-	band.position = pos
-	band.rotation_degrees = rot
-	band.timeDuration = dur
-	return band
 
 func SpawnBill(pos:Vector2):
 	var bill = load("res://Scripts/Projectiles/BulletBill/BulletBill.tscn").instantiate()

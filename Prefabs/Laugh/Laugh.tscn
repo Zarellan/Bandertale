@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dbesyu4nb6bst"]
+
+[ext_resource type="Script" uid="uid://dbnifeeviqytc" path="res://Prefabs/Laugh/Laugh.gd" id="1_caso7"]
+[ext_resource type="PackedScene" uid="uid://da7uu0fcq6qpl" path="res://Prefabs/Laugh/LaughPart/laughPart.tscn" id="2_cm7f2"]
+
+[node name="Laugh" type="Node2D" unique_id=1477549238]
+script = ExtResource("1_caso7")
+laughPrefab = ExtResource("2_cm7f2")

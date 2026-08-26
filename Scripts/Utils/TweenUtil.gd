@@ -7,6 +7,8 @@ enum Ease{
 	OutBack,
 	InBack,
 	InOutBack,
+	InOutBounce,
+	OutBounce,
 	linear
 	}
 
@@ -45,6 +47,12 @@ static func EasingType(tween, easing:Ease):
 		Ease.InOutBack:
 			eas = Tween.EASE_IN_OUT
 			transition = Tween.TRANS_BACK
+		Ease.InOutBounce:
+			eas = Tween.EASE_IN_OUT
+			transition = Tween.TRANS_BOUNCE
+		Ease.OutBounce:
+			eas = Tween.EASE_OUT
+			transition = Tween.TRANS_BOUNCE
 		Ease.linear:
 			eas = Tween.EASE_IN_OUT
 			transition = Tween.TRANS_LINEAR

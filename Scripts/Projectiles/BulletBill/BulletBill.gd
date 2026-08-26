@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 		if (fightHandler.soul.global_position.y+15 > toJump.global_position.y \
 			&& fightHandler.soul.global_position.y+5 < toJump.global_position.y):
 			return
-		fightHandler.DamageSoul(5,0.01)
+		fightHandler.DamageSoul(2,0.012)
 		
 	pass
 

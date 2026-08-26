@@ -76,11 +76,11 @@ func _ready() -> void:
 	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
-	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack8.gd")
+	ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack9.gd")
 	#Engine.time_scale = 40
 	Engine.max_fps = 60
 	undye = false
-	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
+	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
 
@@ -300,6 +300,7 @@ func HealSoul(healValue:int):
 	if (healValue != 0):
 		GlobalAudio.PlayOneShot("res://Sounds/Fight/Heal.wav",0)
 	return true
+
 var cooldownDamage = 0
 var damageAudio:AudioStreamPlayer
 func DamageSoul(damageValue:int,cooldownDam:float = 0.05):
