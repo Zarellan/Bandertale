@@ -1,0 +1,203 @@
+[gd_scene format=3 uid="uid://b1e4o4mom0ugx"]
+
+[ext_resource type="PackedScene" uid="uid://cbqje16kw5vn4" path="res://Scripts/Projectiles/Platformer/platformer.tscn" id="3_b3d55"]
+[ext_resource type="PackedScene" uid="uid://bf02vr4nc6j8n" path="res://Scripts/Projectiles/Spikes/Spikes.tscn" id="4_v2sga"]
+[ext_resource type="PackedScene" uid="uid://dunmkhtgn0ero" path="res://Prefabs/LaughingBlock/LaughingBlock.tscn" id="5_8ccv5"]
+
+[node name="Attack10Spe" type="Node2D" unique_id=190128510]
+
+[node name="PlatfHelp" type="Node2D" parent="." unique_id=677083754]
+position = Vector2(325, 308)
+scale = Vector2(1.305, 1.305)
+
+[node name="Platformer" parent="PlatfHelp" unique_id=1593059635 instance=ExtResource("3_b3d55")]
+position = Vector2(-48, 0)
+sync_to_physics = false
+
+[node name="Platformer2" parent="PlatfHelp" unique_id=539357786 instance=ExtResource("3_b3d55")]
+sync_to_physics = false
+
+[node name="Platformer3" parent="PlatfHelp" unique_id=521496036 instance=ExtResource("3_b3d55")]
+position = Vector2(48, 0)
+sync_to_physics = false
+
+[node name="Projectile" parent="PlatfHelp" unique_id=556323487 instance=ExtResource("4_v2sga")]
+position = Vector2(-45, -30)
+
+[node name="Projectile2" parent="PlatfHelp" unique_id=1100422342 instance=ExtResource("4_v2sga")]
+position = Vector2(-29, -30)
+
+[node name="Projectile3" parent="PlatfHelp" unique_id=1562263767 instance=ExtResource("4_v2sga")]
+position = Vector2(-13, -30)
+
+[node name="Projectile4" parent="PlatfHelp" unique_id=1464192844 instance=ExtResource("4_v2sga")]
+position = Vector2(3, -30)
+
+[node name="Projectile5" parent="PlatfHelp" unique_id=1232857158 instance=ExtResource("4_v2sga")]
+position = Vector2(19, -30)
+
+[node name="Projectile6" parent="PlatfHelp" unique_id=1722717872 instance=ExtResource("4_v2sga")]
+position = Vector2(35, -30)
+
+[node name="Projectile7" parent="PlatfHelp" unique_id=850555663 instance=ExtResource("4_v2sga")]
+position = Vector2(50, -30)
+
+[node name="PlatfHelp2" type="Node2D" parent="." unique_id=188157533]
+position = Vector2(633, 335)
+scale = Vector2(1.305, 1.305)
+
+[node name="Platformer" parent="PlatfHelp2" unique_id=415106137 instance=ExtResource("3_b3d55")]
+position = Vector2(-48, 0)
+sync_to_physics = false
+
+[node name="Platformer2" parent="PlatfHelp2" unique_id=1330016054 instance=ExtResource("3_b3d55")]
+sync_to_physics = false
+
+[node name="Platformer3" parent="PlatfHelp2" unique_id=1470377299 instance=ExtResource("3_b3d55")]
+position = Vector2(48, 0)
+sync_to_physics = false
+
+[node name="Projectile" parent="PlatfHelp2" unique_id=1724963640 instance=ExtResource("4_v2sga")]
+position = Vector2(-45, -30)
+
+[node name="Projectile2" parent="PlatfHelp2" unique_id=1846317162 instance=ExtResource("4_v2sga")]
+position = Vector2(-29, -30)
+
+[node name="Projectile3" parent="PlatfHelp2" unique_id=277433449 instance=ExtResource("4_v2sga")]
+position = Vector2(-13, -30)
+
+[node name="Projectile4" parent="PlatfHelp2" unique_id=979552031 instance=ExtResource("4_v2sga")]
+position = Vector2(3, -30)
+
+[node name="Projectile5" parent="PlatfHelp2" unique_id=1808879771 instance=ExtResource("4_v2sga")]
+position = Vector2(19, -30)
+
+[node name="Projectile6" parent="PlatfHelp2" unique_id=1184683944 instance=ExtResource("4_v2sga")]
+position = Vector2(35, -30)
+
+[node name="Projectile7" parent="PlatfHelp2" unique_id=102157519 instance=ExtResource("4_v2sga")]
+position = Vector2(50, -30)
+
+[node name="PlatfHelp3" type="Node2D" parent="." unique_id=1434089742]
+position = Vector2(949.00006, 359)
+scale = Vector2(1.305, 1.305)
+
+[node name="Platformer" parent="PlatfHelp3" unique_id=329851757 instance=ExtResource("3_b3d55")]
+position = Vector2(-48, 0)
+sync_to_physics = false
+
+[node name="Platformer2" parent="PlatfHelp3" unique_id=1076187094 instance=ExtResource("3_b3d55")]
+sync_to_physics = false
+
+[node name="Platformer3" parent="PlatfHelp3" unique_id=1725019238 instance=ExtResource("3_b3d55")]
+position = Vector2(48, 0)
+sync_to_physics = false
+
+[node name="Projectile" parent="PlatfHelp3" unique_id=526169034 instance=ExtResource("4_v2sga")]
+position = Vector2(-45, -30)
+
+[node name="Projectile2" parent="PlatfHelp3" unique_id=833485880 instance=ExtResource("4_v2sga")]
+position = Vector2(-29, -30)
+
+[node name="Projectile3" parent="PlatfHelp3" unique_id=867506228 instance=ExtResource("4_v2sga")]
+position = Vector2(-13, -30)
+
+[node name="Projectile4" parent="PlatfHelp3" unique_id=1603072516 instance=ExtResource("4_v2sga")]
+position = Vector2(3, -30)
+
+[node name="Projectile5" parent="PlatfHelp3" unique_id=1986628124 instance=ExtResource("4_v2sga")]
+position = Vector2(19, -30)
+
+[node name="Projectile6" parent="PlatfHelp3" unique_id=1613100624 instance=ExtResource("4_v2sga")]
+position = Vector2(35, -30)
+
+[node name="Projectile7" parent="PlatfHelp3" unique_id=941571959 instance=ExtResource("4_v2sga")]
+position = Vector2(50, -30)
+
+[node name="PlatfHelp4" type="Node2D" parent="." unique_id=411348051]
+position = Vector2(1299, 335)
+scale = Vector2(1.305, 1.305)
+
+[node name="Platformer" parent="PlatfHelp4" unique_id=230869323 instance=ExtResource("3_b3d55")]
+position = Vector2(-48, 0)
+sync_to_physics = false
+
+[node name="Platformer2" parent="PlatfHelp4" unique_id=451896846 instance=ExtResource("3_b3d55")]
+sync_to_physics = false
+
+[node name="Platformer3" parent="PlatfHelp4" unique_id=1697848865 instance=ExtResource("3_b3d55")]
+position = Vector2(48, 0)
+sync_to_physics = false
+
+[node name="Projectile" parent="PlatfHelp4" unique_id=662284690 instance=ExtResource("4_v2sga")]
+position = Vector2(-45, -30)
+
+[node name="Projectile2" parent="PlatfHelp4" unique_id=800256757 instance=ExtResource("4_v2sga")]
+position = Vector2(-29, -30)
+
+[node name="Projectile3" parent="PlatfHelp4" unique_id=539630988 instance=ExtResource("4_v2sga")]
+position = Vector2(-13, -30)
+
+[node name="Projectile4" parent="PlatfHelp4" unique_id=1499523398 instance=ExtResource("4_v2sga")]
+position = Vector2(3, -30)
+
+[node name="Projectile5" parent="PlatfHelp4" unique_id=758666623 instance=ExtResource("4_v2sga")]
+position = Vector2(19, -30)
+
+[node name="Projectile6" parent="PlatfHelp4" unique_id=2038802990 instance=ExtResource("4_v2sga")]
+position = Vector2(35, -30)
+
+[node name="Projectile7" parent="PlatfHelp4" unique_id=1501000587 instance=ExtResource("4_v2sga")]
+position = Vector2(50, -30)
+
+[node name="PlatfHelp5" type="Node2D" parent="." unique_id=695829841]
+position = Vector2(1608.0001, 308)
+scale = Vector2(1.305, 1.305)
+
+[node name="Platformer" parent="PlatfHelp5" unique_id=786756238 instance=ExtResource("3_b3d55")]
+position = Vector2(-48, 0)
+sync_to_physics = false
+
+[node name="Platformer2" parent="PlatfHelp5" unique_id=14698303 instance=ExtResource("3_b3d55")]
+sync_to_physics = false
+
+[node name="Platformer3" parent="PlatfHelp5" unique_id=1945615232 instance=ExtResource("3_b3d55")]
+position = Vector2(48, 0)
+sync_to_physics = false
+
+[node name="Projectile" parent="PlatfHelp5" unique_id=1383211985 instance=ExtResource("4_v2sga")]
+position = Vector2(-45, -30)
+
+[node name="Projectile2" parent="PlatfHelp5" unique_id=1828548927 instance=ExtResource("4_v2sga")]
+position = Vector2(-29, -30)
+
+[node name="Projectile3" parent="PlatfHelp5" unique_id=887655373 instance=ExtResource("4_v2sga")]
+position = Vector2(-13, -30)
+
+[node name="Projectile4" parent="PlatfHelp5" unique_id=858669103 instance=ExtResource("4_v2sga")]
+position = Vector2(3, -30)
+
+[node name="Projectile5" parent="PlatfHelp5" unique_id=529958289 instance=ExtResource("4_v2sga")]
+position = Vector2(19, -30)
+
+[node name="Projectile6" parent="PlatfHelp5" unique_id=1683553934 instance=ExtResource("4_v2sga")]
+position = Vector2(35, -30)
+
+[node name="Projectile7" parent="PlatfHelp5" unique_id=1207976768 instance=ExtResource("4_v2sga")]
+position = Vector2(50, -30)
+
+[node name="LaughingBlock" parent="." unique_id=1347119844 instance=ExtResource("5_8ccv5")]
+position = Vector2(1384.0001, 278)
+scale = Vector2(1.3, 1.3)
+
+[node name="LaughingBlock2" parent="." unique_id=1436284128 instance=ExtResource("5_8ccv5")]
+position = Vector2(1405.0001, 278.00003)
+scale = Vector2(1.3, 1.3)
+
+[node name="LaughingBlock3" parent="." unique_id=1324554406 instance=ExtResource("5_8ccv5")]
+position = Vector2(1426, 278)
+scale = Vector2(1.3, 1.3)
+
+[node name="LaughingBlock4" parent="." unique_id=1784018062 instance=ExtResource("5_8ccv5")]
+position = Vector2(1447.0001, 278.00003)
+scale = Vector2(1.3, 1.3)

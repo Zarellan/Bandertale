@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dunmkhtgn0ero"]
+
+[ext_resource type="Script" uid="uid://bup5kj65plxfh" path="res://Prefabs/LaughingBlock/LaughingBlock.gd" id="1_ec6ku"]
+[ext_resource type="Texture2D" uid="uid://yb3impqf8u0e" path="res://Sprites/blocks/eBlock.png" id="2_ad7hy"]
+[ext_resource type="Texture2D" uid="uid://c3dgkn2jla126" path="res://Sprites/blocks/qBlock.png" id="2_irfdh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irfdh"]
+size = Vector2(16, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ad7hy"]
+size = Vector2(16, 1.6666665)
+
+[node name="LaughingBlock" type="StaticBody2D" unique_id=1347119844 node_paths=PackedStringArray("sprite", "collis")]
+script = ExtResource("1_ec6ku")
+eBlock = ExtResource("2_ad7hy")
+sprite = NodePath("Sprite2D")
+collis = NodePath("CollisionShape2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=784370280]
+visible = false
+texture_filter = 1
+texture = ExtResource("2_irfdh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1448107601]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_irfdh")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1748433491]
+position = Vector2(0, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1736149939]
+position = Vector2(2.3841858e-07, 0.83333397)
+shape = SubResource("RectangleShape2D_ad7hy")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

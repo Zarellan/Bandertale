@@ -117,7 +117,7 @@ func PrepareLava():
 func EndTurn():
 	fightHandler.camera.enabled = true
 	fightHandler.soul.get_node("GameCamera").enabled = false
-	TweenUtils.tweenY(fightHandler.enemy,172.0,0.3,TweenUtils.Ease.OutCirc)
+	TweenUtils.tweenY(fightHandler.enemy,205.0,0.3,TweenUtils.Ease.OutCirc)
 	lava.queue_free()
 	super.EndTurn()
 	fightHandler.soul.get_node("FirePartic").emitting = false
