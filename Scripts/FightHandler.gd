@@ -37,6 +37,8 @@ var enemyDialogueToPlay = [""]
 
 @export var camera:Camera2D
 
+@export var blackBack:ColorRect
+
 #region DebugMode
 var undye = false
 #endregion
@@ -76,7 +78,7 @@ func _ready() -> void:
 	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
-	ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack10.gd")
+	ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack11.gd")
 	#Engine.time_scale = 40
 	Engine.max_fps = 60
 	undye = false

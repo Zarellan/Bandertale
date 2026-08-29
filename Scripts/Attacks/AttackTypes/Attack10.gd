@@ -30,24 +30,12 @@ func StartAttack():
 	pass
 
 func _process(delta: float) -> void:
-	print(fightHandler.enemy.position.y)
 	pass
 func _physics_process(delta: float) -> void:
 	if (is_instance_valid(attackSpe) && attackSpe.global_position.x >-1239):
 		attackSpe.global_position -= Vector2(100*delta,0)
 	pass
 
-func SpawnBanderBlast(dist:float,pos:Vector2,scal:Vector2,rot:float = 0, dur:float = 0.8, whenStart = 1):
-	var band = load("res://Prefabs/BanderBlaster/bander_blaster.tscn").instantiate()
-	band.blastDistance = dist
-	band.whenStart = whenStart
-	add_child(band)
-	band.scale = scal
-	band.position = pos
-	band.rotation_degrees = rot
-	band.timeDuration = dur
-	return band
-	
 func PrepareLava():
 	lava = load("res://Scripts/Projectiles/Lava/Lava2.tscn").instantiate()
 	fightHandler.box.clipOnly.add_child(lava)
