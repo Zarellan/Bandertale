@@ -11,6 +11,7 @@ func _ready() -> void:
 	attackTimer = 20
 
 func PrepareAttack():
+	print("from here LOL")
 	#TweenUtils.tweenY(fightHandler.enemy,20,0.3,TweenUtils.Ease.OutCirc)
 	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/bander face 4.png")
 	(fightHandler.enemy.bodySpr as Sprite2D).region_rect.position.x = 82

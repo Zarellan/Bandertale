@@ -16,10 +16,12 @@ func _ready() -> void:
 func StartAttack():
 	super._ready()
 	super.StartAttack()
+	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/BanderMoon.png")
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
 	TweenUtils.tweenCustom(self,fightHandler.box.box_size,Vector2(300,700),0.3,TweenUtils.Ease.OutCirc,func(val):
 		fightHandler.box.box_size = val)
 	TweenUtils.tweenY(fightHandler.box,30,0.3,TweenUtils.Ease.OutCirc)
+	TweenUtils.StopTween(fightHandler.enemy.twenXHold)
 	TweenUtils.tweenX(fightHandler.enemy.get_node("SpriteHolder"),-150,0.3,TweenUtils.Ease.OutCirc)
 	fightHandler.camera.enabled = false
 	fightHandler.soul.get_node("GameCamera").enabled = true

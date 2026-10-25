@@ -4,35 +4,36 @@ class_name FightHandler
 
 var fightSystemHandle = [
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack1.gd",
-	"BoxDialogue":"dodged att",
+	"BoxDialogue":"you felt regret of your action[speed,0.5]...[speed,0.04]yet you don't =)",
 	"enemyToPlayDiag":["نخش في الجلد نخش"],
 	"lang":"arabic"},
 	
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack2.gd",
-	"BoxDialogue":"dodged att2",
+	"BoxDialogue":"there is some suspision about the way his face attached to his body",
 	"enemyToPlayDiag":["يقطع ذا الوجه"],
 	"lang":"arabic"},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack3.gd",
-	"BoxDialogue":"dodged att3",
-	"enemyToPlayDiag":["uuuuuh"]},
+	"BoxDialogue":"you are trying to understand what he is trying to say",
+	"enemyToPlayDiag":["اقول اجلوداك يعني اجلوداك جلد"],
+	"lang":"arabic"},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack4.gd",
-	"BoxDialogue":"dodged att4",
+	"BoxDialogue":"yep[wait,0.5] you still didn't understand what he is trying to say",
 	"enemyToPlayDiag":["تميس بلاستر"," [func,ChangeBanderFace,banderitax face 3][func,ChangeBanderBody,5]او بندر بلاستر"]},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack5.gd",
-	"BoxDialogue":"dodged att4",
+	"BoxDialogue":"bander feels confident with his approach",
 	"enemyToPlayDiag":["yep [wait,0.5] [func,ChangeBanderFace,bander face 4][func,ChangeBanderBody,82]he is dead"]},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack6.gd",
-	"BoxDialogue":"dodged att4",
-	"enemyToPlayDiag":["uuuuuh2"]},
+	"BoxDialogue":"you saw what you have done ?[wait,0.5]\nyou did a great job =)",
+	"enemyToPlayDiag":["احم احم"]},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack7.gd",
 	"BoxDialogue":"dodged att4",
-	"enemyToPlayDiag":["uuuuuh2"]},
+	"enemyToPlayDiag":["[func,ChangeBanderFace,banderitax face 3]يا ابني","انت دائماً تتفلسف"]},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack8.gd",
 	"BoxDialogue":"dodged att4",
 	"enemyToPlayDiag":["uuuuuh2"]},
 ]
 
-var enemyDialogueToPlay = [""]
+var enemyDialogueToPlay = []
 @export var enemy:Enemy
 
 @export var camera:Camera2D
@@ -70,6 +71,7 @@ var mainIndex:int = 0
 
 var firstAttackSpec:bool = false #I was stuck so I used hardcode method
 var fighted = false
+var mercyOption = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#Engine.time_scale = 15
@@ -78,11 +80,11 @@ func _ready() -> void:
 	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
-	ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack11.gd")
+	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack11.gd")
 	#Engine.time_scale = 40
 	Engine.max_fps = 60
 	undye = false
-	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
+	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
 
@@ -154,6 +156,8 @@ func MainChoices(inc:int):
 var st = "res://Scripts/Attacks/AttackTypes/AttackTest.gd"
 var att = false
 func EnemyDialogueStart(): #always start when ending player turn
+	if (turns == 7): # for demo only
+		return
 	if (fighted && att):
 		turns += 1
 	att = true
@@ -176,6 +180,11 @@ func EnemyDialogueStart(): #always start when ending player turn
 	#enemy.PlayDialogue("tames blaster")
 
 func EnemyDialogueEnd():
+	if (mercyOption):
+		SetTurn(false)
+		boxText.visible = true
+		textDig.startDialogue("[shake=50]THIS IS YOUR CHANCE",0.06,"res://Sounds/Dialogues/Text2.wav", 4)
+		return
 	if (!firstAttackSpec):
 		attackData.queue_free()
 		textDig.startDialogue(fightSystemHandle[turns]["BoxDialogue"],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
@@ -186,9 +195,24 @@ func EnemyDialogueEnd():
 	else:
 		StartAttacking()
 
+func RestForWar():
+	mercyOption = true
+	TweenUtils.tweenCustom(self,box.box_size,Vector2(590.97,155.1),0.3,TweenUtils.Ease.OutCirc,func(val):
+		box.box_size = val)
+	TweenUtils.tweenX(box,325.0,0.3,TweenUtils.Ease.OutCirc)
+	TweenUtils.tweenY(box,307.0,0.3,TweenUtils.Ease.OutCirc)
+	enemy.headSpr.texture = load("res://Sprites/BanderHead/bander face 6.png")
+	enemy.PlayDialogue(["الكلية[wait,0.5]\nالكلية تعبت"], "arabic")
+	GlobalSoundtrack.stop()
+func HideAttackPanel():
+	buttons[0].attackPanel.visible = false
 func EndDefense(incTurn:bool = false):
+	if (turns == 7):
+		RestForWar()
+		return
 	SetTurn(false)
 	boxText.visible = true
+	
 	if (att):
 		textDig.startDialogue(fightSystemHandle[turns]["BoxDialogue"],0.04,"res://Sounds/Dialogues/Text2.wav", 4)
 	else:
@@ -343,10 +367,6 @@ func ActActionType(st:String):
 		"check":
 			BattleDialogueEncounter(["* ATK 99 DEF 99\n* he loves tames"])
 			enemyDialogueToPlay = []
-			#enemyDialogueToPlay = ["not a surprise[speed,0.6]...[speed,0.04]huh ?"]
-		"mock":
-			BattleDialogueEncounter(["* you proceed to mock him[speed,0.5]...[wait,0.5][speed,0.06]\n* he doesn't care"])
-			enemyDialogueToPlay = ["atleast make a good one"]
 		_:
 			pressedAct = false
 			EnemyDialogueStart()
@@ -354,12 +374,15 @@ func ActActionType(st:String):
 
 func ItemActionType(st:String):
 	match (st):
-		"L hero":
-			#TweenUtils.tweenShake($GameCamera,8,15,0.3,TweenUtils.Ease.linear)
-			#TweenUtils.tweenShakeRotation($GameCamera,3,15,0.3,TweenUtils.Ease.linear)
-			#GameOver()
-			HealSoul(30)
-			BattleDialogueEncounter(["you ate l hero"])
+		"Potato":
+			HealSoul(54)
+			BattleDialogueEncounter(["The potato healed you 54 HP[wait,0.5]\nyou made bander hungry"])
+		"Chocolate Cake":
+			HealSoul(999)
+			BattleDialogueEncounter(["You gained max HP[wait,0.5]\nyet you gained 1 KG"])
+		"Curly Potato":
+			HealSoul(70)
+			BattleDialogueEncounter(["You gained 70 HP[wait,0.5]\n"])
 		_:
 			pressedItem = false
 			EnemyDialogueStart()
@@ -373,5 +396,10 @@ func ChangeBanderBody(regionx = 5):
 
 func MercyAction():
 	pressedMercy = false
-	ForceStartAttack(fightSystemHandle[turns]["attack"])
+	if (!mercyOption):
+		ForceStartAttack(fightSystemHandle[turns]["attack"])
+	else:
+		SetTurn(false)
+		boxText.visible = true
+		textDig.startDialogue("[shake=50]THIS IS YOUR CHANCE",0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	pass

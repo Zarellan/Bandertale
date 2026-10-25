@@ -66,7 +66,8 @@ func Attack():
 	slash.position = fightHandler.enemy.position + fightHandler.enemy.attackPlaceOffset
 	fightHandler.enemy.GotAttacked()
 	await get_tree().create_timer(fightHandler.enemy.timeWhenAttackFinished).timeout
-	attackPanel.visible = false
+	if !fightHandler.mercyOption:
+		attackPanel.visible = false
 	#fightHandler.SetTurn(true)
 	fightHandler.EnemyDialogueStart()
 

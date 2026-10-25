@@ -2,12 +2,15 @@ extends Buttons
 class_name Item
 
 var itemsLol = [
-	{"name": "L hero",
-	"desc":"you got healed",
-	"hp": 12},
-	{"name": "L wut",
+	{"name": "Potato",
+	"desc":"The potato item gave you 54 hp",
+	"hp": 54},
+	{"name": "Chocolate Cake",
 	"desc":"you got healed 2",
-	"hp": 50}
+	"hp": 50},
+	{"name": "Curly Potato",
+	"desc":"you got healed 2",
+	"hp": 50},
 ]
 
 var itemIndex:int = 0

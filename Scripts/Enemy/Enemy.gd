@@ -47,11 +47,29 @@ func _process(_delta: float) -> void:
 	pass
 
 var tw:Tween
+var twenXHold:Tween
 func GotAttacked():
+	if (fightHandler.mercyOption):
+		fightHandler.fighted = true
+		TweenUtils.tweenCustom(self,0.0,1.0,1.5,TweenUtils.Ease.linear,func(val):
+			get_tree().get_first_node_in_group("WhiteBack").color = Color(255.0, 255.0, 255.0, val))
+		var laugh = load("res://Prefabs/LaughingBlock/LaughingBlock.tscn").instantiate()
+		add_child(laugh)
+		laugh.global_position = self.position - Vector2(0,50)
+		laugh.defPosition = laugh.position
+		await get_tree().create_timer(2.3).timeout
+		headSpr.texture = load("res://Sprites/BanderHead/bander face 5.png")
+		get_tree().get_first_node_in_group("WhiteBack").color= Color(255.0, 255.0, 255.0, 0)
+		laugh.ActivateLaughBlock()
+		fightHandler.HideAttackPanel()
+		await get_tree().create_timer(1).timeout # will change once demo finished
+		get_tree().change_scene_to_file("res://Scenes/EndTitle.tscn")
+		return
 	tw = TweenUtils.tweenX(get_node("SpriteHolder"),-60,0.6,TweenUtils.Ease.OutCirc)
 	tw.finished.connect(func():
 		await get_tree().create_timer(0.2).timeout
-		TweenUtils.tweenX(get_node("SpriteHolder"),0,0.6,TweenUtils.Ease.InSine))
+		TweenUtils.StopTween(twenXHold)
+		twenXHold = TweenUtils.tweenX(get_node("SpriteHolder"),0,0.6,TweenUtils.Ease.InSine))
 	fightHandler.fighted = true
 var indexDialogue = 0
 var dialogueArr

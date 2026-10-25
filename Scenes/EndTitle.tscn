@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d3v21kui3dqx1"]
+
+[ext_resource type="Script" uid="uid://0p1ksgut1q65" path="res://Scripts/EndTitle/EndTitleScript.gd" id="1_swqpm"]
+[ext_resource type="Texture2D" uid="uid://ci56dwrjb3mqy" path="res://Sprites/Title/Screenshot 2026-09-27 140259.png" id="2_po8or"]
+
+[node name="EndTitle" type="Node2D" unique_id=1803075655]
+script = ExtResource("1_swqpm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=131096768]
+texture_filter = 2
+position = Vector2(318, 224)
+scale = Vector2(0.545, 0.545)
+texture = ExtResource("2_po8or")

@@ -100,11 +100,18 @@ func RemoveBBCodes(): # BBCodes to remove
 	var regex_close_rainbow = RegEx.new()
 	regex_close_rainbow.compile("\\[/rainbow\\]")
 
+	var regex_open_shake = RegEx.new()
+	regex_open_shake.compile("\\[shake[^\\]]*\\]")
+
+	var regex_close_shake = RegEx.new()
+	regex_close_shake.compile("\\[/shake\\]")
+
 	commandText = regex_open.sub(commandText, "", true)
 	commandText = regex_close.sub(commandText, "", true)
 	commandText = regex_open_rainbow.sub(commandText, "", true)
 	commandText = regex_close_rainbow.sub(commandText, "", true)
-
+	commandText = regex_open_shake.sub(commandText, "", true)
+	commandText = regex_close_shake.sub(commandText, "", true)
 func diag():
 	if (paused): return
 	$".".visible_characters += 1

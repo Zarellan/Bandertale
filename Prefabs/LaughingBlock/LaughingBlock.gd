@@ -39,3 +39,10 @@ func HittedBlock():
 	la.global_position = global_position
 	la.scale = Vector2(0.7,0.7)
 	GlobalAudio.PlayOneShot("res://Sounds/coin.wav")
+
+func ActivateLaughBlock():
+	sprite.visible = true
+	collis.set_deferred("disabled",false)
+	TweenBlock()
+	HittedBlock()
+	hitted = true
