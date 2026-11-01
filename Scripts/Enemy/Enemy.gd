@@ -21,6 +21,7 @@ var bubbleOffset = Vector2(150,-60)
 var enemyDialogue = false
 var diag
 var defPosX = 320.0
+var language = "english"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	fightHandler = get_tree().get_first_node_in_group("FightHandler")
@@ -77,6 +78,7 @@ func PlayDialogue(textStr:Array, lang = "english"):
 	if (textStr.is_empty()):
 		fightHandler.EnemyDialogueEnd()
 		return
+	language = lang
 	indexDialogue = 0
 	dialogueArr = textStr
 	diag = InstantiateUtil.Instantiate(bubblePrefab,null)
@@ -93,7 +95,7 @@ func BoxDialogueArrayCheck():
 		return true
 	else:
 		indexDialogue += 1
-		diag.get_node("Text").startDialogue(dialogueArr[indexDialogue],0.06,"res://Sounds/Dialogues/Bander.wav")
+		diag.get_node("Text").startDialogue(dialogueArr[indexDialogue],0.06,"res://Sounds/Dialogues/Bander.wav",0,language)
 		return false
 
 

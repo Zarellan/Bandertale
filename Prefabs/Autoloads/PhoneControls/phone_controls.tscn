@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://n710hjom1l13"]
+
+[ext_resource type="Script" uid="uid://cval6vu1j7igo" path="res://addons/touch_screen_joystick/touch_screen_joystick.gd" id="1_ctspm"]
+[ext_resource type="Script" uid="uid://ug2bayhn82d8" path="res://Scripts/PhoneSupport/PhoneControlsScript.gd" id="1_dcvsk"]
+[ext_resource type="Script" uid="uid://bwoax3oafojkc" path="res://Scripts/PhoneSupport/ButtonsActions.gd" id="2_dcvsk"]
+[ext_resource type="Texture2D" uid="uid://f5d8tglapah2" path="res://Sprites/PhoneSupportButtons/z button.png" id="3_nll6u"]
+[ext_resource type="Texture2D" uid="uid://o665rjxgqy3w" path="res://Sprites/PhoneSupportButtons/x button.png" id="4_gwvgp"]
+[ext_resource type="Texture2D" uid="uid://dcu50naq7xkfo" path="res://Sprites/PhoneSupportButtons/up button.png" id="6_2e7gy"]
+
+[node name="PhoneControls" type="Control" unique_id=1758524576]
+z_index = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dcvsk")
+
+[node name="ScreenTouch" type="Control" parent="." unique_id=392720044]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 61.0
+offset_top = -115.0
+offset_right = 101.0
+offset_bottom = -75.0
+grow_vertical = 0
+scale = Vector2(1.414443, 1.4290272)
+script = ExtResource("1_ctspm")
+antialiased = true
+deadzone = 5.0
+base_radius = 48.0
+knob_radius = 20.0
+use_input_actions = true
+metadata/_custom_type_script = "uid://cval6vu1j7igo"
+
+[node name="BottonRight" type="Control" parent="." unique_id=145446671]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("2_dcvsk")
+
+[node name="Z" type="TouchScreenButton" parent="BottonRight" unique_id=1239104504]
+modulate = Color(1, 1, 1, 0.6313726)
+texture_filter = 1
+position = Vector2(-151, -64)
+scale = Vector2(1.3012056, 1.2498221)
+texture_normal = ExtResource("3_nll6u")
+passby_press = true
+action = "ActionAccept"
+
+[node name="X" type="TouchScreenButton" parent="BottonRight" unique_id=1119968780]
+modulate = Color(1, 1, 1, 0.6313726)
+texture_filter = 1
+position = Vector2(-52, -160)
+scale = Vector2(1.3012056, 1.2498221)
+texture_normal = ExtResource("4_gwvgp")
+passby_press = true
+action = "ActionCancel"
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="BottonRight" unique_id=1731089812]
+modulate = Color(1, 1, 1, 0.6313726)
+position = Vector2(-53, -66)
+scale = Vector2(1.2511376, 1.2511376)
+texture_normal = ExtResource("6_2e7gy")
+passby_press = true
+action = "ui_up"
+
+[connection signal="pressed" from="BottonRight/TouchScreenButton" to="BottonRight" method="_on_touch_screen_button_pressed"]
+[connection signal="released" from="BottonRight/TouchScreenButton" to="BottonRight" method="_on_touch_screen_button_released"]

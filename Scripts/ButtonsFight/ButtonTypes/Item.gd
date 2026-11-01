@@ -5,7 +5,7 @@ var itemsLol = [
 	{"name": "Potato",
 	"desc":"The potato item gave you 54 hp",
 	"hp": 54},
-	{"name": "Chocolate Cake",
+	{"name": "Chocolate\nCake",
 	"desc":"you got healed 2",
 	"hp": 50},
 	{"name": "Curly Potato",

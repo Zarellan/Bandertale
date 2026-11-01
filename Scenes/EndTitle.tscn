@@ -2,12 +2,25 @@
 
 [ext_resource type="Script" uid="uid://0p1ksgut1q65" path="res://Scripts/EndTitle/EndTitleScript.gd" id="1_swqpm"]
 [ext_resource type="Texture2D" uid="uid://ci56dwrjb3mqy" path="res://Sprites/Title/Screenshot 2026-09-27 140259.png" id="2_po8or"]
+[ext_resource type="Script" uid="uid://c1ke23n21vxlb" path="res://Scripts/DialogueTextSystem/TextAdv.gd" id="3_1tsxe"]
 
-[node name="EndTitle" type="Node2D" unique_id=1803075655]
+[node name="EndTitle" type="Node2D" unique_id=1803075655 node_paths=PackedStringArray("textDialogue")]
 script = ExtResource("1_swqpm")
+textDialogue = NodePath("TextAdv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=131096768]
 texture_filter = 2
 position = Vector2(318, 224)
 scale = Vector2(0.545, 0.545)
 texture = ExtResource("2_po8or")
+
+[node name="TextAdv" type="RichTextLabel" parent="." unique_id=1835373974]
+offset_left = 44.0
+offset_top = 263.0
+offset_right = 589.0
+offset_bottom = 335.0
+theme_override_font_sizes/normal_font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_1tsxe")
+metadata/_custom_type_script = "uid://c1ke23n21vxlb"

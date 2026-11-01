@@ -187,10 +187,16 @@ func CheckWall():
 			right = true
 	return {"left":left,"right":right}
 func ChangeSoulType(soulT:SoulType):
+	PhoneControls.OnOtherSoul()
 	match(soulT):
 		SoulType.red:
 			soulSprite.self_modulate = Color(1,0,0)
 		SoulType.blue:
+			#if (Input.is_action_pressed("ui_up")):
+				#Input.action_release("ui_up")
+			#if (Input.is_action_pressed("ui_down")):
+				#Input.action_release("ui_down")
+			PhoneControls.OnBlueSoul()
 			soulSprite.self_modulate = Color(0,0,1)
 	soulType = soulT
 	visible = true

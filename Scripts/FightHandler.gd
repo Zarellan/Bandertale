@@ -14,7 +14,7 @@ var fightSystemHandle = [
 	"lang":"arabic"},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack3.gd",
 	"BoxDialogue":"you are trying to understand what he is trying to say",
-	"enemyToPlayDiag":["اقول اجلوداك يعني اجلوداك جلد"],
+	"enemyToPlayDiag":["اقول اجلوداك","يعني اجلوداك جلد"],
 	"lang":"arabic"},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack4.gd",
 	"BoxDialogue":"yep[wait,0.5] you still didn't understand what he is trying to say",
@@ -83,7 +83,7 @@ func _ready() -> void:
 	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack11.gd")
 	#Engine.time_scale = 40
 	Engine.max_fps = 60
-	undye = false
+	undye = true
 	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
@@ -377,7 +377,7 @@ func ItemActionType(st:String):
 		"Potato":
 			HealSoul(54)
 			BattleDialogueEncounter(["The potato healed you 54 HP[wait,0.5]\nyou made bander hungry"])
-		"Chocolate Cake":
+		"Chocolate\nCake":
 			HealSoul(999)
 			BattleDialogueEncounter(["You gained max HP[wait,0.5]\nyet you gained 1 KG"])
 		"Curly Potato":
