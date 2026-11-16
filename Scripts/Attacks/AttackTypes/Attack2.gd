@@ -23,15 +23,15 @@ func StartAttack():
 	TweenUtils.tweenY(fightHandler.box,235,0.3,TweenUtils.Ease.OutCirc)
 	TweenUtils.tweenY(fightHandler.enemy,20,0.3,TweenUtils.Ease.OutCirc)
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
-	await get_tree().create_timer(0.4).timeout
+	await get_tree().create_timer(0.4, false).timeout
 	while (true):
 		CreateSpikeCol()
 		attackIndexes += 1
 		SpawnBill()
 		if (attackIndexes >= 6):
 			break
-		await get_tree().create_timer(2.1).timeout
-	await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(2.1, false).timeout
+	await get_tree().create_timer(3, false).timeout
 	EndTurn()
 	pass
 

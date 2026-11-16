@@ -1245,7 +1245,6 @@ offset_bottom = 119.0
 theme_override_fonts/normal_font = ExtResource("19_eg85k")
 theme_override_font_sizes/normal_font_size = 33
 bbcode_enabled = true
-text = "haaaaaa"
 script = ExtResource("19_536wp")
 metadata/_edit_use_anchors_ = true
 
@@ -1412,7 +1411,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0)
+color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
 
 [node name="WhiteBack" type="ColorRect" parent="Canvas" unique_id=896991526 groups=["WhiteBack"]]

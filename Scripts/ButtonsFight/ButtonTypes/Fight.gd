@@ -65,7 +65,7 @@ func Attack():
 	slash.get_node("AnimationPlayer").play("Slash")
 	slash.position = fightHandler.enemy.position + fightHandler.enemy.attackPlaceOffset
 	fightHandler.enemy.GotAttacked()
-	await get_tree().create_timer(fightHandler.enemy.timeWhenAttackFinished).timeout
+	await get_tree().create_timer(fightHandler.enemy.timeWhenAttackFinished, false).timeout
 	if !fightHandler.mercyOption:
 		attackPanel.visible = false
 	#fightHandler.SetTurn(true)
@@ -77,7 +77,7 @@ func Miss():
 	#slash.get_node("AnimationPlayer").play("Slash")
 	#slash.position = fightHandler.enemy.position + fightHandler.enemy.attackPlaceOffset
 	#fightHandler.enemy.GotAttacked()
-	#await get_tree().create_timer(fightHandler.enemy.timeWhenAttackFinished).timeout
+	#await get_tree().create_timer(fightHandler.enemy.timeWhenAttackFinished, false).timeout
 	attackPanel.visible = false
 	#fightHandler.SetTurn(true)
 	fightHandler.EnemyDialogueStart()

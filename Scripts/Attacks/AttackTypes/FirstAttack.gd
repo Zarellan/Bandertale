@@ -2,6 +2,7 @@ extends Attacks
 
 
 func _ready() -> void:
+	instantBoxMove = true
 	boxSize = Vector2(200,150)
 	attackTimer = 20
 
@@ -14,14 +15,19 @@ var banderBalls = []
 var twPlatformY:Tween
 
 var platformer2
+
+@onready var banderHeadPre = preload("res://Sprites/BanderHead/BanderMoon.png")
 func StartAttack():
 	super._ready()
 	super.StartAttack()
 	#fightHandler.enemy.PlayDialogue(["let's get to the fight"])
+	TeleportBox(Vector2(0,0), Vector2(200,150))
+	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/bander face 5.png")
+	await get_tree().create_timer(0.08, false).timeout
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
-	await get_tree().create_timer(0.5).timeout
+	#await get_tree().create_timer(0.5, false).timeout
 	fightHandler.enemy.anim.play("ThrowDown")
-	#await get_tree().create_timer(0.1).timeout
+	#await get_tree().create_timer(0.1, false).timeout
 	#fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
 	#fightHandler.soul.CrushSoulDirection(0)
 	var warningS = load("res://Prefabs/warningSign/WarningSign.tscn").instantiate()
@@ -29,53 +35,55 @@ func StartAttack():
 	warningS.position = Vector2(324,338)
 	warningS.scale = Vector2(3.14,1.36)
 	var aud = GlobalAudio.PlayOneShot("res://Sounds/WarningSound/warning sound.ogg")
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.5, false).timeout
 	warningS.queue_free()
 	aud.queue_free()
 	PrepareLava()
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.2, false).timeout
 	PreparePlatform()
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.7, false).timeout
 	BringBullBill(Vector2(497.0,516.0),Vector2(497.0,282.0))
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.7, false).timeout
 	BringBullBill(Vector2(470.0,516.0),Vector2(470.0,400.0),40)
 	BringBullBill(Vector2(470.0,-100.0),Vector2(470.0,150.0),-40)
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.7, false).timeout
 	BringBullBill(Vector2(497.0,516.0),Vector2(497.0,290.0))
 	BringBullBill(Vector2(320.0,-200),Vector2(320.0,146),-90)
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(0.8, false).timeout
 	TweenUtils.tweenCustom(self,lava.global_position.y,900,0.9,TweenUtils.Ease.InSine,func(val):
 		lava.global_position.y = val)
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.7, false).timeout
 	platformer.get_node("CollisionShape2D").disabled = true
 	TweenUtils.tweenRotation(platformer,70,0.3,TweenUtils.Ease.OutCirc)
-	await get_tree().create_timer(0.4).timeout
+	await get_tree().create_timer(0.4, false).timeout
 	fightHandler.enemy.anim.play("ThrowLeftOv")
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1, false).timeout
 	platformer.sync_to_physics = false
 	TweenUtils.tweenX(platformer,160,0.3,TweenUtils.Ease.OutCirc)
 	TweenUtils.tweenRotation(platformer,0,0.3,TweenUtils.Ease.OutCirc)
 	SpawnBanderBall()
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.7, false).timeout
 	SpawnBanderBall()
-	await get_tree().create_timer(0.4).timeout
+	await get_tree().create_timer(0.4, false).timeout
 	SpawnBanderBall()
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(3, false).timeout
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
 	SpawnBanderBlast(3,Vector2(200,fightHandler.soul.position.y),Vector2(0.4,0.4),0)
 	SpawnBanderBlast(2,Vector2(fightHandler.soul.position.x,200),Vector2(0.4,0.4),90)
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	SpawnBanderBlast(3,Vector2(200,fightHandler.soul.position.y),Vector2(0.4,0.4),0)
 	SpawnBanderBlast(2,Vector2(fightHandler.soul.position.x,200),Vector2(0.4,0.4),90)
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(1.5, false).timeout
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
 	fightHandler.enemy.anim.play("ThrowDown")
 	SpawnBanderBlast(2,Vector2(500,350),Vector2(-0.5,0.5),0,1.3)
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(0.8, false).timeout
 	PreparePlatform2()
-	await get_tree().create_timer(1.4).timeout
+	await get_tree().create_timer(1.4, false).timeout
 	Engine.time_scale = 1
+	fightHandler.enemy.headSpr.texture = banderHeadPre
 	fightHandler.enemy.anim.play("Stop")
+	fightHandler.enemy.anim.advance(0)
 	fightHandler.enemy.PlayDialogue(["Dayum Boi"])
 	pass
 
@@ -145,7 +153,7 @@ func BringBullBill(startFrom,endTo,rot = 0,speed = 300):
 	bulletBillHol.sprite.rotation_degrees = rot
 	TweenUtils.tweenY(bulletBillHol,endTo.y,0.4,TweenUtils.Ease.OutCirc)
 	TweenUtils.tweenX(bulletBillHol,endTo.x,0.4,TweenUtils.Ease.OutCirc)
-	await get_tree().create_timer(0.6).timeout
+	await get_tree().create_timer(0.6, false).timeout
 	bulletBillHol.Shoot()
 	bulletBillHol.bulBill.rotation = bulletBillHol.sprite.rotation
 	bulletBillHol.bulBill.movPlace = -Vector2.from_angle(bulletBillHol.sprite.rotation) * speed
@@ -169,4 +177,14 @@ func SpawnBanderBlast(dist:float,pos:Vector2,scal:Vector2,rot:float = 0, dur:flo
 	band.timeDuration = dur
 
 func EndTurn(): #just override on first attack
+	pass
+
+func TeleportBox(pos, size):
+	fightHandler.blackBack.color.a = 1
+	GlobalAudio.PlayOneShot("res://Sounds/FlickSwitch.wav")
+	await get_tree().create_timer(0.10, false).timeout
+	#fightHandler.box.position = pos
+	fightHandler.box.box_size = size
+	fightHandler.blackBack.color.a = 0
+	GlobalAudio.PlayOneShot("res://Sounds/FlickSwitch.wav")
 	pass

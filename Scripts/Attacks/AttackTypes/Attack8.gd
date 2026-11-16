@@ -29,7 +29,7 @@ func StartAttack():
 	
 	
 	
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	proj = load("res://Scripts/Projectiles/projectile.tscn").instantiate()
 	fightHandler.box.clipOnly.add_child(proj)
 	proj.get_node("Sprite2D").offset = Vector2(0,-proj.get_node("Sprite2D").texture.get_height() * 0.5)
@@ -42,7 +42,7 @@ func StartAttack():
 		attackIndexes += 1
 		if (attackIndexes >= 14):
 			break
-		await get_tree().create_timer(0.88).timeout
+		await get_tree().create_timer(0.88, false).timeout
 	EndTurn()
 	pass
 
@@ -54,17 +54,17 @@ func _process(delta: float) -> void:
 	pass
 
 func LavaPass():
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	warn = load("res://Prefabs/warningSign/WarningSign.tscn").instantiate()
 	add_child(warn)
 	warn.position = Vector2(324,338)
 	warn.scale = Vector2(4.7,1.36)
 	aud = GlobalAudio.PlayOneShot("res://Sounds/WarningSound/warning sound.ogg")
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	warn.queue_free()
 	aud.stop()
 	PrepareLava()
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(2, false).timeout
 	bringFakeLav = true
 	
 

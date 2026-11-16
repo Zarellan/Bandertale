@@ -14,12 +14,12 @@ func _ready() -> void:
 func StartAttack():
 	super._ready()
 	super.StartAttack()
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.3, false).timeout
 	#TeleportBox(Vector2(200,200),Vector2(200,170),attack1)
 	#TeleportBox(Vector2(400,300), Vector2(400.0,170), attack2)
 	#TeleportBox(Vector2(300,300), Vector2(400.0,170), attack3)
 	TeleportBox(Vector2(325.0,307.0), Vector2(350.0,150), attack4)
-	await get_tree().create_timer(6).timeout
+	await get_tree().create_timer(6, false).timeout
 	pass
 
 func _process(delta: float) -> void:
@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 
 func TeleportBox(pos, size, cal:Callable):
 	fightHandler.blackBack.color.a = 1
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.3, false).timeout
 	fightHandler.box.position = pos
 	fightHandler.box.box_size = size
 	cal.call()
@@ -49,7 +49,7 @@ func attack1():
 	fightHandler.enemy.position = Vector2(450,350)
 	SpawnBanderBlast(4,fightHandler.box.position + Vector2(100,0),Vector2(-0.5,0.5),0)
 	SpawnBanderBlast(4.7,fightHandler.box.position + Vector2(0,100),Vector2(-0.5,0.5),-90)
-	await get_tree().create_timer(1.8).timeout
+	await get_tree().create_timer(1.8, false).timeout
 	TeleportBox(Vector2(400,300), Vector2(400.0,170), attack2)
 
 func attack2():
@@ -63,8 +63,8 @@ func attack2():
 		attackIndexes += 1
 		if (attackIndexes >= 5):
 			break
-		await get_tree().create_timer(0.4).timeout
-	await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(0.4, false).timeout
+	await get_tree().create_timer(1, false).timeout
 	for i in range(spikeArr.size()):
 		spikeArr[i].queue_free()
 	for i in range(spikeArr2.size()):
@@ -81,20 +81,20 @@ func attack3():
 	fightHandler.soul.position.y = fightHandler.box.GetDownCorner()-fightHandler.box.border_size
 	MountainSpikesCol1()
 	MountainSpikesCol2()
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(1.5, false).timeout
 	MountainSpikesCol1()
 	MountainSpikesCol2()
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	fightHandler.enemy.anim.play("ThrowUp")
-	await get_tree().create_timer(0.4).timeout
+	await get_tree().create_timer(0.4, false).timeout
 	MountainSpikesCol3()
 	MountainSpikesCol4()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.5, false).timeout
 	fightHandler.enemy.anim.play("Idle")
-	await get_tree().create_timer(1.4).timeout
+	await get_tree().create_timer(1.4, false).timeout
 	MountainSpikesCol3()
 	MountainSpikesCol4()
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	for i in range(spikeArr.size()):
 		spikeArr[i].queue_free()
 	for i in range(spikeArr2.size()):
@@ -153,7 +153,7 @@ func MountainSpikesCol1():
 			spike.global_scale = Vector2(1.5,1.4)
 			spike.global_position = Vector2(fightHandler.box.GetLeftCorner(),375 - (i*spike.sprite.texture.get_height()))
 			spikeArr.append(spike)
-		await get_tree().create_timer(0.08).timeout
+		await get_tree().create_timer(0.08, false).timeout
 		indexMount += inc
 		if (indexMount > 5 && !firstRowFin):
 			firstRowFin = true
@@ -172,7 +172,7 @@ func MountainSpikesCol2():
 			spike.global_scale = Vector2(1.5,1.4)
 			spike.global_position = Vector2(fightHandler.box.GetRightCorner(),375 - (i*spike.sprite.texture.get_height()))
 			spikeArr2.append(spike)
-		await get_tree().create_timer(0.08).timeout
+		await get_tree().create_timer(0.08, false).timeout
 		indexMount += inc
 		if (indexMount > 5 && !firstRowFin):
 			firstRowFin = true
@@ -192,7 +192,7 @@ func MountainSpikesCol3():
 			spike.global_scale = Vector2(1.5,1.4)
 			spike.global_position = Vector2(fightHandler.box.GetLeftCorner(),225 + (i*spike.sprite.texture.get_height()))
 			spikeArr.append(spike)
-		await get_tree().create_timer(0.08).timeout
+		await get_tree().create_timer(0.08, false).timeout
 		indexMount += inc
 		if (indexMount > 5 && !firstRowFin):
 			firstRowFin = true
@@ -211,7 +211,7 @@ func MountainSpikesCol4():
 			spike.global_scale = Vector2(1.5,1.4)
 			spike.global_position = Vector2(fightHandler.box.GetRightCorner(),225 + (i*spike.sprite.texture.get_height()))
 			spikeArr2.append(spike)
-		await get_tree().create_timer(0.08).timeout
+		await get_tree().create_timer(0.08, false).timeout
 		indexMount += inc
 		if (indexMount > 5 && !firstRowFin):
 			firstRowFin = true

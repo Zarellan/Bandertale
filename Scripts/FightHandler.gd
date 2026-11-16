@@ -26,11 +26,12 @@ var fightSystemHandle = [
 	"BoxDialogue":"you saw what you have done ?[wait,0.5]\nyou did a great job =)",
 	"enemyToPlayDiag":["احم احم"]},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack7.gd",
-	"BoxDialogue":"dodged att4",
+	"BoxDialogue":"huh[speed,0.5]...[speed,0.06]that was unexpected",
 	"enemyToPlayDiag":["[func,ChangeBanderFace,banderitax face 3]يا ابني","انت دائماً تتفلسف"]},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack8.gd",
-	"BoxDialogue":"dodged att4",
-	"enemyToPlayDiag":["uuuuuh2"]},
+	"BoxDialogue":"the potato tasted delicious thought =)",
+	"enemyToPlayDiag":["رجعلي البطاطا الأكلتها"],
+	"lang":"arabic"},
 ]
 
 var enemyDialogueToPlay = []
@@ -46,7 +47,7 @@ var undye = false
 #region customizeable
 
 var turns = 0
-var nerf = false
+static var nerf = false
 var basedOfEnemyHealth = false # if false, you must make the enemy die on specific turn, else it's unbeatable
 #endregion
 
@@ -72,19 +73,30 @@ var mainIndex:int = 0
 var firstAttackSpec:bool = false #I was stuck so I used hardcode method
 var fighted = false
 var mercyOption = false
+var dialogueStart = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	#Engine.time_scale = 15
 	#SetTurn(false)
 	#MainChoices(0)
 	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
 	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
+	TweenUtils.tweenCustom(self,blackBack.color.a,0,0.3,TweenUtils.Ease.linear,func(val):
+		blackBack.color.a = val)
+	enemy.headSpr.texture = load("res://Sprites/BanderHead/banderitax face 3.png")
 	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack11.gd")
 	#Engine.time_scale = 40
 	Engine.max_fps = 60
-	undye = true
-	ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
+	undye = false
+	box.visible = false
+	soul.visible = false
+	GlobalSoundtrack.PlaySoundtrack("res://Sounds/BirdNoise.ogg")
+	await get_tree().create_timer(1,false).timeout
+	enemy.PlayDialogue(["سلام عليكم"],"arabic","")
+	GlobalAudio.PlayOneShot("res://Sounds/BanderVoices/bander salam.ogg")
+	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
 
@@ -137,8 +149,11 @@ func ForceStartAttack(st:String):
 	attackData.PrepareAttack()
 	soul.ChangeSoulType(soul.SoulType.idle)
 	soul.position = box.position
-	TweenUtils.tweenCustom(self,box.box_size,attackData.boxSize,0.3,TweenUtils.Ease.OutCirc,func(val):
-		box.box_size = val)
+	if (!attackData.instantBoxMove):
+		TweenUtils.tweenCustom(self,box.box_size,attackData.boxSize,0.3,TweenUtils.Ease.OutCirc,func(val):
+			box.box_size = val)
+	else:
+		box.box_size = attackData.boxSize
 	SetTurn(true)
 	attackData.StartAttack()
 
@@ -167,10 +182,14 @@ func EnemyDialogueStart(): #always start when ending player turn
 	attackData.PrepareAttack()
 	soul.ChangeSoulType(soul.SoulType.idle)
 	soul.position = box.position
-	TweenUtils.tweenCustom(self,box.box_size,attackData.boxSize,0.3,TweenUtils.Ease.OutCirc,func(val):
-		box.box_size = val)
-	TweenUtils.tweenX(box,attackData.boxPos.x,0.3,TweenUtils.Ease.OutCirc)
-	TweenUtils.tweenY(box,attackData.boxPos.y,0.3,TweenUtils.Ease.OutCirc)
+	if (!attackData.instantBoxMove):
+		TweenUtils.tweenCustom(self,box.box_size,attackData.boxSize,0.3,TweenUtils.Ease.OutCirc,func(val):
+			box.box_size = val)
+		TweenUtils.tweenX(box,attackData.boxPos.x,0.3,TweenUtils.Ease.OutCirc)
+		TweenUtils.tweenY(box,attackData.boxPos.y,0.3,TweenUtils.Ease.OutCirc)
+	else:
+		box.box_size = attackData.boxSize
+		box.position = attackData.boxPos
 	SetTurn(true)
 	if (fighted):
 		enemyDialogueToPlay = fightSystemHandle[turns]["enemyToPlayDiag"]
@@ -180,6 +199,12 @@ func EnemyDialogueStart(): #always start when ending player turn
 	#enemy.PlayDialogue("tames blaster")
 
 func EnemyDialogueEnd():
+	if (dialogueStart):
+		box.visible = true
+		GlobalSoundtrack.stop()
+		ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
+		dialogueStart = false
+		return
 	if (mercyOption):
 		SetTurn(false)
 		boxText.visible = true
@@ -353,7 +378,8 @@ func GameOver():
 	GameOverScript.heartPos = get_viewport().get_camera_2d().get_canvas_transform() * soul.global_position
 	GameOverScript.heartColor = soul.soulSprite.self_modulate
 	GlobalSoundtrack.stop()
-	await get_tree().create_timer(0.4).timeout
+	await get_tree().create_timer(0.4, true).timeout
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/GameOver.tscn")
 
 func SqueakAudio():

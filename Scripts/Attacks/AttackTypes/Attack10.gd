@@ -17,13 +17,13 @@ func StartAttack():
 	attackSpe = load("res://SpecialCasesAttacks/Attack10Spe.tscn").instantiate()
 	add_child(attackSpe)
 	attackSpe.position = Vector2(400,0)
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	var warn = load("res://Prefabs/warningSign/WarningSign.tscn").instantiate()
 	add_child(warn)
 	warn.position = Vector2(324,372)
 	warn.scale = Vector2(6.3,0.4)
 	var aud = GlobalAudio.PlayOneShot("res://Sounds/WarningSound/warning sound.ogg")
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	warn.queue_free()
 	aud.stop()
 	PrepareLava()

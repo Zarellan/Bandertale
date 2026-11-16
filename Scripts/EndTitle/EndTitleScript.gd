@@ -5,7 +5,7 @@ extends Node2D
 func _ready() -> void:
 	GlobalAudio.PlayOneShot("res://Sounds/IntroSound.ogg")
 	
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	textDialogue.startDialogue("Thank you for playing the demo",0.06,"res://Sounds/Dialogues/Text2.wav", 4,"english",true)
 	pass # Replace with function body.
 

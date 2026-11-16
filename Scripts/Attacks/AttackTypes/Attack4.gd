@@ -24,27 +24,27 @@ func StartAttack():
 	SpawnBanderBlast(4,Vector2(165,250),Vector2(0.4,-0.4),90)
 	SpawnBanderBlast(4,Vector2(fightHandler.box.position.x,250),Vector2(0.4,-0.4),90)
 	SpawnBanderBlast(4,Vector2(490,250),Vector2(0.4,-0.4),90)
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	SpawnBanderBlast(2,Vector2(230,250),Vector2(0.5,-0.5),90)
 	SpawnBanderBlast(2,Vector2(450,250),Vector2(0.5,-0.5),90)
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	SpawnBanderBlast(4,Vector2(165,250),Vector2(0.4,-0.4),90)
 	SpawnBanderBlast(4,Vector2(fightHandler.box.position.x,250),Vector2(0.4,-0.4),90)
 	SpawnBanderBlast(4,Vector2(490,250),Vector2(0.4,-0.4),90)
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	fightHandler.enemy.anim.play("ThrowDown")
 	fightHandler.enemy.anim.animation_finished.connect(func(anim_name):
 		fightHandler.enemy.anim.play("Idle"))
 	SpawnBanderBlast(5,Vector2(400,370),Vector2(0.4,-0.4),180)
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	var b1 = SpawnBanderBlast(2,Vector2(230,250),Vector2(0.5,-0.5),90,1,1.5)
 	var b2 = SpawnBanderBlast(2,Vector2(450,250),Vector2(0.5,-0.5),90,1,1.5)
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/Spear/spear1.wav")
 	TweenUtils.tweenRotation(b2,180,0.5,TweenUtils.Ease.OutCirc)
 	TweenUtils.tweenY(b2,280,0.5,TweenUtils.Ease.OutCirc)
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(2, false).timeout
 	EndTurn()
 	pass
 

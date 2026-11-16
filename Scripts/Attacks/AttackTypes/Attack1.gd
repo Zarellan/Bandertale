@@ -20,8 +20,8 @@ func StartAttack():
 		attackIndexes += 1
 		if (attackIndexes >= 15):
 			break
-		await get_tree().create_timer(0.4).timeout
-	await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(0.4, false).timeout
+	await get_tree().create_timer(1, false).timeout
 	EndTurn()
 	pass
 

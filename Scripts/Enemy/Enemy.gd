@@ -26,7 +26,7 @@ var language = "english"
 func _ready() -> void:
 	fightHandler = get_tree().get_first_node_in_group("FightHandler")
 	#StartShake()
-	#await get_tree().create_timer(2).timeout
+	#await get_tree().create_timer(2, false).timeout
 	#endShake()
 	#anim.play("Idle")
 	pass # Replace with function body.
@@ -58,23 +58,23 @@ func GotAttacked():
 		add_child(laugh)
 		laugh.global_position = self.position - Vector2(0,50)
 		laugh.defPosition = laugh.position
-		await get_tree().create_timer(2.3).timeout
+		await get_tree().create_timer(2.3, false).timeout
 		headSpr.texture = load("res://Sprites/BanderHead/bander face 5.png")
 		get_tree().get_first_node_in_group("WhiteBack").color= Color(255.0, 255.0, 255.0, 0)
 		laugh.ActivateLaughBlock()
 		fightHandler.HideAttackPanel()
-		await get_tree().create_timer(1).timeout # will change once demo finished
+		await get_tree().create_timer(1, false).timeout # will change once demo finished
 		get_tree().change_scene_to_file("res://Scenes/EndTitle.tscn")
 		return
 	tw = TweenUtils.tweenX(get_node("SpriteHolder"),-60,0.6,TweenUtils.Ease.OutCirc)
 	tw.finished.connect(func():
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		TweenUtils.StopTween(twenXHold)
 		twenXHold = TweenUtils.tweenX(get_node("SpriteHolder"),0,0.6,TweenUtils.Ease.InSine))
 	fightHandler.fighted = true
 var indexDialogue = 0
 var dialogueArr
-func PlayDialogue(textStr:Array, lang = "english"):
+func PlayDialogue(textStr:Array, lang = "english", voice = "res://Sounds/Dialogues/Bander.wav"):
 	if (textStr.is_empty()):
 		fightHandler.EnemyDialogueEnd()
 		return
@@ -84,7 +84,7 @@ func PlayDialogue(textStr:Array, lang = "english"):
 	diag = InstantiateUtil.Instantiate(bubblePrefab,null)
 	diag.position = position + bubbleOffset
 	await get_tree().process_frame
-	diag.get_node("Text").startDialogue(textStr[indexDialogue],0.06,"res://Sounds/Dialogues/Bander.wav",0,lang)
+	diag.get_node("Text").startDialogue(textStr[indexDialogue],0.06,voice,0,lang)
 	enemyDialogue = true
 	pass
 
@@ -120,7 +120,7 @@ func StartShake(cal:Callable = Callable()):
 	shake = true
 	bodySpr.reparent(self)
 	headSpr.reparent(self)
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	if (cal.is_valid()):
 		cal.call()
 	shake = false

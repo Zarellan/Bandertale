@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://id020ey8ake1"]
+
+[ext_resource type="Script" uid="uid://d2f12tuyhlmi2" path="res://Scripts/MainMenu/MainMenu.gd" id="1_853f1"]
+[ext_resource type="Texture2D" uid="uid://ci56dwrjb3mqy" path="res://Sprites/Title/Screenshot 2026-09-27 140259.png" id="1_tt5f1"]
+[ext_resource type="Script" uid="uid://2eutr1bkgnrr" path="res://Scripts/MainMenu/StartButton.gd" id="3_8saeu"]
+[ext_resource type="Script" uid="uid://cvnh34wsmjxs2" path="res://Scripts/MainMenu/NerfButton.gd" id="4_ghw46"]
+[ext_resource type="Texture2D" uid="uid://bh0df63oqjd1h" path="res://Sprites/Soul.png" id="5_df05h"]
+
+[node name="MainMenu" type="Node2D" unique_id=1213081881 node_paths=PackedStringArray("bandertaleImage", "menu", "buttons", "soul")]
+script = ExtResource("1_853f1")
+bandertaleImage = NodePath("BandertaleLogo")
+menu = NodePath("Menu")
+buttons = [NodePath("Menu/Start"), NodePath("Menu/Nerf")]
+soul = NodePath("Menu/Soul")
+
+[node name="BandertaleLogo" type="Sprite2D" parent="." unique_id=501493089]
+visible = false
+texture_filter = 2
+position = Vector2(318, 246)
+scale = Vector2(0.545, 0.545)
+texture = ExtResource("1_tt5f1")
+
+[node name="Menu" type="Node2D" parent="." unique_id=1145771051]
+modulate = Color(1, 1, 1, 0)
+
+[node name="Start" type="Node2D" parent="Menu" unique_id=1359698895 node_paths=PackedStringArray("colorRect", "canv")]
+position = Vector2(250, 168)
+scale = Vector2(1.035, 1.035)
+script = ExtResource("3_8saeu")
+colorRect = NodePath("../../CanvasLayer/ColorRect")
+canv = NodePath("../../CanvasLayer")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Menu/Start" unique_id=1723126553]
+offset_left = 30.0
+offset_top = -20.0
+offset_right = 137.0
+offset_bottom = 20.0
+pivot_offset_ratio = Vector2(0, 0.5)
+theme_override_font_sizes/normal_font_size = 39
+text = "Start"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+
+[node name="Nerf" type="Node2D" parent="Menu" unique_id=1533624131 node_paths=PackedStringArray("text")]
+position = Vector2(250.00002, 264)
+scale = Vector2(1.035, 1.035)
+script = ExtResource("4_ghw46")
+text = NodePath("RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Menu/Nerf" unique_id=24397170]
+offset_left = 30.0
+offset_top = -20.0
+offset_right = 137.0
+offset_bottom = 20.0
+pivot_offset_ratio = Vector2(0, 0.5)
+theme_override_font_sizes/normal_font_size = 39
+text = "Nerf"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+
+[node name="Soul" type="Sprite2D" parent="Menu" unique_id=683686373 groups=["Soul"]]
+modulate = Color(1, 0, 0, 1)
+texture_filter = 1
+position = Vector2(250, 161)
+texture = ExtResource("5_df05h")
+region_rect = Rect2(-24.855837, 22.467594, 0, 0.07627678)
+
+[node name="Hint" type="Node2D" parent="." unique_id=671208004 groups=["Hint"]]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(338, 380)
+scale = Vector2(1.375, 1.375)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Hint" unique_id=595491631]
+offset_left = -243.63637
+offset_top = -10.181824
+offset_right = 215.99992
+offset_bottom = 69.81818
+pivot_offset_ratio = Vector2(0, 0.5)
+theme_override_font_sizes/normal_font_size = 19
+text = "Makes the attacks 3 times weaker
+
+this option is made for people who value their sanity"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1410184004]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=469623589]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)

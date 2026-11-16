@@ -32,8 +32,8 @@ func StartAttack():
 			else:
 				ThrowText(words[attackIndexes])
 			)
-		await get_tree().create_timer(2).timeout
-	await get_tree().create_timer(2.5).timeout
+		await get_tree().create_timer(2, false).timeout
+	await get_tree().create_timer(2.5, false).timeout
 	EndTurn()
 	pass
 
@@ -62,7 +62,7 @@ func ThrowText(text = "Stupid",isHeal = false,isDeadly = false):
 	GlobalAudio.PlayOneShot("res://Sounds/BanderVoices/bander speak "+str(randi_range(1,2))+".ogg",7)
 	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/BanderMoon2.png")
 	attackIndexes += 1
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.2, false).timeout
 	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/BanderMoon.png")
 
 func EndTurn():

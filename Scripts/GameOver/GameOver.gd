@@ -17,20 +17,20 @@ func _ready() -> void:
 	heart.position = heartPos
 	heart.self_modulate = heartColor
 	
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	heart.get_node("AnimationPlayer").play("Broke")
 	GlobalAudio.PlayOneShot("res://Sounds/GameOver/Break1.wav")
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	GlobalAudio.PlayOneShot("res://Sounds/GameOver/Break2.wav")
 	heart.visible = false
 	for i in range (6):
 		var s = InstantiateUtil.Instantiate(soulDebris,null)
 		s.modulate = heart.self_modulate
 		s.position = heart.position
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/GameOverDeterm.ogg")
 	TweenUtils.tweenAlpha(gameOverImage,1,0.8,TweenUtils.Ease.linear)
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.7, false).timeout
 	dialogueGameover.startDialogue(dialoguesLOL[indexDiag],0.04,"res://Sounds/Dialogues/Text2.wav",4)
 	indexDiag += 1
 	pass # Replace with function body.
@@ -45,7 +45,7 @@ func _process(delta: float) -> void:
 		TweenUtils.tweenCustom(self,GlobalSoundtrack.volume_db,-80,1.2,TweenUtils.Ease.linear,func(val):
 			GlobalSoundtrack.volume_db = val)
 		letsGoNow = true
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.5, false).timeout
 		get_tree().change_scene_to_file("res://Scenes/GameHandle.tscn")
 	if (Input.is_action_just_pressed("ActionAccept") && dialogueGameover.finishedDial):
 		if (indexDiag < dialoguesLOL.size()):

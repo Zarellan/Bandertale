@@ -22,15 +22,15 @@ func _ready() -> void:
 	TweenUtils.tweenRotation(sprite,0,0.3,TweenUtils.Ease.OutCirc)
 	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/gasterblaster/blast1.wav")
 	whenStart = clamp(whenStart,0.3,4)
-	await get_tree().create_timer(whenStart).timeout
+	await get_tree().create_timer(whenStart, false).timeout
 	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/gasterblaster/blast2.wav")
 	GlobalAudio.PlayOneShot("res://Sounds/ProjectileSounds/gasterblaster/blast4.ogg")
 	BlastStart()
 	TweenUtils.tweenX(sprite,-1400.0,timeDuration,TweenUtils.Ease.InSine)
 	TweenUtils.tweenAlpha(self,0,timeDuration,TweenUtils.Ease.linear)
-	await get_tree().create_timer(0.02).timeout
+	await get_tree().create_timer(0.02, false).timeout
 	canHit = true
-	await get_tree().create_timer(timeDuration + 0.3).timeout
+	await get_tree().create_timer(timeDuration + 0.3, false).timeout
 	queue_free()
 	pass # Replace with function body.
 

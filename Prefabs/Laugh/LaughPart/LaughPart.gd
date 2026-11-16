@@ -38,4 +38,4 @@ func Trail(delta):
 	trail.clear_points()
 	for point in trailArray:
 		trail.add_point(point)
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.5, false).timeout

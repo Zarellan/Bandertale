@@ -17,7 +17,7 @@ func StartAttack():
 	fightHandler.enemy.headSpr.texture = load("res://Sprites/BanderHead/BanderMoon.png")
 	(fightHandler.enemy.bodySpr as Sprite2D).region_rect.position.x = 5
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.red)
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	BanderSpawnAt()
 	while (true):
 		BanderBallSpawner(Vector2(-50,270),Vector2(0.55,0.55),Vector2(180,0),200)
@@ -25,18 +25,18 @@ func StartAttack():
 		attackIndexes += 1
 		if (attackIndexes >= 14):
 			break
-		await get_tree().create_timer(0.8).timeout
-	await get_tree().create_timer(5).timeout
+		await get_tree().create_timer(0.8, false).timeout
+	await get_tree().create_timer(5, false).timeout
 	EndTurn()
 	pass
 
 func BanderSpawnAt():
-	get_tree().create_timer(2).timeout
+	get_tree().create_timer(2, false).timeout
 	while (true):
 		SpawnBanderBlast(2,Vector2(500,270 if randi_range(0,1) else 350),Vector2(0.4,-0.4),180)
 		if (attackIndexes >= 14):
 			break
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(2, false).timeout
 
 func BanderBallSpawner(pos,scal,toMov,rot = 0):
 	var ball = load("res://Scripts/Projectiles/BanderBall/BanderBall.tscn").instantiate()

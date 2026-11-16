@@ -23,14 +23,14 @@ func StartAttack():
 		fightHandler.box.box_size = val)
 	TweenUtils.tweenY(fightHandler.box,235+25/2,0.3,TweenUtils.Ease.OutCirc)
 	TweenUtils.tweenY(fightHandler.enemy,90,0.3,TweenUtils.Ease.OutCirc)
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	SpawnBullets()
 	warn = load("res://Prefabs/warningSign/WarningSign.tscn").instantiate()
 	add_child(warn)
 	warn.position = Vector2(324,370)
 	warn.scale = Vector2(4.7,0.4)
 	aud = GlobalAudio.PlayOneShot("res://Sounds/WarningSound/warning sound.ogg")
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	warn.queue_free()
 	aud.stop()
 	PrepareLava()
@@ -42,7 +42,7 @@ func StartAttack():
 		attackIndexes += 1
 		if (attackIndexes >= 14):
 			break
-		await get_tree().create_timer(2.3).timeout
+		await get_tree().create_timer(2.3, false).timeout
 	EndTurn()
 	pass
 
@@ -57,13 +57,13 @@ func PlatformSpawnings():
 		var dirY = [180,260,350]
 		for i in range(dirY.size()):
 			SpawnPlatform(dirY[i],700 if i == 1 else -100)
-			await get_tree().create_timer(0.2).timeout
-		await get_tree().create_timer(1.3).timeout
+			await get_tree().create_timer(0.2, false).timeout
+		await get_tree().create_timer(1.3, false).timeout
 func SpawnBullets():
 	var dirX = [-100,700]
 	var mov = [180,-180]
 	var scal = [-1.8,1.8]
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	while (true):
 		var ind = randi_range(0,1)
 		SpawnBill(Vector2(dirX[ind],randf_range(140,340)),Vector2(mov[ind],0),Vector2(scal[ind],1.8))

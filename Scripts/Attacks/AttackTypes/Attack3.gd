@@ -23,7 +23,7 @@ func StartAttack():
 	TweenUtils.tweenY(fightHandler.box,307-7,0.3,TweenUtils.Ease.OutCirc)
 	TweenUtils.tweenY(fightHandler.enemy,172-15,0.3,TweenUtils.Ease.OutCirc)
 	fightHandler.soul.ChangeSoulType(fightHandler.soul.SoulType.blue)
-	await get_tree().create_timer(0.4).timeout
+	await get_tree().create_timer(0.4, false).timeout
 	SpawnBillTime()
 	while (true):
 		if (gotHit):
@@ -33,17 +33,17 @@ func StartAttack():
 		spikeInc += 2
 		if (attackIndexes >= 4):
 			break
-		await get_tree().create_timer(2.1).timeout
-	await get_tree().create_timer(1.4).timeout
+		await get_tree().create_timer(2.1, false).timeout
+	await get_tree().create_timer(1.4, false).timeout
 	if (gotHit):
 		return
 	GlobalAudio.PlayOneShot("res://Sounds/playtime/Wow! That's great! Let's play again!.wav",-10)
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(1.5, false).timeout
 	EndTurn()
 	pass
 
 func SpawnBillTime():
-	await get_tree().create_timer(2.1 * 3 - 0.7).timeout
+	await get_tree().create_timer(2.1 * 3 - 0.7, false).timeout
 	if (gotHit):
 		return
 	SpawnBill()
@@ -58,7 +58,7 @@ func _process(delta: float) -> void:
 		gotHit = true
 		cleaned = true
 		GlobalAudio.PlayOneShot("res://Sounds/playtime/messedUp.mp3",-10)
-		await get_tree().create_timer(1.4).timeout
+		await get_tree().create_timer(1.4, false).timeout
 		EndTurn()
 	for i in range(spikeArr.size()):
 		spikeArr[i].global_position.x -= 300 * delta

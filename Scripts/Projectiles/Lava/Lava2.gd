@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 		fightHandler.soul.canStopJump = false
 		GlobalAudio.PlayOneShot("res://Sounds/MarioSounds/lava"+str(randi_range(1,3))+".wav",-4,1.2)
 		fightHandler.soul.get_node("FirePartic").emitting = true
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1, false).timeout
 		fightHandler.soul.get_node("FirePartic").emitting = false
 		gotHurt = false
 	pass

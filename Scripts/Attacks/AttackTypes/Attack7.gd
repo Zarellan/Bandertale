@@ -19,12 +19,12 @@ func StartAttack():
 		attackIndexes += 1
 		if (attackIndexes >= 15):
 			break
-		await get_tree().create_timer(0.4).timeout
-	await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(0.4, false).timeout
+	await get_tree().create_timer(1, false).timeout
 	SpawnBanderBlast(4,Vector2(400,360),Vector2(-0.45,0.45))
-	await get_tree().create_timer(1.3).timeout
+	await get_tree().create_timer(1.3, false).timeout
 	fightHandler.enemy.anim.play("ThrowUp")
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.7, false).timeout
 	fightHandler.enemy.anim.play("Idle")
 	attackIndexes = 0
 	while (true):
@@ -33,8 +33,8 @@ func StartAttack():
 		attackIndexes += 1
 		if (attackIndexes >= 15):
 			break
-		await get_tree().create_timer(0.4).timeout
-	await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(0.4, false).timeout
+	await get_tree().create_timer(1, false).timeout
 	EndTurn()
 	pass
 

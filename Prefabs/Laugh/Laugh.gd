@@ -20,6 +20,6 @@ func Laugh():
 		var laug = InstantiateUtil.Instantiate(laughPrefab,self)
 		laug.LaughID(i,self)
 	GlobalAudio.PlayOneShot("res://Sounds/laughs/"+str(randi_range(1,4))+".wav")
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(2, false).timeout
 	TweenUtils.tweenAlpha(self,0,0.3,TweenUtils.Ease.linear).finished.connect(func():
 		queue_free())
