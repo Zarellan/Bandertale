@@ -18,7 +18,7 @@ var fightSystemHandle = [
 	"lang":"arabic"},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack4.gd",
 	"BoxDialogue":"yep[wait,0.5] you still didn't understand what he is trying to say",
-	"enemyToPlayDiag":["تميس بلاستر"," [func,ChangeBanderFace,banderitax face 3][func,ChangeBanderBody,5]او بندر بلاستر"]},
+	"enemyToPlayDiag":["تميس بلاستر[func,ChangeBanderFace,bander face 4][func,ChangeBanderBody,84]"," [func,ChangeBanderFace,banderitax face 3][func,ChangeBanderBody,5]او بندر بلاستر"]},
 	{"attack":"res://Scripts/Attacks/AttackTypes/Attack5.gd",
 	"BoxDialogue":"bander feels confident with his approach",
 	"enemyToPlayDiag":["yep [wait,0.5] [func,ChangeBanderFace,bander face 4][func,ChangeBanderBody,82]he is dead"]},
@@ -77,17 +77,10 @@ var dialogueStart = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	#Engine.time_scale = 15
-	#SetTurn(false)
-	#MainChoices(0)
-	#textDig.startDialogue(dialogue[turns],0.06,"res://Sounds/Dialogues/Text2.wav", 4)
-	#GlobalSoundtrack.PlaySoundtrack("res://Soundtrack/EnemyApproach.ogg")
 	HealSoul(0)
 	TweenUtils.tweenCustom(self,blackBack.color.a,0,0.3,TweenUtils.Ease.linear,func(val):
 		blackBack.color.a = val)
 	enemy.headSpr.texture = load("res://Sprites/BanderHead/banderitax face 3.png")
-	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/Attack11.gd")
-	#Engine.time_scale = 40
 	Engine.max_fps = 60
 	undye = false
 	box.visible = false
@@ -96,7 +89,6 @@ func _ready() -> void:
 	await get_tree().create_timer(1,false).timeout
 	enemy.PlayDialogue(["سلام عليكم"],"arabic","")
 	GlobalAudio.PlayOneShot("res://Sounds/BanderVoices/bander salam.ogg")
-	#ForceStartAttack("res://Scripts/Attacks/AttackTypes/FirstAttack.gd")
 	pass # Replace with function body.
 
 

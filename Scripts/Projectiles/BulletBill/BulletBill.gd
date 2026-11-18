@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 			&& fightHandler.soul.global_position.x < global_position.x + halfWidth\
 			&& fightHandler.soul.global_position.x > global_position.x - halfWidth\
 			&& fightHandler.soul.velocity.y > 2):
-			if (Input.is_action_pressed("jump")):
+			if (Input.is_action_pressed("ui_up")):
 				fightHandler.soul.velocity.y = -400
 				fightHandler.soul.canStopJump = true
 			else:

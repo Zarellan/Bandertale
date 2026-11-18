@@ -63,7 +63,7 @@ func SoulRedMovement(_delta):
 func ChangeSoulDirection(dir:Direction):
 	soulDirections = dir
 	soulSprite.rotation_degrees = dir * 90
-	ChangeSoulType(SoulType.blue)
+	ChangeSoulType(SoulType.blue,dir)
 
 var isCrushing = false
 func CrushSoulDirection(dir:Direction):
@@ -186,7 +186,7 @@ func CheckWall():
 		elif normal.x < -0.7:
 			right = true
 	return {"left":left,"right":right}
-func ChangeSoulType(soulT:SoulType):
+func ChangeSoulType(soulT:SoulType,dir:Direction = Direction.down):
 	PhoneControls.OnOtherSoul()
 	match(soulT):
 		SoulType.red:
@@ -196,7 +196,7 @@ func ChangeSoulType(soulT:SoulType):
 				#Input.action_release("ui_up")
 			#if (Input.is_action_pressed("ui_down")):
 				#Input.action_release("ui_down")
-			PhoneControls.OnBlueSoul()
+			PhoneControls.OnBlueSoul(dir)
 			soulSprite.self_modulate = Color(0,0,1)
 	soulType = soulT
 	visible = true
